@@ -225,7 +225,7 @@ decodeArray.forEach((item) => {
 });
 const testCar = [decodeObject];
 export const initialTestCarArray = atom([testCar]);
-export const myCar = atom();
+export const initialCar = atom();
 
 export default function App({ Component, pageProps }) {
   return (
