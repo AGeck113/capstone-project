@@ -234,6 +234,7 @@ export default function Profile() {
   const [activeCar, setActiveCar] = useState();
   const [carResponse, setCarResponse] = useState();
   const [vin, setVin] = useState();
+  const [isEditing, setIsEditing] = useState(false);
 
   function handleSubmitVIN(event) {
     event.preventDefault();
