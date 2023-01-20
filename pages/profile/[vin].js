@@ -5,8 +5,6 @@ export default function CarDetails() {
   const router = useRouter();
   const { vin } = router.query;
   const activeCar = Cars.find((car) => {
-    console.log(car.VIN);
-    console.log(vin);
     return car.VIN === vin;
   });
   console.log(activeCar);
