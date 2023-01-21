@@ -1,7 +1,9 @@
+import EditCarForm from "@/components/EditCarForm";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Cars from "../../db/db.json";
+
 export default function CarDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
@@ -9,10 +11,17 @@ export default function CarDetails() {
   const activeCar = Cars.find((car) => {
     return car.VIN === vin;
   });
-  console.log(isEditing);
+
+  if (!activeCar) {
+    return <p>loading...</p>;
+  }
+
   return (
     <>
-      {activeCar ? (
+      |
+      {isEditing ? (
+        <EditCarForm activeCar={activeCar} />
+      ) : (
         <>
           <button
             type="button"
@@ -56,6 +65,7 @@ export default function CarDetails() {
             <p>Weitere Details:</p>
             <ul>
               <li>Antrieb: {activeCar.Drive}</li>
+              <li>Modelljahr: {activeCar["Model Year"]}</li>
               <li>Hubraum (ccm): {activeCar["Engine Displacement (ccm)"]}</li>
               <li>Getriebe: {activeCar.Transmission}</li>
               <li>Anzahl Gänge: {activeCar["Number of Gears"]}</li>
@@ -65,8 +75,6 @@ export default function CarDetails() {
             </ul>
           </section>
         </>
-      ) : (
-        <p>Loading</p>
       )}
     </>
   );
