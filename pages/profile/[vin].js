@@ -9,11 +9,19 @@ export default function CarDetails() {
   const activeCar = Cars.find((car) => {
     return car.VIN === vin;
   });
-  console.log(activeCar);
+  console.log(isEditing);
   return (
     <>
       {activeCar ? (
         <>
+          <button
+            type="button"
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          >
+            Edit Car Data
+          </button>
           <Image
             alt="usercar"
             src="https://images.unsplash.com/photo-1579631962852-306c90e1c91f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
