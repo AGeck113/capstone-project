@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Cars from "../../db/db.json";
 export default function CarDetails() {
+  const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { vin } = router.query;
   const activeCar = Cars.find((car) => {
