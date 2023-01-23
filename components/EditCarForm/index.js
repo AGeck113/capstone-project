@@ -1,100 +1,101 @@
-export default function EditCarForm({ activeCar }) {
+export default function EditCarForm({ activeCar, onSubmit }) {
   return (
-    <form>
-      <label htmlFor="imageLink">
-        Image Link:<input type="text" name="imageLink" id="imageLink"></input>
+    <form onSubmit={onSubmit}>
+      <label htmlFor="imageInput">
+        Image Link:<input type="text" name="imageUrl" id="imageInput"></input>
+        (just unsplash.com)
       </label>
       <fieldset>
         <p>Wichtige Daten:</p>
-        <label htmlFor="Make">
+        <label htmlFor="brand">
           Marke:
           <input
             type="text"
-            id="Make"
+            id="brand"
             name="Make"
             defaultValue={activeCar.Make}
           />
         </label>
-        <label htmlFor="Model">
+        <label htmlFor="model">
           Modell:
           <input
             defaultValue={activeCar.Model}
             type="text"
             name="Model"
-            id="Model"
+            id="model"
           />
         </label>
-        <label htmlFor="milage">
-          KM-Stand: <input name="milage" id="milage" type="number"></input>
+        <label htmlFor="milageInput">
+          KM-Stand: <input name="milage" id="milageInput" type="number"></input>
         </label>
-        <label htmlFor="plate">
+        <label htmlFor="plateInput">
           Kennzeichen:
           <input
             type="text"
             name="plate"
-            id="plate"
-            defaultValue="AB-CD 1234"
+            id="plateInput"
+            defaultValue={activeCar.plate}
           />
         </label>
       </fieldset>
       <fieldset>
         <p>Maße:</p>
-        <label htmlFor="Length">
+        <label htmlFor="lengthInput">
           Länge:
           <input
             type="number"
-            name="Length"
-            id="Length"
+            name="Length (mm)"
+            id="lengthInput"
             defaultValue={activeCar["Length (mm)"]}
           />
           (mm)
         </label>
-        <label htmlFor="width">
+        <label htmlFor="widthInput">
           Breite:
           <input
             type="number"
-            name="width"
-            id="width"
+            name="Width (mm)"
+            id="widthInput"
             defaultValue={activeCar["Width (mm)"]}
           />
           (mm)
         </label>
-        <label htmlFor="width">
+        <label htmlFor="widthWithMirrorsInput">
           Breite inkl. Spiegel:
           <input
             type="number"
-            name="width"
-            id="width"
+            name="Width including mirrors (mm)"
+            id="widthWithMirrorsInput"
             defaultValue={activeCar["Width including mirrors (mm)"]}
           />
           (mm)
         </label>
-        <label htmlFor="height">
+        <label htmlFor="heightInput">
           Höhe:
           <input
             type="number"
-            name="height"
-            id="height"
+            name="Height (mm)"
+            id="heightInput"
             defaultValue={activeCar["Height (mm)"]}
           />
           (mm)
         </label>
-        <label htmlFor="weightEmpty">
+        <label htmlFor="emptyWeightInput">
           Leergewicht:
           <input
             type="number"
-            name="weightEmpty"
-            id="weightEmpty"
+            name="Weight Empty (kg)"
+            id="emptyWeightInput"
             defaultValue={activeCar["Weight Empty (kg)"]}
           />
           (kg)
         </label>
-        <label htmlFor="maxWeight">
+        <label htmlFor="maxWeightInput">
           Max. Gewicht:
           <input
             type="number"
-            name="maxWeight"
-            id="maxWeight"
+            name="Max Weight (kg)"
+            id="maxWeightInput"
             defaultValue={activeCar["Max Weight (kg)"]}
           />
           (kg)
@@ -102,12 +103,12 @@ export default function EditCarForm({ activeCar }) {
       </fieldset>
       <fieldset>
         <p>Weitere Daten:</p>
-        <label htmlFor="Drive">
+        <label htmlFor="drive">
           Antrieb:
           <input
             type="text"
             name="Drive"
-            id="Drive"
+            id="drive"
             defaultValue={activeCar.Drive}
           />
         </label>
@@ -120,12 +121,12 @@ export default function EditCarForm({ activeCar }) {
             defaultValue={activeCar["Model Year"]}
           />
         </label>
-        <label htmlFor="engineDisplacement">
+        <label htmlFor="engineDisplacementInput">
           Hubraum:
           <input
             type="text"
-            name="engineDisplacement"
-            id="engineDisplacement"
+            name="Engine Displacement (ccm)"
+            id="engineDisplacementInput"
             defaultValue={activeCar["Engine Displacement (ccm)"]}
           />
           (ccm)
@@ -135,25 +136,25 @@ export default function EditCarForm({ activeCar }) {
           <input
             type="text"
             defaultValue={activeCar.Transmission}
-            name="transmission"
+            name="Transmission"
             id="transmission"
           />
         </label>
-        <label htmlFor="numberOfGears">
+        <label htmlFor="numberOfGearsInput">
           Max Speed (km/h):
           <input
             type="number"
-            name="NumberOfGears"
-            id="numberOfGears"
-            defaultValue={activeCar["Max Speed (km/h)"]}
+            name="Number Of Gears"
+            id="numberOfGearsInput"
+            defaultValue={activeCar["Number of Gears"]}
           />
         </label>
-        <label htmlFor="maxSpeed">
+        <label htmlFor="maxSpeedInput">
           Max Speed (km/h):
           <input
             type="number"
-            name="maxSpeed"
-            id="maxSpeed"
+            name="Max Speed (km/h)"
+            id="maxSpeedInput"
             defaultValue={activeCar["Max Speed (km/h)"]}
           />
         </label>

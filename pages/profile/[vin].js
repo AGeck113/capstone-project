@@ -1,26 +1,42 @@
 import EditCarForm from "@/components/EditCarForm";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cars from "../../db/db.json";
 
 export default function CarDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { vin } = router.query;
-  const activeCar = Cars.find((car) => {
-    return car.VIN === vin;
-  });
 
+  const [activeCar, setActiveCar] = useState(null);
+
+  useEffect(() => {
+    async function getCar() {
+      const data = Cars.find((car) => {
+        return car.VIN === vin;
+      });
+      setActiveCar(data);
+    }
+    getCar();
+  }, [vin]);
   if (!activeCar) {
     return <p>loading...</p>;
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+    setActiveCar(data);
+    setIsEditing(false);
+  }
+
   return (
     <>
-      |
       {isEditing ? (
-        <EditCarForm activeCar={activeCar} />
+        <EditCarForm activeCar={activeCar} onSubmit={handleSubmit} />
       ) : (
         <>
           <button
@@ -33,7 +49,11 @@ export default function CarDetails() {
           </button>
           <Image
             alt="usercar"
-            src="https://images.unsplash.com/photo-1579631962852-306c90e1c91f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+            src={
+              activeCar.imageUrl
+                ? activeCar.imageUrl
+                : "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+            }
             width={200}
             height={200}
           />
