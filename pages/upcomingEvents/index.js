@@ -34,6 +34,7 @@ export default function EventPage() {
 
   return (
     <>
+      <h1>Kommende Termine:</h1>
       <ul>
         {upcoming.map((event) => {
           predictedCost += event.cost;
