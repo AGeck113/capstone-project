@@ -9,28 +9,28 @@ export default function CarDetails() {
   const router = useRouter();
   const { vin } = router.query;
 
-  const [activeCar, setActiveCar] = useState(null);
-
-  useEffect(() => {
-    async function getCar() {
-      const data = Cars.find((car) => {
-        return car.VIN === vin;
-      });
-      setActiveCar(data);
-    }
-    getCar();
-  }, [vin]);
-
-  if (!activeCar) {
-    return <p>loading...</p>;
-  }
-
+  const [cars, setCars] = useState(Cars);
+  const activeCar = cars.find((car) => {
+    return car.VIN === vin;
+  });
+  console.log("CARS:", cars);
+  console.log("Actiive Car: ", activeCar);
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    setActiveCar(data);
+    console.log("Data:", data);
+    setCars(
+      cars.map((car) => {
+        console.log("car:", car);
+        car.VIN === activeCar.VIN ? car : car;
+      })
+    );
     setIsEditing(false);
+  }
+
+  if (!activeCar) {
+    return <p>loading...</p>;
   }
 
   return (
