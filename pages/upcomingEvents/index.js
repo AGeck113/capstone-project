@@ -1,33 +1,51 @@
+import EventCard from "@/components/Event";
 export default function EventPage() {
-  const events = [
+  const upcoming = [
     {
       title: "Innenreinigung",
-      price: 200,
+      cost: 200,
       description: "Fahrzeugreinigung inkl. Lederpflege",
       priority: 2,
       date: "2023-06-2",
+      id: 1,
     },
     {
       title: "Kundendienst",
-      price: 350,
+      cost: 350,
       description: "Kundendienst inkl. Ölwechsel bei Autohaus XY",
       priority: 4,
       date: "2023-08-24",
+      id: 2,
     },
     {
       title: "Windschutzscheibe erneuern",
-      price: 500,
+      cost: 500,
       description:
         "Steinschlag in der Windschutzscheibe, kann nicht ausgebessert werden, Scheibe wird getauscht",
       priority: 5,
       date: "2023-05-18",
+      id: 3,
     },
   ];
-  console.log(events);
-  events.sort((a, b) => {
+  upcoming.sort((a, b) => {
     return new Date(a.date) - new Date(b.date);
   });
-  console.log(events);
+  let predictedCost = 0;
 
-  return <p>123</p>;
+  return (
+    <>
+      <ul>
+        {upcoming.map((event) => {
+          predictedCost += event.cost;
+          console.log(predictedCost);
+          return (
+            <li key={event.id}>
+              <EventCard event={event} />
+            </li>
+          );
+        })}
+      </ul>
+      <p>Vorraussichtliche Kosten: {predictedCost}€</p>
+    </>
+  );
 }
