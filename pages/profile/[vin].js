@@ -20,6 +20,7 @@ export default function CarDetails() {
     }
     getCar();
   }, [vin]);
+
   if (!activeCar) {
     return <p>loading...</p>;
   }
