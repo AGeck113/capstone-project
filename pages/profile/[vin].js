@@ -1,7 +1,7 @@
 import EditCarForm from "@/components/EditCarForm";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Cars from "../../db/db.json";
 
 export default function CarDetails() {
@@ -10,21 +10,21 @@ export default function CarDetails() {
   const { vin } = router.query;
 
   const [cars, setCars] = useState(Cars);
+
   const activeCar = cars.find((car) => {
     return car.VIN === vin;
   });
-  console.log("CARS:", cars);
-  console.log("Actiive Car: ", activeCar);
+
+  if (!activeCar) {
+    return <p>loading...</p>;
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log("Data:", data);
     setCars(
-      cars.map((car) => {
-        console.log("car:", car);
-        car.VIN === activeCar.VIN ? car : car;
-      })
+      cars.map((car) => (activeCar.VIN === car.VIN ? { ...car, ...data } : car))
     );
     setIsEditing(false);
   }
