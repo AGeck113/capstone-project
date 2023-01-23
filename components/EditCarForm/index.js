@@ -1,3 +1,4 @@
+import nanoid from "nanoid";
 export default function EditCarForm({ activeCar, onSubmit }) {
   return (
     <form onSubmit={onSubmit}>
@@ -26,13 +27,13 @@ export default function EditCarForm({ activeCar, onSubmit }) {
           />
         </label>
         <label htmlFor="milageInput">
-          KM-Stand: <input name="milage" id="milageInput" type="number"></input>
+          KM-Stand: <input name="Milage" id="milageInput" type="number"></input>
         </label>
         <label htmlFor="plateInput">
           Kennzeichen:
           <input
             type="text"
-            name="plate"
+            name="Plate"
             id="plateInput"
             defaultValue={activeCar.plate}
           />
@@ -150,16 +151,16 @@ export default function EditCarForm({ activeCar, onSubmit }) {
           />
         </label>
         <label htmlFor="maxSpeedInput">
-          Max Speed (km/h):
+          Max Speed{" "}
           <input
             type="number"
             name="Max Speed (km/h)"
             id="maxSpeedInput"
             defaultValue={activeCar["Max Speed (km/h)"]}
           />
+          (km/h):
         </label>
       </fieldset>
-
       <button type="submit">Submit</button>
     </form>
   );

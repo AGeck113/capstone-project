@@ -2,14 +2,14 @@ import EditCarForm from "@/components/EditCarForm";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Cars from "../../db/db.json";
+import initialCars from "../../db/db.json";
 
 export default function CarDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { vin } = router.query;
 
-  const [cars, setCars] = useState(Cars);
+  const [cars, setCars] = useState(initialCars);
 
   const activeCar = cars.find((car) => {
     return car.VIN === vin;
@@ -42,7 +42,7 @@ export default function CarDetails() {
           <button
             type="button"
             onClick={() => {
-              setIsEditing(!isEditing);
+              setIsEditing(true);
             }}
           >
             Edit Car Data
@@ -50,9 +50,8 @@ export default function CarDetails() {
           <Image
             alt="usercar"
             src={
-              activeCar.imageUrl
-                ? activeCar.imageUrl
-                : "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+              activeCar.imageUrl ||
+              "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
             }
             width={200}
             height={200}
