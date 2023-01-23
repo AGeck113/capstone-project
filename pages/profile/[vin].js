@@ -28,7 +28,6 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    console.log(data);
     setActiveCar(data);
     setIsEditing(false);
   }
