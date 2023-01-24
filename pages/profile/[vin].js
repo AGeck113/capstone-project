@@ -10,10 +10,44 @@ export default function CarDetails() {
   const { vin } = router.query;
 
   const [cars, setCars] = useState(initialCars);
+  const groups = [
+    {
+      id: 1,
+      headline: "Important data",
+      content: ["Make", "Model", "Milage", "Plate", "ImageUrl"],
+    },
+    {
+      id: 2,
+      headline: "Dimensions",
+      content: [
+        "Length (mm)",
+        "Height (mm)",
+        "Width (mm)",
+        "Width including mirrors (mm)",
+        "Height (mm)",
+        "Weight Empty (kg)",
+        "Max Weight (kg)",
+      ],
+    },
+    {
+      id: 3,
+      headline: "More Information",
+      content: [
+        "Drive",
+        "Model Year",
+        "Engine Displacement (ccm)",
+        "Transmission",
+        "Number Of Gears",
+      ],
+    },
+  ];
 
-  const activeCar = cars.find((car) => {
-    return { ...(car.VIN === vin), milage: 0, plate: "" };
+  const selectedCar = cars.find((car) => {
+    return car.VIN === vin;
   });
+
+  const activeCar = { Milage: 0, Plate: "", ...selectedCar };
+
   if (!activeCar) {
     return <p>loading...</p>;
   }
@@ -35,7 +69,11 @@ export default function CarDetails() {
   return (
     <>
       {isEditing ? (
-        <EditCarForm car={activeCar} onSubmit={handleSubmit} />
+        <EditCarForm
+          activeCar={activeCar}
+          onSubmit={handleSubmit}
+          groups={groups}
+        />
       ) : (
         <>
           <button
