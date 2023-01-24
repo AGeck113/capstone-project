@@ -1,7 +1,81 @@
-import nanoid from "nanoid";
-export default function EditCarForm({ activeCar, onSubmit }) {
+import { useState } from "react";
+import initialCars from "../../db/db.json";
+
+export default function EditCarForm({ car, onSubmit }) {
+  const defaultValue = { Milage: 0, Plate: "", ImageUrl: "" };
+  const [activeCar, setActiveCar] = useState({ ...defaultValue, ...car });
+  console.log(activeCar);
+
+  const groups = [
+    {
+      id: 1,
+      headline: "Important data",
+      content: ["Make", "Model", "Milage", "Plate", "ImageUrl"],
+    },
+    {
+      id: 2,
+      headline: "Dimensions",
+      content: [
+        "Length (mm)",
+        "Height (mm)",
+        "Width (mm)",
+        "Width including mirrors (mm)",
+        "Height (mm)",
+        "Weight Empty (kg)",
+        "Max Weight (kg)",
+      ],
+    },
+    {
+      id: 3,
+      headline: "More Information",
+      content: [
+        "Drive",
+        "Model Year",
+        "Engine Displacement (ccm)",
+        "Transmission",
+        "Number Of Gears",
+      ],
+    },
+  ];
+
   return (
     <form onSubmit={onSubmit}>
+      {groups.map((group) => {
+        return (
+          <fieldset key={group.id}>
+            <p>{group.headline}</p>
+            {Object.keys(activeCar).map((attribute, index) => {
+              if (group.content.includes(attribute)) {
+                const attributeValue = activeCar[attribute];
+                const type =
+                  typeof attributeValue === "string" ? "text" : "number";
+                return (
+                  <div key={group.id + index}>
+                    <label>
+                      {attribute}:
+                      <input
+                        name={attribute}
+                        type={type}
+                        defaultValue={activeCar[attribute]}
+                        // onChange={() => {
+                        //   setActiveCar({
+                        //     ...activeCar,
+                        //     [attribute]: activeCar[attribute],
+                        //   });
+                        // }}
+                      ></input>
+                    </label>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </fieldset>
+        );
+      })}
+      {/* 
+
       <label htmlFor="imageInput">
         Image Link:<input type="text" name="imageUrl" id="imageInput"></input>
         (just unsplash.com)
@@ -160,7 +234,7 @@ export default function EditCarForm({ activeCar, onSubmit }) {
           />
           (km/h):
         </label>
-      </fieldset>
+      </fieldset> */}
       <button type="submit">Submit</button>
     </form>
   );

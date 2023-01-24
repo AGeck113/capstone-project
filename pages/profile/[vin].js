@@ -12,9 +12,8 @@ export default function CarDetails() {
   const [cars, setCars] = useState(initialCars);
 
   const activeCar = cars.find((car) => {
-    return car.VIN === vin;
+    return { ...(car.VIN === vin), milage: 0, plate: "" };
   });
-
   if (!activeCar) {
     return <p>loading...</p>;
   }
@@ -36,7 +35,7 @@ export default function CarDetails() {
   return (
     <>
       {isEditing ? (
-        <EditCarForm activeCar={activeCar} onSubmit={handleSubmit} />
+        <EditCarForm car={activeCar} onSubmit={handleSubmit} />
       ) : (
         <>
           <button
@@ -62,8 +61,8 @@ export default function CarDetails() {
             <ul>
               <li>Marke: {activeCar.Make}</li>
               <li>Modell: {activeCar.Model}</li>
-              <li>KM-Stand: {activeCar.milage}</li>
-              <li>Kennzeichen: {activeCar.plate}</li>
+              <li>KM-Stand: {activeCar.Milage}</li>
+              <li>Kennzeichen: {activeCar.Plate}</li>
             </ul>
           </section>
           <section>
