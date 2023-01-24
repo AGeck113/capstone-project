@@ -57,12 +57,6 @@ export default function EditCarForm({ car, onSubmit }) {
                         name={attribute}
                         type={type}
                         defaultValue={activeCar[attribute]}
-                        // onChange={() => {
-                        //   setActiveCar({
-                        //     ...activeCar,
-                        //     [attribute]: activeCar[attribute],
-                        //   });
-                        // }}
                       ></input>
                     </label>
                   </div>
