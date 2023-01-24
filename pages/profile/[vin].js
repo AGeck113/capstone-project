@@ -1,20 +1,60 @@
+import EditCarForm from "@/components/EditCarForm";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Cars from "../../db/db.json";
+import { useState } from "react";
+import initialCars from "../../db/db.json";
+
 export default function CarDetails() {
+  const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { vin } = router.query;
-  const activeCar = Cars.find((car) => {
+
+  const [cars, setCars] = useState(initialCars);
+
+  const selectedCar = cars.find((car) => {
     return car.VIN === vin;
   });
-  console.log(activeCar);
+
+  const activeCar = { Milage: 0, Plate: "", imageUrl: "", ...selectedCar };
+
+  if (!activeCar) {
+    return <p>loading...</p>;
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    setCars(
+      cars.map((car) => (activeCar.VIN === car.VIN ? { ...car, ...data } : car))
+    );
+    setIsEditing(false);
+  }
+
+  if (!activeCar) {
+    return <p>loading...</p>;
+  }
+
   return (
     <>
-      {activeCar ? (
+      {isEditing ? (
+        <EditCarForm activeCar={activeCar} onSubmit={handleSubmit} />
+      ) : (
         <>
+          <button
+            type="button"
+            onClick={() => {
+              setIsEditing(true);
+            }}
+          >
+            Edit Car Data
+          </button>
           <Image
             alt="usercar"
-            src="https://images.unsplash.com/photo-1579631962852-306c90e1c91f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+            src={
+              activeCar.imageUrl ||
+              "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+            }
             width={200}
             height={200}
           />
@@ -24,8 +64,8 @@ export default function CarDetails() {
             <ul>
               <li>Marke: {activeCar.Make}</li>
               <li>Modell: {activeCar.Model}</li>
-              <li>KM-Stand: {activeCar.milage}</li>
-              <li>Kennzeichen: {activeCar.plate}</li>
+              <li>KM-Stand: {activeCar.Milage}</li>
+              <li>Kennzeichen: {activeCar.Plate}</li>
             </ul>
           </section>
           <section>
@@ -46,6 +86,7 @@ export default function CarDetails() {
             <p>Weitere Details:</p>
             <ul>
               <li>Antrieb: {activeCar.Drive}</li>
+              <li>Modelljahr: {activeCar["Model Year"]}</li>
               <li>Hubraum (ccm): {activeCar["Engine Displacement (ccm)"]}</li>
               <li>Getriebe: {activeCar.Transmission}</li>
               <li>Anzahl Gänge: {activeCar["Number of Gears"]}</li>
@@ -55,8 +96,6 @@ export default function CarDetails() {
             </ul>
           </section>
         </>
-      ) : (
-        <p>Loading</p>
       )}
     </>
   );
