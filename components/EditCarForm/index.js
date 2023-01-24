@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function EditCarForm({ activeCar, onSubmit, groups }) {
   return (
     <form onSubmit={onSubmit}>
