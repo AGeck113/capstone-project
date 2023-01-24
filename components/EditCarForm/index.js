@@ -1,4 +1,36 @@
-export default function EditCarForm({ activeCar, onSubmit, groups }) {
+const groups = [
+  {
+    id: 1,
+    headline: "Important data",
+    content: ["Make", "Model", "Milage", "Plate", "ImageUrl"],
+  },
+  {
+    id: 2,
+    headline: "Dimensions",
+    content: [
+      "Length (mm)",
+      "Height (mm)",
+      "Width (mm)",
+      "Width including mirrors (mm)",
+      "Height (mm)",
+      "Weight Empty (kg)",
+      "Max Weight (kg)",
+    ],
+  },
+  {
+    id: 3,
+    headline: "More Information",
+    content: [
+      "Drive",
+      "Model Year",
+      "Engine Displacement (ccm)",
+      "Transmission",
+      "Number Of Gears",
+    ],
+  },
+];
+
+export default function EditCarForm({ activeCar, onSubmit }) {
   return (
     <form onSubmit={onSubmit}>
       {groups.map((group) => {
