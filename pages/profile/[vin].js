@@ -46,7 +46,7 @@ export default function CarDetails() {
     return car.VIN === vin;
   });
 
-  const activeCar = { Milage: 0, Plate: "", ...selectedCar };
+  const activeCar = { Milage: 0, Plate: "", imageUrl: "", ...selectedCar };
 
   if (!activeCar) {
     return <p>loading...</p>;
