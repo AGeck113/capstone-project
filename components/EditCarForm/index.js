@@ -1,3 +1,5 @@
+import { initialCars } from "@/pages";
+
 const groups = [
   {
     id: 1,
@@ -41,8 +43,10 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
               {Object.keys(activeCar).map((attribute, index) => {
                 if (group.content.includes(attribute)) {
                   const attributeValue = activeCar[attribute];
-                  const type =
-                    typeof attributeValue === "string" ? "text" : "number";
+                  // const attributeValue = initialCars[index][attribute];
+
+                  const type = "text";
+                  // typeof attributeValue === "string" ? "text" : "number";
                   return (
                     <div key={group.id + index}>
                       <label>
@@ -70,8 +74,7 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
     return (
       <form onSubmit={onSubmit}>
         <label>
-          VIN:
-          <input name="VIN" type="text"></input>
+          VIN: <input name="VIN" type="text"></input>
         </label>
         {groups.map((group) => {
           return (
@@ -79,8 +82,8 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
               <p>{group.headline}</p>
               {group.content.map((attribute, index) => {
                 if (group.content.includes(attribute)) {
-                  const type =
-                    typeof attributeValue === "string" ? "text" : "number";
+                  const type = "text";
+                  // typeof attributeValue === "string" ? "text" : "number";
                   return (
                     <div key={group.id + index}>
                       <label>
