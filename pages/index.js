@@ -4,6 +4,7 @@ import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import { useAtom } from "jotai";
 import carDatabase from "../db/db.json";
 import { nanoid } from "nanoid";
+import useSWR from "swr";
 
 const users = [
   { id: nanoid(), car: "WAUZZZ8V9LA015917", name: "Andreas" },
@@ -19,7 +20,12 @@ export const initialCars = atomWithStorage("initialCars", carDatabase, {
   delayInit: true,
 });
 export default function HomePage() {
+  const { data } = useSWR(`/api/carDatabase/WAUZZZ8V9LA015917`);
   const [activeCar, setActiveCar] = useAtom(initialCar);
+  if (!data) {
+    return <h1>Loading...</h1>;
+  }
+  console.log(data);
   if (!initialCar) {
     return <p>...loading</p>;
   }
