@@ -1,37 +1,41 @@
 import Link from "next/link";
 import Image from "next/image";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
-import { useAtom } from "jotai";
+import { atom, useAtom } from "jotai";
 import carDatabase from "../db/db.json";
 import { nanoid } from "nanoid";
 import useSWR from "swr";
+import { useEffect } from "react";
 
-const users = [
-  { id: nanoid(), car: "WAUZZZ8V9LA015917", name: "Andreas" },
-  { id: nanoid(), car: "W0L0SDL08D0294820", name: "Mario" },
-];
+export const userCar = atom();
+const user = { id: nanoid(), car: "WAUZZZ8V9LA015917", name: "Andreas" };
 
-export const initialCar = atomWithStorage("initialCar", [], {
-  ...createJSONStorage(() => localStorage),
-  delayInit: true,
-});
-export const initialCars = atomWithStorage("initialCars", carDatabase, {
-  ...createJSONStorage(() => localStorage),
-  delayInit: true,
-});
+// export const initialCar = atomWithStorage("initialCar", [], {
+//   ...createJSONStorage(() => localStorage),
+//   delayInit: true,
+// });
+// export const initialCars = atomWithStorage("initialCars", carDatabase, {
+//   ...createJSONStorage(() => localStorage),
+//   delayInit: true,
+// });
 export default function HomePage() {
-  const { data } = useSWR(`/api/carDatabase/WAUZZZ8V9LA015917`);
-  const [activeCar, setActiveCar] = useAtom(initialCar);
+  const { data } = useSWR(`/api/userCar/${user.car}`);
+  const [activeCar, setActiveCar] = useAtom(userCar);
+
+  useEffect(() => {
+    if (data) {
+      setActiveCar(...data);
+    }
+  }, [data]);
+
   if (!data) {
-    return <h1>Loading...</h1>;
+    return <p>loading</p>;
   }
-  console.log("data:", data);
-  if (!initialCar) {
-    return <p>...loading</p>;
-  }
+  console.log(activeCar);
+
   return (
     <>
-      <h1>Car App</h1>
+      <h1>My Car</h1>
 
       <Link href={`/profile/WAUZZZ8V9LA015917`}>
         <Image
