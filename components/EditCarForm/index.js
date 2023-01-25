@@ -69,6 +69,10 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
   } else {
     return (
       <form onSubmit={onSubmit}>
+        <label>
+          VIN:
+          <input name="VIN" type="text"></input>
+        </label>
         {groups.map((group) => {
           return (
             <fieldset key={group.id}>

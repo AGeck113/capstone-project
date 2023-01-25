@@ -41,7 +41,7 @@ export default function CarDetails() {
         <EditCarForm
           activeCar={activeCar}
           onSubmit={handleSubmit}
-          fomr={"edit"}
+          form={"edit"}
         />
       ) : (
         <>
