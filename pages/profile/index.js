@@ -13,7 +13,6 @@ export default function CreateCar() {
   function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
-    console.log(vin);
     const foundCar = initialCars.some((car) => {
       return car.VIN === vin;
     });
