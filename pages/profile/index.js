@@ -46,7 +46,7 @@ export default function CreateCar() {
           Search your car with your VIN:
           <input type="text" minLength={17} maxLength={17} name="vin"></input>
         </label>
-        <button type="submit">Search!</button>
+        <button type="submit">Add!</button>
       </form>
       {searchFailed ? (
         <p>
