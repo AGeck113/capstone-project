@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const carSchema = new Schema({
   VIN: { type: String, required: true },
   Make: { type: String, required: true },
-  Model: { type: Number, required: true },
+  Model: { type: String, required: true },
   Milage: { type: Number },
   Plate: { type: String },
   ImageUrl: { type: String },
@@ -15,10 +15,10 @@ const carSchema = new Schema({
   "Height (mm)": { type: Number },
   "Weight Empty (kg)": { type: Number },
   "Max Weight (kg)": { type: Number },
-  Drive: { type: Number },
+  Drive: { type: String },
   "Model Year": { type: Number },
   "Engine Displacement (ccm)": { type: Number },
-  Transmission: { type: Number },
+  Transmission: { type: String },
   "Number Of Gears": { type: Number },
 });
 

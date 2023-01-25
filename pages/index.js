@@ -25,7 +25,7 @@ export default function HomePage() {
   if (!data) {
     return <h1>Loading...</h1>;
   }
-  console.log(data);
+  console.log("data:", data);
   if (!initialCar) {
     return <p>...loading</p>;
   }
