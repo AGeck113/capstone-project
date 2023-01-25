@@ -51,10 +51,10 @@ export default function CreateCar() {
       {searchFailed ? (
         <p>
           Sorry, we can not find the Vin in our data. Please control your vin.
-          If you want, you can also use the form to register your car manualy.
+          If you want, you can also use the form to register your car manually.
         </p>
       ) : null}
-      <h2>Create your car manualy:</h2>
+      <h2>Create your car manually:</h2>
       <EditCarForm onSubmit={handleSubmitForm} form={"create"} />
     </>
   );
