@@ -38,7 +38,11 @@ export default function CarDetails() {
   return (
     <>
       {isEditing ? (
-        <EditCarForm activeCar={activeCar} onSubmit={handleSubmit} />
+        <EditCarForm
+          activeCar={activeCar}
+          onSubmit={handleSubmit}
+          fomr={"edit"}
+        />
       ) : (
         <>
           <button

@@ -1,3 +1,4 @@
+import EditCarForm from "@/components/EditCarForm";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import initialCars from "../../db/db.json";
@@ -37,9 +38,10 @@ export default function CreateCar() {
       {searchFailed ? (
         <p>
           Sorry, we can't find the Vin in our data. Please control your vin. If
-          you want, you can also use the form to register your car manually.
+          you want, you can also use the form to register your car manualy.
         </p>
       ) : null}
+      <EditCarForm onSubmit={handleSubmitVin} form={"create"} />
     </>
   );
 }
