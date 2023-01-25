@@ -1,5 +1,3 @@
-import { initialCars } from "@/pages";
-
 const groups = [
   {
     id: 1,
