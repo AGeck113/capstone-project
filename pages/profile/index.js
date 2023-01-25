@@ -34,7 +34,9 @@ export default function CreateCar() {
     setCars([...cars, newCar]);
     router.push(`/profile/${newCar.VIN}`);
   }
-
+  if (!cars) {
+    return <p>loading</p>;
+  }
   return (
     <>
       <h1>Register your car!</h1>

@@ -40,7 +40,7 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
               <p>{group.headline}</p>
               {Object.keys(activeCar).map((attribute, index) => {
                 if (group.content.includes(attribute)) {
-                  const attributeValue = activeCar[attribute];
+                  // const attributeValue = activeCar[attribute];
                   // const attributeValue = initialCars[index][attribute];
 
                   const type = "text";
