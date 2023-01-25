@@ -15,6 +15,9 @@ export default function CreateCar() {
   function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
+    if (!cars) {
+      return <p>loading</p>;
+    }
     const foundCar = cars.some((car) => {
       return car.VIN === vin;
     });
@@ -34,9 +37,7 @@ export default function CreateCar() {
     setCars([...cars, newCar]);
     router.push(`/profile/${newCar.VIN}`);
   }
-  if (!cars) {
-    return <p>loading</p>;
-  }
+
   return (
     <>
       <h1>Register your car!</h1>
@@ -49,8 +50,8 @@ export default function CreateCar() {
       </form>
       {searchFailed ? (
         <p>
-          Sorry, we can't find the Vin in our data. Please control your vin. If
-          you want, you can also use the form to register your car manualy.
+          Sorry, we can not find the Vin in our data. Please control your vin.
+          If you want, you can also use the form to register your car manualy.
         </p>
       ) : null}
       <h2>Create your car manualy:</h2>
