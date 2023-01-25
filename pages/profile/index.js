@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
+import { useState } from "react";
 import initialCars from "../../db/db.json";
 
 export default function CreateCar() {
+  const [searchFailed, setSearchFailed] = useState(false);
   const router = useRouter();
   function handleSubmitVin(event) {
     event.preventDefault();
@@ -12,6 +14,9 @@ export default function CreateCar() {
     });
     if (foundCar === true) {
       router.push(`/profile/${vin}`);
+    }
+    {
+      setSearchFailed(true);
     }
   }
 
@@ -29,6 +34,12 @@ export default function CreateCar() {
         </label>
         <button type="submit">Search!</button>
       </form>
+      {searchFailed ? (
+        <p>
+          Sorry, we can't find the Vin in our data. Please control your vin. If
+          you want, you can also use the form to register your car manually.
+        </p>
+      ) : null}
     </>
   );
 }
