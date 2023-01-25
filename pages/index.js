@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import { atom, useAtom } from "jotai";
-import carDatabase from "../db/db.json";
 import { nanoid } from "nanoid";
 import useSWR from "swr";
 import { useEffect } from "react";
@@ -10,16 +8,8 @@ import { useEffect } from "react";
 export const userCar = atom();
 const user = { id: nanoid(), car: "WAUZZZ8V9LA015917", name: "Andreas" };
 
-// export const initialCar = atomWithStorage("initialCar", [], {
-//   ...createJSONStorage(() => localStorage),
-//   delayInit: true,
-// });
-// export const initialCars = atomWithStorage("initialCars", carDatabase, {
-//   ...createJSONStorage(() => localStorage),
-//   delayInit: true,
-// });
 export default function HomePage() {
-  const { data } = useSWR(`/api/userCar/${user.car}`);
+  const { data } = useSWR(`/api/userCars/${user.car}`);
   const [activeCar, setActiveCar] = useAtom(userCar);
 
   useEffect(() => {
@@ -31,7 +21,6 @@ export default function HomePage() {
   if (!data) {
     return <p>loading</p>;
   }
-  console.log(activeCar);
 
   return (
     <>

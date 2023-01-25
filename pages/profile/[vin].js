@@ -1,21 +1,15 @@
 import EditCarForm from "@/components/EditCarForm";
 import { useAtom } from "jotai";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { initialCars } from "../index";
+import { userCar } from "../index";
 
 export default function CarDetails() {
+  const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
-  const { vin } = router.query;
-  const [cars, setCars] = useAtom(initialCars);
-
-  const selectedCar = cars.find((car) => {
-    return car.VIN === vin;
-  });
-
-  const activeCar = { Milage: 0, Plate: "", imageUrl: "", ...selectedCar };
 
   if (!activeCar) {
     return <p>loading...</p>;
@@ -25,9 +19,7 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    setCars(
-      cars.map((car) => (activeCar.VIN === car.VIN ? { ...car, ...data } : car))
-    );
+    // setActiveCar(data); To do -> "PUT/PATCH"
     setIsEditing(false);
   }
 
@@ -37,6 +29,7 @@ export default function CarDetails() {
 
   return (
     <>
+      <Link href="/">Home</Link>
       {isEditing ? (
         <EditCarForm
           activeCar={activeCar}

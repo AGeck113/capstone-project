@@ -4,20 +4,41 @@ import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { userCar } from "../index.js";
-import useSWR from "swr";
 
 export default function CreateCar() {
   const [activeCar, setActiveCar] = useAtom(userCar);
-  //   console.log(cars);
+  const [searchFailed, setSearchFailed] = useState(false);
 
   const router = useRouter();
 
-  function handleSubmitVin(event) {
+  async function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
-
-    router.push(`/profile/${vin}`);
+    try {
+      const response = await fetch(`/api/carDatabase/${vin}`);
+      if (response.ok) {
+        const carData = await response.json();
+        setActiveCar({ ...carData[0], _id: nanoid(12) });
+      } else {
+        console.error(`Error: ${response.status}`);
+        // setSearchFailed(true); TO DO -> why is there everytime a empty array?
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    try {
+      console.log(activeCar);
+      const responsePost = fetch(`api/userCars`, {
+        method: "POST",
+        body: JSON.stringify(activeCar),
+        headers: { "Content-type": "application/json" },
+      });
+      router.push(`/profile/${vin}`);
+    } catch (error) {
+      console.error(error);
+    }
   }
+
   function handleSubmitForm(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -47,7 +68,12 @@ export default function CreateCar() {
         </label>
         <button type="submit">Add!</button>
       </form>
-
+      {searchFailed ? (
+        <p>
+          Sorry, we can not find the Vin in our data. Please control your vin.
+          If you want, you can also use the form to register your car manually.
+        </p>
+      ) : null}
       <h2>Create your car manually:</h2>
       <EditCarForm onSubmit={handleSubmitForm} form={"create"} />
     </>

@@ -4,6 +4,7 @@ import UserCar from "../../../db/models/UserCar";
 export default async function handler(request, response) {
   await dbConnect();
   if (request.method === "POST") {
+    console.log("request body:", request.body);
     try {
       const carData = request.body;
       const newCar = new UserCar(carData);
