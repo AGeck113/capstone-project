@@ -1,15 +1,31 @@
 import Link from "next/link";
+import Image from "next/image";
+import { atomWithStorage, createJSONStorage } from "jotai/utils";
+import { useAtom } from "jotai";
 
+export const initialCar = atomWithStorage("initialCar", [], {
+  ...createJSONStorage(() => localStorage),
+  delayInit: true,
+});
 export default function HomePage() {
+  const [activeCar, setActiveCar] = useAtom(initialCar);
+  if (!initialCar) {
+    return <p>...loading</p>;
+  }
   return (
     <>
       <h1>Car App</h1>
-      <Link href="/profile/WAUZZZ8V9LA015917">Details Auto 1</Link>
 
-      <Link href="/profile/W0L0SDL08D0294820">Details Auto 2</Link>
+      <Link href={`/profile/WAUZZZ8V9LA015917`}>
+        <Image
+          alt="usercar"
+          src="https://images.unsplash.com/photo-1579631962852-306c90e1c91f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+          width={200}
+          height={200}
+        />
+      </Link>
 
-      <Link href="/upcomingEvents">Kommende Termine</Link>
-
+      <Link href="/profile/W0L0SDL08D0294820">Test Detail Page Car 2</Link>
     </>
   );
 }
