@@ -2,8 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import { useAtom } from "jotai";
+import carDatabase from "../db/db.json";
 
 export const initialCar = atomWithStorage("initialCar", [], {
+  ...createJSONStorage(() => localStorage),
+  delayInit: true,
+});
+export const initialCars = atomWithStorage("initialCars", carDatabase, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
 });

@@ -1,19 +1,21 @@
 import EditCarForm from "@/components/EditCarForm";
+import { useAtom } from "jotai";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import initialCars from "../../db/db.json";
+import { initialCars } from "../index.js";
 
 export default function CreateCar() {
   const [searchFailed, setSearchFailed] = useState(false);
-  const [cars, setCars] = useState(initialCars);
+  const [cars, setCars] = useAtom(initialCars);
+  console.log(cars);
 
   const router = useRouter();
 
   function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
-    const foundCar = initialCars.some((car) => {
+    const foundCar = cars.some((car) => {
       return car.VIN === vin;
     });
     if (foundCar === true) {
@@ -29,7 +31,7 @@ export default function CreateCar() {
     const data = Object.fromEntries(formData);
     const newCar = { VIN: nanoid(), ...data };
 
-    setCars(...cars, { ...newCar });
+    setCars([...cars, newCar]);
     router.push(`/profile/${newCar.VIN}`);
   }
 
@@ -49,6 +51,7 @@ export default function CreateCar() {
           you want, you can also use the form to register your car manualy.
         </p>
       ) : null}
+      <h2>Create your car manualy:</h2>
       <EditCarForm onSubmit={handleSubmitForm} form={"create"} />
     </>
   );
