@@ -3,6 +3,12 @@ import Image from "next/image";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import { useAtom } from "jotai";
 import carDatabase from "../db/db.json";
+import { nanoid } from "nanoid";
+
+const users = [
+  { id: nanoid(), car: "WAUZZZ8V9LA015917", name: "Andreas" },
+  { id: nanoid(), car: "W0L0SDL08D0294820", name: "Mario" },
+];
 
 export const initialCar = atomWithStorage("initialCar", [], {
   ...createJSONStorage(() => localStorage),
