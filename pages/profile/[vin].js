@@ -1,15 +1,15 @@
 import EditCarForm from "@/components/EditCarForm";
+import { useAtom } from "jotai";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import initialCars from "../../db/db.json";
+import { initialCars } from "../index";
 
 export default function CarDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { vin } = router.query;
-
-  const [cars, setCars] = useState(initialCars);
+  const [cars, setCars] = useAtom(initialCars);
 
   const selectedCar = cars.find((car) => {
     return car.VIN === vin;
@@ -38,7 +38,11 @@ export default function CarDetails() {
   return (
     <>
       {isEditing ? (
-        <EditCarForm activeCar={activeCar} onSubmit={handleSubmit} />
+        <EditCarForm
+          activeCar={activeCar}
+          onSubmit={handleSubmit}
+          form={"edit"}
+        />
       ) : (
         <>
           <button
