@@ -3,22 +3,43 @@ import { useAtom } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userCar, users } from "../index";
-
+import useSWR from "swr";
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
+  const [user, setUser] = useState(users);
   const [isEditing, setIsEditing] = useState(false);
-  if (!activeCar) {
+  const { data } = useSWR(`/api/userCars/${user.id}`);
+  const router = useRouter();
+
+  useEffect(() => {
+    setActiveCar(data);
+  }, [data]);
+
+  if (!data) {
     return <p>loading...</p>;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    // setActiveCar(data); To do -> "PUT/PATCH"
-    setIsEditing(false);
+    const newCar = { ...data, UserId: user.id };
+    try {
+      const response = await fetch(`api/userCars/${user.id}`, {
+        method: "PUT",
+        body: JSON.stringify(newCar),
+        headers: { "Content-type": "application/json" },
+      });
+      setUser({ ...user, car: data.VIN });
+      const responseCar = await response.json();
+      setActiveCar(responseCar);
+      setIsEditing(false);
+      router.reload();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   if (!activeCar) {

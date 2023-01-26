@@ -1,6 +1,24 @@
 import { userCar } from "@/pages";
 import { useAtom } from "jotai";
-
+const carPrototype = {
+  VIN: "",
+  Make: "",
+  Model: "",
+  Milage: 0,
+  Plate: "",
+  ImageUrl: "",
+  "Length (mm)": 0,
+  "Height (mm)": 0,
+  "Width (mm)": 0,
+  "Width including mirrors (mm)": 0,
+  "Weight Empty (kg)": 0,
+  "Max Weight (kg)": 0,
+  Drive: "",
+  "Model Year": 0,
+  "Engine Displacement (ccm)": 0,
+  Transmission: "",
+  "Number Of Gears": 0,
+};
 const groups = [
   {
     id: 1,
@@ -33,7 +51,7 @@ const groups = [
   },
 ];
 
-export default function EditCarForm({ onSubmit, form, carPrototype }) {
+export default function EditCarForm({ onSubmit, form }) {
   const [activeCar] = useAtom(userCar);
   if (form === "edit") {
     return (

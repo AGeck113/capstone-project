@@ -45,7 +45,7 @@ export default function CreateCar() {
             ...carData,
             UserId: user.id,
           };
-          const { _id, newCarPut } = newCar;
+          const { _id, ...newCarPut } = newCar;
           const responsePost = await fetch(`api/userCars/${user.id}`, {
             method: "PUT",
             body: JSON.stringify(newCarPut),
