@@ -53,75 +53,42 @@ const groups = [
 
 export default function EditCarForm({ onSubmit, form }) {
   const [activeCar] = useAtom(userCar);
-  if (form === "edit") {
-    return (
-      <form onSubmit={onSubmit}>
-        {groups.map((group) => {
-          return (
-            <fieldset key={group.id}>
-              <p>{group.headline}</p>
-              {Object.keys(activeCar).map((attribute, index) => {
-                if (group.content.includes(attribute)) {
-                  const attributeValue = activeCar[attribute];
 
-                  const type =
-                    typeof attributeValue === "string" ? "text" : "number";
-                  return (
-                    <div key={group.id + index}>
-                      <label>
-                        {attribute}:
-                        <input
-                          name={attribute}
-                          type={type}
-                          defaultValue={activeCar[attribute]}
-                        ></input>
-                      </label>
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </fieldset>
-          );
-        })}
+  return (
+    <form onSubmit={onSubmit}>
+      {groups.map((group) => {
+        return (
+          <fieldset key={group.id}>
+            <p>{group.headline}</p>
+            {Object.keys(activeCar).map((attribute, index) => {
+              if (group.content.includes(attribute)) {
+                const attributeValue = carPrototype[attribute];
 
-        <button type="submit">Submit</button>
-      </form>
-    );
-  } else {
-    return (
-      <form onSubmit={onSubmit}>
-        <label>
-          VIN: <input name="VIN" type="text"></input>
-        </label>
-        {groups.map((group) => {
-          return (
-            <fieldset key={group.id}>
-              <p>{group.headline}</p>
-              {group.content.map((attribute, index) => {
-                if (group.content.includes(attribute)) {
-                  const attributeValue = carPrototype[attribute];
+                const type =
+                  typeof attributeValue === "string" ? "text" : "number";
+                return (
+                  <div key={group.id + index}>
+                    <label>
+                      {attribute}:
+                      <input
+                        name={attribute}
+                        type={type}
+                        defaultValue={
+                          form === "edit" ? activeCar[attribute] : null
+                        }
+                      ></input>
+                    </label>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </fieldset>
+        );
+      })}
 
-                  const type =
-                    typeof attributeValue === "string" ? "text" : "number";
-                  return (
-                    <div key={group.id + index}>
-                      <label>
-                        {attribute}:<input name={attribute} type={type}></input>
-                      </label>
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </fieldset>
-          );
-        })}
-
-        <button type="submit">Submit</button>
-      </form>
-    );
-  }
+      <button type="submit">Submit</button>
+    </form>
+  );
 }
