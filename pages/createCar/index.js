@@ -35,20 +35,20 @@ export default function CreateCar() {
   async function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
-    console.log(vin);
     try {
       const response = await fetch(`/api/carDatabase/${vin}`);
       if (response.ok) {
         const carData = await response.json();
         try {
           const newCar = {
+            ...carPrototype,
             ...carData,
             UserId: user.id,
-            _id: nanoid(12),
           };
-          const responsePost = await fetch(`api/userCars`, {
-            method: "POST",
-            body: JSON.stringify(newCar),
+          const { _id, newCarPut } = newCar;
+          const responsePost = await fetch(`api/userCars/${user.id}`, {
+            method: "PUT",
+            body: JSON.stringify(newCarPut),
             headers: { "Content-type": "application/json" },
           });
           setUser({ ...user, car: vin });
@@ -71,8 +71,8 @@ export default function CreateCar() {
     const data = Object.fromEntries(formData);
     const newCar = { ...carPrototype, ...data, UserId: user.id };
     try {
-      const response = await fetch(`api/userCars`, {
-        method: "POST",
+      const response = await fetch(`api/userCars/${user.id}`, {
+        method: "PUT",
         body: JSON.stringify(newCar),
         headers: { "Content-type": "application/json" },
       });
