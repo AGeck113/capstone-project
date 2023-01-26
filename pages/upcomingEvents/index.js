@@ -1,4 +1,5 @@
 import EventCard from "@/components/Event";
+import Link from "next/link";
 export default function EventPage() {
   const upcoming = [
     {
@@ -34,6 +35,7 @@ export default function EventPage() {
 
   return (
     <>
+      <Link href="home">Home</Link>
       <h1>Kommende Termine:</h1>
       <ul>
         {upcoming.map((event) => {
