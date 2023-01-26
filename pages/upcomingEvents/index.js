@@ -35,7 +35,7 @@ export default function EventPage() {
 
   return (
     <>
-      <Link href="home">Home</Link>
+      <Link href="/">Home</Link>
       <h1>Kommende Termine:</h1>
       <ul>
         {upcoming.map((event) => {
