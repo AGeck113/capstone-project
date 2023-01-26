@@ -98,8 +98,8 @@ export default function CreateCar() {
         </label>
         <button type="submit">Add!</button>
         <p>
-          Working VINs right now: WAUZZZ8V9LA015917,W0L0SDL08D0294820 and
-          VF1CN041547024321
+          Working VINs right now: LRW3E7EL3NC123456,
+          WAUZZZ8V9LA015917,W0L0SDL08D0294820 and VF1CN041547024321
         </p>
       </form>
       {searchFailed ? (

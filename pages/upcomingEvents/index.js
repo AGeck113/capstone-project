@@ -40,7 +40,6 @@ export default function EventPage() {
       <ul>
         {upcoming.map((event) => {
           predictedCost += event.cost;
-          console.log(predictedCost);
           return (
             <li key={event.id}>
               <EventCard event={event} />
