@@ -1,57 +1,86 @@
 import EditCarForm from "@/components/EditCarForm";
 import { useAtom } from "jotai";
 import { nanoid } from "nanoid";
+import Link from "next/link.js";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { userCar } from "../index.js";
+import { userCar, users } from "../index.js";
+
+const carPrototype = {
+  VIN: "",
+  Make: "",
+  Model: "",
+  Milage: 0,
+  Plate: "",
+  ImageUrl: "",
+  "Length (mm)": 0,
+  "Height (mm)": 0,
+  "Width (mm)": 0,
+  "Width including mirrors (mm)": 0,
+  "Weight Empty (kg)": 0,
+  "Max Weight (kg)": 0,
+  Drive: "",
+  "Model Year": 0,
+  "Engine Displacement (ccm)": 0,
+  Transmission: "",
+  "Number Of Gears": 0,
+};
 
 export default function CreateCar() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [searchFailed, setSearchFailed] = useState(false);
-
+  const [user, setUser] = useState(users);
   const router = useRouter();
 
   async function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
+    console.log(vin);
     try {
       const response = await fetch(`/api/carDatabase/${vin}`);
       if (response.ok) {
         const carData = await response.json();
-        setActiveCar({ ...carData, _id: nanoid(12) });
         try {
-          const responsePost = fetch(`api/userCars`, {
+          const newCar = {
+            ...carData,
+            UserId: user.id,
+            _id: nanoid(12),
+          };
+          const responsePost = await fetch(`api/userCars`, {
             method: "POST",
-            body: JSON.stringify(activeCar),
+            body: JSON.stringify(newCar),
             headers: { "Content-type": "application/json" },
           });
-          router.push(`/profile/${vin}`);
+          setUser({ ...user, car: vin });
+          const responseCar = await responsePost.json();
+          setActiveCar(responseCar);
+          router.push("/profile");
         } catch (error) {
           console.error(error);
         }
-      } else {
-        console.error(`Error: ${response.status}`);
-        setSearchFailed(true);
       }
+      setSearchFailed(true);
     } catch (error) {
       console.error(error);
     }
   }
 
-  function handleSubmitForm(event) {
+  async function handleSubmitForm(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const newCar = { VIN: nanoid(), ...data };
+    const newCar = { ...carPrototype, ...data, UserId: user.id };
     try {
-      const response = fetch(`api/userCar/`, {
+      const response = await fetch(`api/userCars`, {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(newCar),
         headers: { "Content-type": "application/json" },
       });
-      console.log(newCar);
-      setActiveCar(newCar);
-      router.push(`/profile/${newCar.VIN}`);
+      setUser({ ...user, car: data.VIN });
+      const responseCar = await response.json();
+      console.log(responseCar);
+      setActiveCar(responseCar);
+      router.push(`/profile/`);
     } catch (error) {
       console.error(error);
     }
@@ -59,6 +88,8 @@ export default function CreateCar() {
 
   return (
     <>
+      <Link href="/">Home</Link>
+      <Link href="/profile">Details</Link>
       <h1>Register your car!</h1>
       <form onSubmit={handleSubmitVin}>
         <label>
@@ -66,6 +97,10 @@ export default function CreateCar() {
           <input type="text" minLength={17} maxLength={17} name="vin"></input>
         </label>
         <button type="submit">Add!</button>
+        <p>
+          Working VINs right now: WAUZZZ8V9LA015917,W0L0SDL08D0294820 and
+          VF1CN041547024321
+        </p>
       </form>
       {searchFailed ? (
         <p>
@@ -74,7 +109,11 @@ export default function CreateCar() {
         </p>
       ) : null}
       <h2>Create your car manually:</h2>
-      <EditCarForm onSubmit={handleSubmitForm} form={"create"} />
+      <EditCarForm
+        onSubmit={handleSubmitForm}
+        carPrototype={carPrototype}
+        form={"create"}
+      />
     </>
   );
 }

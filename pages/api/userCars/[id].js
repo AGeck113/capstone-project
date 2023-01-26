@@ -3,9 +3,9 @@ import UserCar from "../../../db/models/UserCar";
 
 export default async function handler(request, response) {
   await dbConnect();
-  const { vin } = request.query;
+  const { id } = request.query;
   if (request.method === "GET") {
-    const carData = await UserCar.find({ VIN: vin });
+    const carData = await UserCar.findOne({ UserId: id });
 
     if (!carData) {
       return response.status(404).json({ status: "Not Found" });

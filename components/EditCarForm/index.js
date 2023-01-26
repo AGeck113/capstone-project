@@ -1,3 +1,6 @@
+import { userCar } from "@/pages";
+import { useAtom } from "jotai";
+
 const groups = [
   {
     id: 1,
@@ -30,7 +33,8 @@ const groups = [
   },
 ];
 
-export default function EditCarForm({ activeCar, onSubmit, form }) {
+export default function EditCarForm({ onSubmit, form, carPrototype }) {
+  const [activeCar] = useAtom(userCar);
   if (form === "edit") {
     return (
       <form onSubmit={onSubmit}>
@@ -40,11 +44,10 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
               <p>{group.headline}</p>
               {Object.keys(activeCar).map((attribute, index) => {
                 if (group.content.includes(attribute)) {
-                  // const attributeValue = activeCar[attribute];
-                  // const attributeValue = initialCars[index][attribute];
+                  const attributeValue = activeCar[attribute];
 
-                  const type = "text";
-                  // typeof attributeValue === "string" ? "text" : "number";
+                  const type =
+                    typeof attributeValue === "string" ? "text" : "number";
                   return (
                     <div key={group.id + index}>
                       <label>
@@ -80,8 +83,10 @@ export default function EditCarForm({ activeCar, onSubmit, form }) {
               <p>{group.headline}</p>
               {group.content.map((attribute, index) => {
                 if (group.content.includes(attribute)) {
-                  const type = "text";
-                  // typeof attributeValue === "string" ? "text" : "number";
+                  const attributeValue = carPrototype[attribute];
+
+                  const type =
+                    typeof attributeValue === "string" ? "text" : "number";
                   return (
                     <div key={group.id + index}>
                       <label>

@@ -4,13 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { userCar } from "../index";
+import { userCar, users } from "../index";
 
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);
-  const router = useRouter();
-
   if (!activeCar) {
     return <p>loading...</p>;
   }
