@@ -18,22 +18,21 @@ export default function CreateCar() {
       const response = await fetch(`/api/carDatabase/${vin}`);
       if (response.ok) {
         const carData = await response.json();
-        setActiveCar({ ...carData[0], _id: nanoid(12) });
+        setActiveCar({ ...carData, _id: nanoid(12) });
+        try {
+          const responsePost = fetch(`api/userCars`, {
+            method: "POST",
+            body: JSON.stringify(activeCar),
+            headers: { "Content-type": "application/json" },
+          });
+          router.push(`/profile/${vin}`);
+        } catch (error) {
+          console.error(error);
+        }
       } else {
         console.error(`Error: ${response.status}`);
-        // setSearchFailed(true); TO DO -> why is there everytime a empty array?
+        setSearchFailed(true);
       }
-    } catch (error) {
-      console.error(error);
-    }
-    try {
-      console.log(activeCar);
-      const responsePost = fetch(`api/userCars`, {
-        method: "POST",
-        body: JSON.stringify(activeCar),
-        headers: { "Content-type": "application/json" },
-      });
-      router.push(`/profile/${vin}`);
     } catch (error) {
       console.error(error);
     }
