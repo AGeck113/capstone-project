@@ -46,6 +46,7 @@ export default function HomePage() {
 
       <Link href="/profile/">Test Detail Page </Link>
       <Link href="/createCar">Change car</Link>
+      <Link href="/upcomingEvents">Upcoming Events</Link>
     </>
   );
 }
