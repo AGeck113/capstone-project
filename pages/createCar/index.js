@@ -29,7 +29,7 @@ const carPrototype = {
 export default function CreateCar() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [searchFailed, setSearchFailed] = useState(false);
-  const [user, setUser] = useState(users);
+  const [user, setUser] = useState(users[0]);
   const router = useRouter();
 
   async function handleSubmitVin(event) {
@@ -99,7 +99,7 @@ export default function CreateCar() {
         <button type="submit">Add!</button>
         <p>
           Working VINs right now: LRW3E7EL3NC123456,
-          WAUZZZ8V9LA015917,W0L0SDL08D0294820 and VF1CN041547024321
+          WAUZZZ8V9LA015123,W0L0SDL08D0294820 and VF1CN041547024123
         </p>
       </form>
       {searchFailed ? (

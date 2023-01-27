@@ -8,7 +8,7 @@ import { userCar, users } from "../index";
 import useSWR from "swr";
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
-  const [user, setUser] = useState(users);
+  const [user, setUser] = useState(users[0]);
   const [isEditing, setIsEditing] = useState(false);
   const { data } = useSWR(`/api/userCars/${user.id}`);
   const router = useRouter();
