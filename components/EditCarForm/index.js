@@ -25,12 +25,12 @@ const carPrototype = {
 const groups = [
   {
     id: 1,
-    headline: "Important data",
+    description: "Important data",
     content: ["Make", "Model", "Milage", "Plate", "ImageUrl"],
   },
   {
     id: 2,
-    headline: "Dimensions",
+    description: "Dimensions",
     content: [
       "Length (mm)",
       "Height (mm)",
@@ -43,7 +43,7 @@ const groups = [
   },
   {
     id: 3,
-    headline: "More Information",
+    description: "More Information",
     content: [
       "Drive",
       "Model Year",
@@ -60,7 +60,7 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
       {groups.map((group) => {
         return (
           <fieldset key={group.id}>
-            <p>{group.headline}</p>
+            <p>{group.description}</p>
             {Object.keys(carPrototype).map((attribute, index) => {
               if (group.content.includes(attribute)) {
                 const attributeValue = carPrototype[attribute];
