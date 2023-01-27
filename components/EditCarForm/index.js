@@ -1,12 +1,36 @@
+import { userCar, user } from "@/pages";
+import { useAtom } from "jotai";
+import { useEffect } from "react";
+import useSWR from "swr";
+
+const carPrototype = {
+  VIN: "",
+  Make: "",
+  Model: "",
+  Milage: 0,
+  Plate: "",
+  ImageUrl: "",
+  "Length (mm)": 0,
+  "Height (mm)": 0,
+  "Width (mm)": 0,
+  "Width including mirrors (mm)": 0,
+  "Weight Empty (kg)": 0,
+  "Max Weight (kg)": 0,
+  Drive: "",
+  "Model Year": 0,
+  "Engine Displacement (ccm)": 0,
+  Transmission: "",
+  "Number Of Gears": 0,
+};
 const groups = [
   {
     id: 1,
-    headline: "Important data",
+    description: "Important data",
     content: ["Make", "Model", "Milage", "Plate", "ImageUrl"],
   },
   {
     id: 2,
-    headline: "Dimensions",
+    description: "Dimensions",
     content: [
       "Length (mm)",
       "Height (mm)",
@@ -19,7 +43,7 @@ const groups = [
   },
   {
     id: 3,
-    headline: "More Information",
+    description: "More Information",
     content: [
       "Drive",
       "Model Year",
@@ -30,75 +54,42 @@ const groups = [
   },
 ];
 
-export default function EditCarForm({ activeCar, onSubmit, form }) {
-  if (form === "edit") {
-    return (
-      <form onSubmit={onSubmit}>
-        {groups.map((group) => {
-          return (
-            <fieldset key={group.id}>
-              <p>{group.headline}</p>
-              {Object.keys(activeCar).map((attribute, index) => {
-                if (group.content.includes(attribute)) {
-                  // const attributeValue = activeCar[attribute];
-                  // const attributeValue = initialCars[index][attribute];
+export default function EditCarForm({ onSubmit, form, activeCar }) {
+  return (
+    <form onSubmit={onSubmit}>
+      {groups.map((group) => {
+        return (
+          <fieldset key={group.id}>
+            <p>{group.description}</p>
+            {Object.keys(carPrototype).map((attribute, index) => {
+              if (group.content.includes(attribute)) {
+                const attributeValue = carPrototype[attribute];
 
-                  const type = "text";
-                  // typeof attributeValue === "string" ? "text" : "number";
-                  return (
-                    <div key={group.id + index}>
-                      <label>
-                        {attribute}:
-                        <input
-                          name={attribute}
-                          type={type}
-                          defaultValue={activeCar[attribute]}
-                        ></input>
-                      </label>
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </fieldset>
-          );
-        })}
+                const type =
+                  typeof attributeValue === "string" ? "text" : "number";
+                return (
+                  <div key={group.id + index}>
+                    <label>
+                      {attribute}:
+                      <input
+                        name={attribute}
+                        type={type}
+                        defaultValue={
+                          form === "edit" ? activeCar[attribute] : null
+                        }
+                      ></input>
+                    </label>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </fieldset>
+        );
+      })}
 
-        <button type="submit">Submit</button>
-      </form>
-    );
-  } else {
-    return (
-      <form onSubmit={onSubmit}>
-        <label>
-          VIN: <input name="VIN" type="text"></input>
-        </label>
-        {groups.map((group) => {
-          return (
-            <fieldset key={group.id}>
-              <p>{group.headline}</p>
-              {group.content.map((attribute, index) => {
-                if (group.content.includes(attribute)) {
-                  const type = "text";
-                  // typeof attributeValue === "string" ? "text" : "number";
-                  return (
-                    <div key={group.id + index}>
-                      <label>
-                        {attribute}:<input name={attribute} type={type}></input>
-                      </label>
-                    </div>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </fieldset>
-          );
-        })}
-
-        <button type="submit">Submit</button>
-      </form>
-    );
-  }
+      <button type="submit">Submit</button>
+    </form>
+  );
 }
