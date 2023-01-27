@@ -1,5 +1,6 @@
 import { userCar } from "@/pages";
 import { useAtom } from "jotai";
+
 const carPrototype = {
   VIN: "",
   Make: "",
@@ -53,6 +54,9 @@ const groups = [
 
 export default function EditCarForm({ onSubmit, form }) {
   const [activeCar] = useAtom(userCar);
+  if (!activeCar) {
+    return <p>loading</p>;
+  }
 
   return (
     <form onSubmit={onSubmit}>
