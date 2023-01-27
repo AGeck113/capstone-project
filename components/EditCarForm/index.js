@@ -26,7 +26,7 @@ const groups = [
   {
     id: 1,
     description: "Important data",
-    content: ["Make", "Model", "Milage", "Plate", "ImageUrl"],
+    content: ["Make", "Model", "Milage", "Plate", "ImageUrl", "VIN"],
   },
   {
     id: 2,
