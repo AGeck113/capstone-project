@@ -1,5 +1,7 @@
-import { userCar } from "@/pages";
+import { userCar, user } from "@/pages";
 import { useAtom } from "jotai";
+import { useEffect } from "react";
+import useSWR from "swr";
 
 const carPrototype = {
   VIN: "",
@@ -52,19 +54,14 @@ const groups = [
   },
 ];
 
-export default function EditCarForm({ onSubmit, form }) {
-  const [activeCar] = useAtom(userCar);
-  if (!activeCar) {
-    return <p>loading</p>;
-  }
-
+export default function EditCarForm({ onSubmit, form, activeCar }) {
   return (
     <form onSubmit={onSubmit}>
       {groups.map((group) => {
         return (
           <fieldset key={group.id}>
             <p>{group.headline}</p>
-            {Object.keys(activeCar).map((attribute, index) => {
+            {Object.keys(carPrototype).map((attribute, index) => {
               if (group.content.includes(attribute)) {
                 const attributeValue = carPrototype[attribute];
 

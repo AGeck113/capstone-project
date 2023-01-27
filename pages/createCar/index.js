@@ -111,7 +111,7 @@ export default function CreateCar() {
       <h2>Create your car manually:</h2>
       <EditCarForm
         onSubmit={handleSubmitForm}
-        carPrototype={carPrototype}
+        activeCar={activeCar}
         form={"create"}
       />
     </>
