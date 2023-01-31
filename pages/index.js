@@ -89,7 +89,6 @@ export default function HomePage() {
       <LinkContainer>
         <StyledLink href="/profile/">Profile</StyledLink>
         <StyledLink href={`/events/upcoming`}>Upcoming Appointments</StyledLink>
-
         <StyledLink href={`/events/latest`}>Latest Appointments</StyledLink>
         <StyledLink href={`/events/wishlist`}>Your Wishlist</StyledLink>
       </LinkContainer>
