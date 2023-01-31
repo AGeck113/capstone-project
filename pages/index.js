@@ -42,7 +42,7 @@ const CreateLink = styled(Link)`
   padding: 2rem;
   text-align: center;
 `;
-export const userCar = atomWithStorage("darkMode", true, {
+export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
 });
@@ -77,7 +77,6 @@ export default function HomePage() {
   return (
     <>
       <StyledH1>My Car</StyledH1>
-      {/* <Link href={`/profile/`}> */}
       <StyledImage
         alt="usercar"
         src={
@@ -87,7 +86,6 @@ export default function HomePage() {
         width={200}
         height={200}
       />
-      {/* </Link> */}
       <LinkContainer>
         <StyledLink href="/profile/">Profile</StyledLink>
         <StyledLink href={`/events/upcoming`}>Upcoming Appointments</StyledLink>
