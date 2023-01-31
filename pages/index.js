@@ -3,8 +3,49 @@ import Image from "next/image";
 import { atom, useAtom } from "jotai";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
+import { atomWithStorage, createJSONStorage } from "jotai/utils";
+import styled from "styled-components";
+const StyledH1 = styled.h1`
+  text-align: center;
+  padding: auto;
+  height: 3rem;
+`;
+const StyledImage = styled(Image)`
+  border-radius: 50%;
+  margin: 2rem auto;
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+`;
+const LinkContainer = styled.section`
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+`;
+const StyledLink = styled(Link)`
+  height: 7rem;
+  width: 90%;
+  background-color: #ccd9ff;
+  margin: 1rem auto;
+  padding-top: 3rem;
+  border-radius: 2rem;
+  text-align: center;
+`;
 
-export const userCar = atom();
+const CreateLink = styled(Link)`
+  display: flex;
+  width: fit-content;
+  height: 3rem;
+  background-color: #ccd9ff;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+`;
+export const userCar = atomWithStorage("darkMode", true, {
+  ...createJSONStorage(() => localStorage),
+  delayInit: true,
+});
 export const users = [
   {
     id: 1,
@@ -33,26 +74,28 @@ export default function HomePage() {
   if (!data) {
     return <p>loading</p>;
   }
-
   return (
     <>
-      <h1>My Car</h1>
+      <StyledH1>My Car</StyledH1>
+      {/* <Link href={`/profile/`}> */}
+      <StyledImage
+        alt="usercar"
+        src={
+          activeCar.ImageUrl ||
+          "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+        }
+        width={200}
+        height={200}
+      />
+      {/* </Link> */}
+      <LinkContainer>
+        <StyledLink href="/profile/">Profile</StyledLink>
+        <StyledLink href={`/events/upcoming`}>Upcoming Appointments</StyledLink>
 
-      <Link href={`/profile/`}>
-        <Image
-          alt="usercar"
-          src={
-            user.ImageUrl ||
-            "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
-          }
-          width={200}
-          height={200}
-        />
-      </Link>
-
-      <Link href="/profile/">Test Detail Page </Link>
-      <Link href="/createCar">Change car</Link>
-      <Link href="/upcomingEvents">Upcoming Events</Link>
+        <StyledLink href={`/events/latest`}>Latest Appointments</StyledLink>
+        <StyledLink href={`/events/wishlist`}>Your Wishlist</StyledLink>
+      </LinkContainer>
+      <CreateLink href="/createCar">Change car</CreateLink>
     </>
   );
 }
