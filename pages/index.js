@@ -74,6 +74,7 @@ export default function HomePage() {
   return (
     <>
       <StyledH1>My Car</StyledH1>
+
       <StyledImage
         alt="usercar"
         src={

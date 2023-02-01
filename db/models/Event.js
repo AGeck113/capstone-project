@@ -7,7 +7,7 @@ const eventSchema = new Schema({
   description: { type: String, required: true },
   title: { type: String, required: true },
   cost: { type: Number },
-  priority: { type: Number },
+  priority: { type: String },
   date: { type: String },
   type: { type: String },
 });

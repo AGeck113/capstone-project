@@ -1,29 +1,61 @@
-export default function AddEventForm({ onSubmit }) {
+export default function AddEventForm({ onSubmit, appointment }) {
   return (
     <form onSubmit={onSubmit}>
       <p>Please fill in the form:</p>
+      {appointment ? (
+        <label>
+          Type:
+          <select name="type" defaultValue={appointment.type}>
+            <option value="wishlist">Wishlist</option>
+            <option value="latest">Latest</option>
+            <option value="upcoming">Upcoming</option>
+          </select>
+        </label>
+      ) : null}
       <label>
-        Title:<input type="text" name="title"></input>
+        Title:
+        <input
+          type="text"
+          name="title"
+          defaultValue={appointment ? appointment.title : null}
+        ></input>
       </label>
       <label>
-        Description:<input type="textarea" name="description"></input>
+        Description:
+        <input
+          type="textarea"
+          name="description"
+          defaultValue={appointment ? appointment.description : null}
+        ></input>
       </label>
       <label>
         Cost:
-        <input type="number" name="cost"></input>€
+        <input
+          type="number"
+          name="cost"
+          defaultValue={appointment ? appointment.cost : null}
+        ></input>
+        €
       </label>
       <label>
         Priority:
-        <select name="priority">
-          <option value={1}>1 (Not important)</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5 (very important)</option>
+        <select
+          name="priority"
+          defaultValue={appointment ? appointment.priority : null}
+        >
+          <option value="Not important"> Not important</option>
+          <option value="Medium important">Medium important</option>
+          <option value="Very important">Very important</option>
         </select>
       </label>
       <label>
-        Date: <input type="date" name="date"></input>
+        Date:{" "}
+        <input
+          type="date"
+          name="date"
+          defaultValue={appointment ? appointment.date : null}
+          required
+        ></input>
       </label>
       <button type="submit">Submit</button>
     </form>
