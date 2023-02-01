@@ -12,17 +12,33 @@ export default function EventsPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [activeCar] = useAtom(userCar);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     const newEvent = { ...data, vin: activeCar.VIN, type: type };
     console.log(newEvent);
+    try {
+      const response = await fetch("/api/events", {
+        method: "POST",
+        body: JSON.stringify(newEvent),
+        headers: { "Content-type": "application/json" },
+      });
+      if (response.ok) {
+        event.target.reset();
+        setIsEditing(false);
+        router.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <>
       <Link href="/">Home</Link>
-      <h1>Your {type} Appointments</h1>
+      <h1>
+        Your {type} {type === "wishlist" ? null : "Appointments"}
+      </h1>
       <button
         onClick={() => {
           setIsEditing(!isEditing);
