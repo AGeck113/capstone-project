@@ -68,7 +68,7 @@ export default function CarDetails() {
           <Image
             alt="usercar"
             src={
-              activeCar.imageUrl ||
+              activeCar.ImageUrl ||
               "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
             }
             width={200}
