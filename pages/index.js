@@ -71,9 +71,6 @@ export default function HomePage() {
     }
   }, [data]);
 
-  if (!data) {
-    return <p>loading</p>;
-  }
   return (
     <>
       <StyledH1>My Car</StyledH1>
