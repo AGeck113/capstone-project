@@ -21,8 +21,6 @@ export default function EventList({ type }) {
 
   return (
     <>
-      <Link href="/">Home</Link>
-      <h1>Your {type} Events</h1>
       <ul>
         {filteredAppointments.map((appointment) => {
           cost += appointment.cost;
