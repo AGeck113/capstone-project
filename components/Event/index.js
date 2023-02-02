@@ -18,16 +18,19 @@ const Title = styled.p`
   text-align: center;
   margin-bottom 0.4rem;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  overflow-wrap: break-word;
+
 `;
 const Date = styled.p`
   align-self: flex-start;
   padding-left: 1rem;
 `;
 const Description = styled.p`
+  overflow-wrap: break-word;
   background-color: lightgray;
-  height: 5rem;
-  width: 80%;
+  height: fit-content;
+  width: 15rem;
 `;
 
 export default function EventCard({ appointment }) {
