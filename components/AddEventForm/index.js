@@ -15,6 +15,8 @@ export default function AddEventForm({ onSubmit, appointment }) {
       <label>
         Title:
         <input
+          required
+          maxLength={50}
           type="text"
           name="title"
           defaultValue={appointment ? appointment.title : null}
@@ -23,6 +25,8 @@ export default function AddEventForm({ onSubmit, appointment }) {
       <label>
         Description:
         <input
+          required
+          maxLength={500}
           type="textarea"
           name="description"
           defaultValue={appointment ? appointment.description : null}
@@ -31,6 +35,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
       <label>
         Cost:
         <input
+          required
           type="number"
           name="cost"
           defaultValue={appointment ? appointment.cost : null}
@@ -41,6 +46,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
         Priority:
         <select
           name="priority"
+          required
           defaultValue={appointment ? appointment.priority : null}
         >
           <option value="Not important"> Not important</option>
