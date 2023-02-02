@@ -1,38 +1,43 @@
 import { userCar } from "@/pages";
 import { useAtom } from "jotai";
 import Link from "next/link";
+import styled from "styled-components";
 import useSWR from "swr";
 import EventCard from "../Event";
 
+const EventContainer = styled.ul`
+  position: relative;
+  list-style: none;
+  display: grid;
+  margin: 1rem auto;
+`;
 export default function EventList({ type }) {
   const [activeCar] = useAtom(userCar);
 
-  const { data, isLoading } = useSWR(`/api/events/${activeCar.VIN}`);
+  const { data, isLoading } = useSWR(`/api/events/`);
 
   if (isLoading) {
     return <p>loading</p>;
   }
 
   const filteredAppointments = data.filter((appointment) => {
-    return appointment.type === type;
+    return appointment.type === type && appointment.vin === activeCar.VIN;
   });
 
   let cost = 0;
 
   return (
     <>
-      <Link href="/">Home</Link>
-      <h1>Your {type} Events</h1>
-      <ul>
+      <EventContainer>
         {filteredAppointments.map((appointment) => {
           cost += appointment.cost;
           return (
-            <li key={appointment.id}>
-              <EventCard event={appointment} />
+            <li key={appointment._id}>
+              <EventCard appointment={appointment} />
             </li>
           );
         })}
-      </ul>
+      </EventContainer>
       <p>
         The cost of your {type} {type === "wishlist" ? "is" : "appointments"}:{" "}
         {cost}€

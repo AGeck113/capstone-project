@@ -74,6 +74,13 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
                       <input
                         name={attribute}
                         type={type}
+                        maxLength={
+                          attribute === "ImageUrl"
+                            ? null
+                            : type === "text"
+                            ? "17"
+                            : null
+                        }
                         defaultValue={
                           form === "edit" ? activeCar[attribute] : null
                         }
