@@ -17,7 +17,6 @@ export default function EventsPage() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     const newEvent = { ...data, vin: activeCar.VIN, type: type };
-    console.log(newEvent);
     try {
       const response = await fetch("/api/events", {
         method: "POST",
