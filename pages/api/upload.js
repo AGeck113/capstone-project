@@ -42,7 +42,6 @@ export default async function handler(request, response) {
       const result = await cloudinary.v2.uploader.upload(imageFile.filepath, {
         public_id: imageFile.newFilename,
       });
-      console.log("URL:", result.url);
       response.status(201).json(result.url);
       break;
 
