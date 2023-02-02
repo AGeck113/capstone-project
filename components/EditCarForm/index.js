@@ -84,7 +84,11 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
                             : null
                         }
                         defaultValue={
-                          form === "edit" ? activeCar[attribute] : null
+                          attribute === "ImageUrl"
+                            ? null
+                            : form === "edit"
+                            ? activeCar[attribute]
+                            : null
                         }
                       ></input>
                     </label>
