@@ -69,7 +69,17 @@ export default function CreateCar() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const newCar = { ...carPrototype, ...data, UserId: user.id };
+    const response = await fetch(`/api/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    const imageUrl = await response.json();
+    const newCar = {
+      ...carPrototype,
+      ...data,
+      UserId: user.id,
+      ImageUrl: imageUrl,
+    };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
         method: "PUT",

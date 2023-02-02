@@ -72,8 +72,10 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
                     <label>
                       {attribute}:
                       <input
-                        name={attribute}
-                        type={type}
+                        name={
+                          attribute === "ImageUrl" ? "imageFile" : attribute
+                        }
+                        type={attribute === "ImageUrl" ? "file" : type}
                         maxLength={
                           attribute === "ImageUrl"
                             ? null

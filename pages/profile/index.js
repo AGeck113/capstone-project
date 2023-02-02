@@ -25,15 +25,20 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const newCar = { ...data, UserId: user.id };
+    const response = await fetch(`/api/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    const imageUrl = await response.json();
+    const newCar = { ...data, UserId: user.id, ImageUrl: imageUrl };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
         method: "PUT",
         body: JSON.stringify(newCar),
         headers: { "Content-type": "application/json" },
       });
-      setUser({ ...user, car: data.VIN });
       const responseCar = await response.json();
+      setUser({ ...user, car: data.VIN });
       setActiveCar(responseCar);
       setIsEditing(false);
       router.reload();
