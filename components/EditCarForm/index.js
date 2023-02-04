@@ -55,7 +55,6 @@ const groups = [
 ];
 function handleUploadFile(event) {
   event.preventDefault();
-  console.log(event.target.files[0].size);
   if (event.target.files[0].size > 10485760) {
     alert("Your picture is too big, Max 10 MB!");
   }
