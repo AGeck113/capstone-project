@@ -12,7 +12,7 @@ const carPrototype = {
   Model: "",
   Milage: 0,
   Plate: "",
-  ImageUrl: "",
+  ImageUrl: null,
   "Length (mm)": 0,
   "Height (mm)": 0,
   "Width (mm)": 0,
@@ -76,13 +76,8 @@ export default function CreateCar() {
         body: formData,
       });
       imageUrl = await response.json();
-    } else {
-      imageUrl = activeCar.ImageUrl;
     }
-    const response = await fetch(`/api/upload`, {
-      method: "POST",
-      body: formData,
-    });
+
     const newCar = {
       ...carPrototype,
       ...data,
@@ -97,7 +92,6 @@ export default function CreateCar() {
       });
       setUser({ ...user, car: data.VIN });
       const responseCar = await response.json();
-      console.log(responseCar);
       setActiveCar(responseCar);
       router.push(`/profile/`);
     } catch (error) {
