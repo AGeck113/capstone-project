@@ -55,7 +55,6 @@ export default function CarDetails() {
   if (!activeCar) {
     return <p>loading...</p>;
   }
-  console.log(activeCar.imageUrl);
 
   return (
     <>
