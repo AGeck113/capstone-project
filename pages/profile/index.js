@@ -82,7 +82,7 @@ export default function CarDetails() {
                 name="imageFile"
                 required
                 onChange={handleUploadFile}
-              ></input>
+              />
             </label>
             <button type="submit">Submit</button>
           </form>
