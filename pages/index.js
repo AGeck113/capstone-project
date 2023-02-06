@@ -11,9 +11,10 @@ const StyledH1 = styled.h1`
   height: 3rem;
 `;
 const StyledImage = styled(Image)`
+  object-fit: cover;
   border-radius: 50%;
   margin: 2rem auto;
-  width: 15rem;
+  width: 90%;
   height: 15rem;
   display: flex;
 `;
