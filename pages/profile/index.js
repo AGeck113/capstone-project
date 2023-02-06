@@ -12,7 +12,6 @@ export default function CarDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const { data } = useSWR(`/api/userCars/${user.id}`);
   const router = useRouter();
-  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
     setActiveCar(data);
@@ -93,7 +92,7 @@ export default function CarDetails() {
             </label>
             <button type="submit">Submit</button>
           </form>
-          {isUpdated ? <p>update succesfull!</p> : null}
+
           <EditCarForm
             activeCar={activeCar}
             onSubmit={handleSubmit}
