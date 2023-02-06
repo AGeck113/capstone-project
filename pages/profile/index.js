@@ -58,9 +58,7 @@ export default function CarDetails() {
       body: formData,
     });
     const imageUrl = await response.json();
-    console.log(imageUrl);
     const newCar = { ...activeCar, ImageUrl: imageUrl };
-    console.log(newCar);
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
         method: "PUT",
@@ -89,6 +87,7 @@ export default function CarDetails() {
               <input
                 type="file"
                 name="imageFile"
+                required
                 onChange={handleUploadFile}
               ></input>
             </label>

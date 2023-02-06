@@ -52,12 +52,7 @@ const groups = [
     ],
   },
 ];
-function handleUploadFile(event) {
-  event.preventDefault();
-  if (event.target.files[0].size > 10485760) {
-    alert("Your picture is too big, Max 10 MB!");
-  }
-}
+
 export default function EditCarForm({ onSubmit, form, activeCar }) {
   return (
     <form onSubmit={onSubmit}>
