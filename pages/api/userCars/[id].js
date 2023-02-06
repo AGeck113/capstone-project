@@ -14,7 +14,6 @@ export default async function handler(request, response) {
     return response.status(200).json(carData);
   }
   if (request.method === "PUT") {
-    console.log("responseCar", request.body);
     const updatedCar = await UserCar.findOneAndUpdate(
       { UserId: id },
       {

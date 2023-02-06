@@ -53,7 +53,7 @@ const groups = [
   },
 ];
 
-export default function EditCarForm({ onSubmit, form, activeCar }) {
+export default function EditCarForm({ onSubmit, initialValues }) {
   return (
     <form onSubmit={onSubmit}>
       {groups.map((group) => {
@@ -75,18 +75,22 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
                           type="text"
                           maxLength="17"
                           defaultValue={
-                            form === "edit" ? activeCar[attribute] : null
+                            initialValues?.[attribute]
+                              ? initialValues[attribute]
+                              : null
                           }
-                        ></input>
+                        />
                       ) : (
                         <input
                           name={attribute}
                           type="number"
                           max={2000000}
                           defaultValue={
-                            form === "edit" ? activeCar[attribute] : null
+                            initialValues?.[attribute]
+                              ? initialValues[attribute]
+                              : null
                           }
-                        ></input>
+                        />
                       )}
                     </label>
                   </div>

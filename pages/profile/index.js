@@ -52,19 +52,14 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const response = await fetch(`/api/upload`, {
-      method: "POST",
-      body: formData,
-    });
-    const imageUrl = await response.json();
-    const newCar = { ...activeCar, ImageUrl: imageUrl };
     try {
-      const response = await fetch(`api/userCars/${user.id}`, {
-        method: "PUT",
-        body: JSON.stringify(newCar),
-        headers: { "Content-type": "application/json" },
+      const response = await fetch(`/api/upload/${user.id}`, {
+        method: "POST",
+        body: formData,
       });
+
       const responseCar = await response.json();
+      console.log(responseCar);
       setActiveCar(responseCar);
       router.reload();
     } catch (error) {
@@ -93,11 +88,7 @@ export default function CarDetails() {
             <button type="submit">Submit</button>
           </form>
 
-          <EditCarForm
-            activeCar={activeCar}
-            onSubmit={handleSubmit}
-            form={"edit"}
-          />
+          <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
         </>
       ) : (
         <>
