@@ -59,7 +59,6 @@ export default function CarDetails() {
       });
 
       const responseCar = await response.json();
-      console.log(responseCar);
       setActiveCar(responseCar);
       router.reload();
     } catch (error) {
