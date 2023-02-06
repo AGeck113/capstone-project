@@ -12,7 +12,7 @@ const carPrototype = {
   Model: "",
   Milage: 0,
   Plate: "",
-  ImageUrl: null,
+  ImageUrl: "",
   "Length (mm)": 0,
   "Height (mm)": 0,
   "Width (mm)": 0,
@@ -69,20 +69,12 @@ export default function CreateCar() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    let imageUrl;
-    if (data.imageUrl) {
-      const response = await fetch(`/api/upload`, {
-        method: "POST",
-        body: formData,
-      });
-      imageUrl = await response.json();
-    }
 
     const newCar = {
       ...carPrototype,
       ...data,
       UserId: user.id,
-      ImageUrl: imageUrl,
+      ImageUrl: null,
     };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {

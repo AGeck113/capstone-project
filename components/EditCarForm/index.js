@@ -9,7 +9,6 @@ const carPrototype = {
   Model: "",
   Milage: 0,
   Plate: "",
-  ImageUrl: "",
   "Length (mm)": 0,
   "Height (mm)": 0,
   "Width (mm)": 0,
@@ -26,7 +25,7 @@ const groups = [
   {
     id: 1,
     description: "Important data",
-    content: ["Make", "Model", "Milage", "Plate", "ImageUrl", "VIN"],
+    content: ["Make", "Model", "Milage", "Plate", "VIN"],
   },
   {
     id: 2,
@@ -77,27 +76,12 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
                     <label>
                       {attribute}:
                       <input
-                        name={
-                          attribute === "ImageUrl" ? "imageFile" : attribute
-                        }
-                        type={attribute === "ImageUrl" ? "file" : type}
-                        onChange={
-                          attribute === "ImageUrl" ? handleUploadFile : null
-                        }
+                        name={attribute}
+                        type={type}
                         max={type === "number" ? 2000000 : null}
-                        maxLength={
-                          attribute === "ImageUrl"
-                            ? null
-                            : type === "text"
-                            ? "17"
-                            : null
-                        }
+                        maxLength={type === "text" ? "17" : null}
                         defaultValue={
-                          attribute === "ImageUrl"
-                            ? null
-                            : form === "edit"
-                            ? activeCar[attribute]
-                            : null
+                          form === "edit" ? activeCar[attribute] : null
                         }
                       ></input>
                     </label>

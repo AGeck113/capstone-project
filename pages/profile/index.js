@@ -12,6 +12,7 @@ export default function CarDetails() {
   const [isEditing, setIsEditing] = useState(false);
   const { data } = useSWR(`/api/userCars/${user.id}`);
   const router = useRouter();
+  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
     setActiveCar(data);
@@ -25,17 +26,8 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    let imageUrl;
-    if (data.imageUrl) {
-      const response = await fetch(`/api/upload`, {
-        method: "POST",
-        body: formData,
-      });
-      imageUrl = await response.json();
-    } else {
-      imageUrl = activeCar.ImageUrl;
-    }
-    const newCar = { ...data, UserId: user.id, ImageUrl: imageUrl };
+
+    const newCar = { ...data, UserId: user.id };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
         method: "PUT",
@@ -51,7 +43,37 @@ export default function CarDetails() {
       console.error(error);
     }
   }
-
+  function handleUploadFile(event) {
+    event.preventDefault();
+    if (event.target.files[0].size > 10485760) {
+      alert("Your picture is too big, Max 10 MB!");
+    }
+  }
+  async function handleSubmitPicture(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    const response = await fetch(`/api/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    const imageUrl = await response.json();
+    console.log(imageUrl);
+    const newCar = { ...activeCar, ImageUrl: imageUrl };
+    console.log(newCar);
+    try {
+      const response = await fetch(`api/userCars/${user.id}`, {
+        method: "PUT",
+        body: JSON.stringify(newCar),
+        headers: { "Content-type": "application/json" },
+      });
+      const responseCar = await response.json();
+      setActiveCar(responseCar);
+      router.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  }
   if (!activeCar) {
     return <p>loading...</p>;
   }
@@ -60,11 +82,25 @@ export default function CarDetails() {
     <>
       <Link href="/">Home</Link>
       {isEditing ? (
-        <EditCarForm
-          activeCar={activeCar}
-          onSubmit={handleSubmit}
-          form={"edit"}
-        />
+        <>
+          <form onSubmit={handleSubmitPicture}>
+            <label>
+              Update your picture!
+              <input
+                type="file"
+                name="imageFile"
+                onChange={handleUploadFile}
+              ></input>
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+          {isUpdated ? <p>update succesfull!</p> : null}
+          <EditCarForm
+            activeCar={activeCar}
+            onSubmit={handleSubmit}
+            form={"edit"}
+          />
+        </>
       ) : (
         <>
           <button
