@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
