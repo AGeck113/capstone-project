@@ -63,22 +63,31 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
             {Object.keys(carPrototype).map((attribute, index) => {
               if (group.content.includes(attribute)) {
                 const attributeValue = carPrototype[attribute];
-
                 const type =
                   typeof attributeValue === "string" ? "text" : "number";
                 return (
                   <div key={group.id + index}>
                     <label>
                       {attribute}:
-                      <input
-                        name={attribute}
-                        type={type}
-                        max={type === "number" ? 2000000 : null}
-                        maxLength={type === "text" ? "17" : null}
-                        defaultValue={
-                          form === "edit" ? activeCar[attribute] : null
-                        }
-                      ></input>
+                      {type === "text" ? (
+                        <input
+                          name={attribute}
+                          type="text"
+                          maxLength="17"
+                          defaultValue={
+                            form === "edit" ? activeCar[attribute] : null
+                          }
+                        ></input>
+                      ) : (
+                        <input
+                          name={attribute}
+                          type="number"
+                          max={2000000}
+                          defaultValue={
+                            form === "edit" ? activeCar[attribute] : null
+                          }
+                        ></input>
+                      )}
                     </label>
                   </div>
                 );
