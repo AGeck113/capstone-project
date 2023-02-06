@@ -84,7 +84,7 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
                         onChange={
                           attribute === "ImageUrl" ? handleUploadFile : null
                         }
-                        max={type === "number" ? 2000000 : null}
+                        // max={type === "number" ? 2000000 : null}
                         maxLength={
                           attribute === "ImageUrl"
                             ? null

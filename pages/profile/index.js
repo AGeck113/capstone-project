@@ -25,11 +25,16 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const response = await fetch(`/api/upload`, {
-      method: "POST",
-      body: formData,
-    });
-    const imageUrl = await response.json();
+    let imageUrl;
+    if (data.imageUrl) {
+      const response = await fetch(`/api/upload`, {
+        method: "POST",
+        body: formData,
+      });
+      imageUrl = await response.json();
+    } else {
+      imageUrl = activeCar.ImageUrl;
+    }
     const newCar = { ...data, UserId: user.id, ImageUrl: imageUrl };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
