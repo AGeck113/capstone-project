@@ -9,7 +9,6 @@ export default function Details({
   onSubmitForm,
   onSubmitNotes,
 }) {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState("notes");
   const [isEditing, setIsEditing] = useState(false);
 
