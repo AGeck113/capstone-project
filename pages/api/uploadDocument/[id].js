@@ -47,10 +47,8 @@ export default async function handler(request, response) {
           public_id: documentFile.newFilename,
         }
       );
-      // const updatedAppointment = await Appointment.findOneAndUpdate(id, {
-      //   documents: { url: result.url, title: files.fields.title },
-      // });
-      const updatedAppointment = await Appointment.findOneAndUpdate(id, {
+
+      const updatedAppointment = await Appointment.findByIdAndUpdate(id, {
         $push: { documents: { title: files.fields.title, url: result.url } },
       });
 
