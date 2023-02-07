@@ -6,7 +6,6 @@ export default function Details({ appointment }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("notes");
   const [isEditing, setIsEditing] = useState(false);
-  console.log(appointment);
   async function handleSubmitNotes(event) {
     event.preventDefault();
     const notes = event.target.elements.notes.value;
@@ -79,7 +78,17 @@ export default function Details({ appointment }) {
               <p>{appointment.notes}</p>
             </article>
           )
-        ) : null}
+        ) : isEditing === true ? null : (
+          <ul>
+            {appointment.documents.length < 1 ? (
+              <p>No Documents found!</p>
+            ) : (
+              appointment.documents.map((appointment) => {
+                return <li key={nanoid()}>{appointment}</li>;
+              })
+            )}
+          </ul>
+        )}
       </section>
     </>
   );
