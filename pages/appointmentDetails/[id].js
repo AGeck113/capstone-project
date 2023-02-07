@@ -35,7 +35,6 @@ export default function EventDetailPage() {
       });
       if (response.ok) {
         const result = await response.json();
-        console.log("result", result);
         router.reload();
       }
     } catch (error) {
