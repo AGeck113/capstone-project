@@ -7,7 +7,7 @@ export default function EventDetailPage() {
   const router = useRouter();
   const { id } = router.query;
   const { data, isLoading } = useSWR(id ? `/api/appointments/${id}` : null);
-  console.log("data", data);
+
   async function handleSubmitNotes(event) {
     event.preventDefault();
     const notes = event.target.elements.notes.value;
@@ -42,7 +42,20 @@ export default function EventDetailPage() {
       console.error(error);
     }
   }
-
+  async function handleDelete(id) {
+    try {
+      const response = await fetch(`/api/documents/`, {
+        method: "PATCH",
+        body: id,
+      });
+      if (response.ok) {
+        const result = await response.json();
+        router.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   if (isLoading) {
     return <p>loading</p>;
   }
@@ -54,6 +67,7 @@ export default function EventDetailPage() {
       <Details
         onSubmitNotes={handleSubmitNotes}
         onSubmitForm={handleSubmitForm}
+        onDelete={handleDelete}
         appointment={data}
       />
     </>

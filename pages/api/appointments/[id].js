@@ -14,6 +14,7 @@ export default async function handler(request, response) {
     }
     return response.status(200).json({ status: "Appointment updated" });
   }
+
   if (request.method === "PATCH") {
     const updatedAppointment = await Appointment.findByIdAndUpdate(id, {
       notes: request.body,
@@ -23,6 +24,7 @@ export default async function handler(request, response) {
     }
     return response.status(201).json(updatedAppointment);
   }
+
   if (request.method === "DELETE") {
     const appointment = await Appointment.findByIdAndDelete(id);
 
@@ -32,6 +34,7 @@ export default async function handler(request, response) {
 
     response.status(200).json(appointment);
   }
+
   if (request.method === "GET") {
     const appointmentData = await Appointment.findById(id);
     if (!appointmentData) {

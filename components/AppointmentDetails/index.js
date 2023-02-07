@@ -3,7 +3,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function Details({ appointment, onSubmitForm, onSubmitNotes }) {
+export default function Details({
+  appointment,
+  onDelete,
+  onSubmitForm,
+  onSubmitNotes,
+}) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("notes");
   const [isEditing, setIsEditing] = useState(false);
@@ -63,7 +68,7 @@ export default function Details({ appointment, onSubmitForm, onSubmitNotes }) {
                   setIsEditing(true);
                 }}
               >
-                Edit
+                Edit Notes
               </button>
               <p>{appointment.notes}</p>
             </article>
@@ -95,6 +100,14 @@ export default function Details({ appointment, onSubmitForm, onSubmitNotes }) {
                   return (
                     <li key={nanoid()}>
                       <Link href={document.url}>{document.title}</Link>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onDelete(document._id);
+                        }}
+                      >
+                        <span aria-label="Delete"> ❌</span>
+                      </button>
                     </li>
                   );
                 })
@@ -106,7 +119,7 @@ export default function Details({ appointment, onSubmitForm, onSubmitNotes }) {
                 setIsEditing(true);
               }}
             >
-              Edit
+              Save new File
             </button>
           </>
         )}
