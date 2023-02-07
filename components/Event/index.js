@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -36,10 +37,11 @@ const Description = styled.p`
 export default function EventCard({ appointment }) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [details, setDetails] = useState();
 
   async function handleDelete() {
     try {
-      const response = await fetch(`/api/events/${appointment._id}`, {
+      const response = await fetch(`/api/appointments/${appointment._id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -61,7 +63,7 @@ export default function EventCard({ appointment }) {
       vin: appointment.vin,
     };
     try {
-      const response = await fetch(`/api/events/${appointment._id}`, {
+      const response = await fetch(`/api/appointments/${appointment._id}`, {
         method: "PUT",
         body: JSON.stringify(updatedEvent),
         headers: { "Content-type": "application/json" },
@@ -93,15 +95,16 @@ export default function EventCard({ appointment }) {
           </button>
           <AddEventForm onSubmit={handleSubmit} appointment={appointment} />
         </>
-      ) : (
+      ) : appointment ? (
         <>
           <Title>{appointment.title}</Title>
           <Date>Date: {appointment.date}</Date>
           <Description>{appointment.description}</Description>
           <p>Cost: {appointment.cost} €</p>
           <p>Priority: {appointment.priority}</p>
+          <Link href={`/appointmentDetails/${appointment._id}`}>details</Link>
         </>
-      )}
+      ) : null}
     </EventContainer>
   );
 }
