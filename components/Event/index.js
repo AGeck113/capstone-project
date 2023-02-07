@@ -37,7 +37,6 @@ const Description = styled.p`
 export default function EventCard({ appointment }) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
-  const [details, setDetails] = useState();
 
   async function handleDelete() {
     try {
@@ -102,7 +101,6 @@ export default function EventCard({ appointment }) {
           <Description>{appointment.description}</Description>
           <p>Cost: {appointment.cost} €</p>
           <p>Priority: {appointment.priority}</p>
-          <Link href={`/appointmentDetails/${appointment._id}`}>details</Link>
         </>
       ) : null}
     </EventContainer>
