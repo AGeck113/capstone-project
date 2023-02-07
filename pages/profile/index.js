@@ -25,6 +25,7 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+
     const newCar = { ...data, UserId: user.id };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
@@ -32,8 +33,8 @@ export default function CarDetails() {
         body: JSON.stringify(newCar),
         headers: { "Content-type": "application/json" },
       });
-      setUser({ ...user, car: data.VIN });
       const responseCar = await response.json();
+      setUser({ ...user, car: data.VIN });
       setActiveCar(responseCar);
       setIsEditing(false);
       router.reload();
@@ -41,7 +42,29 @@ export default function CarDetails() {
       console.error(error);
     }
   }
+  function handleUploadFile(event) {
+    event.preventDefault();
+    if (event.target.files[0].size > 10485760) {
+      alert("Your picture is too big, Max 10 MB!");
+    }
+  }
+  async function handleSubmitPicture(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    try {
+      const response = await fetch(`/api/upload/${user.id}`, {
+        method: "POST",
+        body: formData,
+      });
 
+      const responseCar = await response.json();
+      setActiveCar(responseCar);
+      router.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  }
   if (!activeCar) {
     return <p>loading...</p>;
   }
@@ -50,11 +73,22 @@ export default function CarDetails() {
     <>
       <Link href="/">Home</Link>
       {isEditing ? (
-        <EditCarForm
-          activeCar={activeCar}
-          onSubmit={handleSubmit}
-          form={"edit"}
-        />
+        <>
+          <form onSubmit={handleSubmitPicture}>
+            <label>
+              Update your picture!
+              <input
+                type="file"
+                name="imageFile"
+                required
+                onChange={handleUploadFile}
+              />
+            </label>
+            <button type="submit">Submit</button>
+          </form>
+
+          <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
+        </>
       ) : (
         <>
           <button

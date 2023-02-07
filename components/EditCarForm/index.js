@@ -9,7 +9,6 @@ const carPrototype = {
   Model: "",
   Milage: 0,
   Plate: "",
-  ImageUrl: "",
   "Length (mm)": 0,
   "Height (mm)": 0,
   "Width (mm)": 0,
@@ -26,7 +25,7 @@ const groups = [
   {
     id: 1,
     description: "Important data",
-    content: ["Make", "Model", "Milage", "Plate", "ImageUrl", "VIN"],
+    content: ["Make", "Model", "Milage", "Plate", "VIN"],
   },
   {
     id: 2,
@@ -54,7 +53,7 @@ const groups = [
   },
 ];
 
-export default function EditCarForm({ onSubmit, form, activeCar }) {
+export default function EditCarForm({ onSubmit, initialValues }) {
   return (
     <form onSubmit={onSubmit}>
       {groups.map((group) => {
@@ -64,27 +63,35 @@ export default function EditCarForm({ onSubmit, form, activeCar }) {
             {Object.keys(carPrototype).map((attribute, index) => {
               if (group.content.includes(attribute)) {
                 const attributeValue = carPrototype[attribute];
-
                 const type =
                   typeof attributeValue === "string" ? "text" : "number";
                 return (
                   <div key={group.id + index}>
                     <label>
                       {attribute}:
-                      <input
-                        name={attribute}
-                        type={type}
-                        maxLength={
-                          attribute === "ImageUrl"
-                            ? null
-                            : type === "text"
-                            ? "17"
-                            : null
-                        }
-                        defaultValue={
-                          form === "edit" ? activeCar[attribute] : null
-                        }
-                      ></input>
+                      {type === "text" ? (
+                        <input
+                          name={attribute}
+                          type="text"
+                          maxLength="17"
+                          defaultValue={
+                            initialValues?.[attribute]
+                              ? initialValues[attribute]
+                              : null
+                          }
+                        />
+                      ) : (
+                        <input
+                          name={attribute}
+                          type="number"
+                          max={2000000}
+                          defaultValue={
+                            initialValues?.[attribute]
+                              ? initialValues[attribute]
+                              : null
+                          }
+                        />
+                      )}
                     </label>
                   </div>
                 );

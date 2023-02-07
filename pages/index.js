@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
@@ -11,9 +11,10 @@ const StyledH1 = styled.h1`
   height: 3rem;
 `;
 const StyledImage = styled(Image)`
+  object-fit: cover;
   border-radius: 50%;
   margin: 2rem auto;
-  width: 15rem;
+  width: 90%;
   height: 15rem;
   display: flex;
 `;

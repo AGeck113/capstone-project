@@ -69,7 +69,13 @@ export default function CreateCar() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const newCar = { ...carPrototype, ...data, UserId: user.id };
+
+    const newCar = {
+      ...carPrototype,
+      ...data,
+      UserId: user.id,
+      ImageUrl: null,
+    };
     try {
       const response = await fetch(`api/userCars/${user.id}`, {
         method: "PUT",
@@ -78,7 +84,6 @@ export default function CreateCar() {
       });
       setUser({ ...user, car: data.VIN });
       const responseCar = await response.json();
-      console.log(responseCar);
       setActiveCar(responseCar);
       router.push(`/profile/`);
     } catch (error) {
@@ -109,11 +114,7 @@ export default function CreateCar() {
         </p>
       ) : null}
       <h2>Create your car manually:</h2>
-      <EditCarForm
-        onSubmit={handleSubmitForm}
-        activeCar={activeCar}
-        form={"create"}
-      />
+      <EditCarForm onSubmit={handleSubmitForm} />
     </>
   );
 }
