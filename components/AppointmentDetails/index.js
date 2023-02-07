@@ -1,13 +1,33 @@
 import { nanoid } from "nanoid";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Details({ appointment }) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("notes");
   const [isEditing, setIsEditing] = useState(false);
   console.log(appointment);
-  function handleSubmit(event) {
+  async function handleSubmitNotes(event) {
     event.preventDefault();
-    setIsEditing(false);
+    const notes = event.target.elements.notes.value;
+    try {
+      const response = await fetch(`/api/appointments/${appointment._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(notes),
+        headers: { "Content-type": "application/json" },
+      });
+      if (response.ok) {
+        console.log("RESPONSE:", response);
+        event.target.reset();
+        setIsEditing(false);
+        router.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  if (!appointment) {
+    return <p>loading</p>;
   }
   return (
     <>
@@ -33,7 +53,7 @@ export default function Details({ appointment }) {
       <section>
         {activeTab === "notes" ? (
           isEditing === true ? (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmitNotes}>
               <h2>Notes</h2>
               <label>
                 Your Notes:
@@ -56,6 +76,7 @@ export default function Details({ appointment }) {
               >
                 Edit
               </button>
+              <p>{appointment.notes}</p>
             </article>
           )
         ) : null}

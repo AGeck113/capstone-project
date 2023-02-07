@@ -14,6 +14,15 @@ export default async function handler(request, response) {
     }
     return response.status(200).json({ status: "Appointment updated" });
   }
+  if (request.method === "PATCH") {
+    const updatedAppointment = await Appointment.findByIdAndUpdate(id, {
+      notes: request.body,
+    });
+    if (!updatedAppointment) {
+      return response.status(404).json({ status: "Not Found" });
+    }
+    return response.status(201).json(updatedAppointment);
+  }
   if (request.method === "DELETE") {
     const appointment = await Appointment.findByIdAndDelete(id);
 
