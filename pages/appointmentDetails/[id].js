@@ -1,4 +1,5 @@
 import EventCard from "@/components/Event";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Details from "../../components/AppointmentDetails";
@@ -6,6 +7,41 @@ export default function EventDetailPage() {
   const router = useRouter();
   const { id } = router.query;
   const { data, isLoading } = useSWR(id ? `/api/appointments/${id}` : null);
+  console.log("data", data);
+  async function handleSubmitNotes(event) {
+    event.preventDefault();
+    const notes = event.target.elements.notes.value;
+    try {
+      const response = await fetch(`/api/appointments/${data._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(notes),
+        headers: { "Content-type": "application/json" },
+      });
+      if (response.ok) {
+        router.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleSubmitForm(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    try {
+      const response = await fetch(`/api/uploadDocument/${data._id}`, {
+        method: "PATCH",
+        body: formData,
+      });
+      if (response.ok) {
+        const result = await response.json();
+        console.log("result", result);
+        router.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   if (isLoading) {
     return <p>loading</p>;
@@ -13,8 +49,13 @@ export default function EventDetailPage() {
 
   return (
     <>
+      <Link href="/">Home</Link>
       <EventCard appointment={data} />
-      <Details appointment={data} />
+      <Details
+        onSubmitNotes={handleSubmitNotes}
+        onSubmitForm={handleSubmitForm}
+        appointment={data}
+      />
     </>
   );
 }

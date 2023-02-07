@@ -10,7 +10,7 @@ const appointmentSchema = new Schema({
   priority: { type: String },
   date: { type: String },
   type: { type: String },
-  documents: { type: [String], default: undefined },
+  documents: [{ title: { type: String }, url: { type: String } }],
   notes: { type: String },
 });
 

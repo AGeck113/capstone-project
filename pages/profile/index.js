@@ -53,7 +53,7 @@ export default function CarDetails() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     try {
-      const response = await fetch(`/api/upload/${user.id}`, {
+      const response = await fetch(`/api/uploadPicture/${user.id}`, {
         method: "POST",
         body: formData,
       });

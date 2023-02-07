@@ -14,7 +14,7 @@ const EventContainer = styled.ul`
 export default function EventList({ type }) {
   const [activeCar] = useAtom(userCar);
 
-  const { data, isLoading } = useSWR(`/api/events/`);
+  const { data, isLoading } = useSWR(`/api/appointments/`);
 
   if (isLoading) {
     return <p>loading</p>;

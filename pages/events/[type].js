@@ -21,10 +21,10 @@ export default function EventsPage() {
       vin: activeCar.VIN,
       type: type,
       documents: [],
-      notes: "",
+      notes: "You can take notes here!",
     };
     try {
-      const response = await fetch("/api/events", {
+      const response = await fetch("/api/appointments", {
         method: "POST",
         body: JSON.stringify(newEvent),
         headers: { "Content-type": "application/json" },

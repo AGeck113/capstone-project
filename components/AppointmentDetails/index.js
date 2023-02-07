@@ -1,33 +1,23 @@
 import { nanoid } from "nanoid";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function Details({ appointment }) {
+export default function Details({ appointment, onSubmitForm, onSubmitNotes }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("notes");
   const [isEditing, setIsEditing] = useState(false);
-  async function handleSubmitNotes(event) {
-    event.preventDefault();
-    const notes = event.target.elements.notes.value;
-    try {
-      const response = await fetch(`/api/appointments/${appointment._id}`, {
-        method: "PATCH",
-        body: JSON.stringify(notes),
-        headers: { "Content-type": "application/json" },
-      });
-      if (response.ok) {
-        console.log("RESPONSE:", response);
-        event.target.reset();
-        setIsEditing(false);
-        router.reload();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
+
   if (!appointment) {
     return <p>loading</p>;
   }
+  function handleSelectFile(event) {
+    event.preventDefault();
+    if (event.target.files[0].size > 10485760) {
+      alert("Your picture is too big, Max 10 MB!");
+    }
+  }
+
   return (
     <>
       <button
@@ -52,7 +42,7 @@ export default function Details({ appointment }) {
       <section>
         {activeTab === "notes" ? (
           isEditing === true ? (
-            <form onSubmit={handleSubmitNotes}>
+            <form onSubmit={onSubmitNotes}>
               <h2>Notes</h2>
               <label>
                 Your Notes:
@@ -78,16 +68,47 @@ export default function Details({ appointment }) {
               <p>{appointment.notes}</p>
             </article>
           )
-        ) : isEditing === true ? null : (
-          <ul>
-            {appointment.documents.length < 1 ? (
-              <p>No Documents found!</p>
-            ) : (
-              appointment.documents.map((appointment) => {
-                return <li key={nanoid()}>{appointment}</li>;
-              })
-            )}
-          </ul>
+        ) : isEditing === true ? (
+          <form onSubmit={onSubmitForm}>
+            <label>
+              Upload Document
+              <input
+                type="file"
+                name="documentFile"
+                onChange={handleSelectFile}
+                required
+              />
+            </label>
+            <label>
+              Name:
+              <input type="text" name="title" required />
+            </label>
+            <button type="submit">save</button>
+          </form>
+        ) : (
+          <>
+            <ul>
+              {appointment.documents.length === 0 ? (
+                <p>No Documents found!</p>
+              ) : (
+                appointment.documents.map((document) => {
+                  return (
+                    <li key={nanoid()}>
+                      <Link href={document.url}>{document.title}</Link>
+                    </li>
+                  );
+                })
+              )}
+            </ul>
+            <button
+              type="button"
+              onClick={() => {
+                setIsEditing(true);
+              }}
+            >
+              Edit
+            </button>
+          </>
         )}
       </section>
     </>
