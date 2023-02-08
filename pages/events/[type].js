@@ -11,7 +11,15 @@ export default function EventsPage() {
   const { type } = router.query;
   const [isEditing, setIsEditing] = useState(false);
   const [activeCar] = useAtom(userCar);
-
+  const types = ["upcoming", "latest", "wishlist"];
+  if (!types.includes(type)) {
+    return (
+      <>
+        <p>Sorry, something went wrong!</p>
+        <Link href="/">Back to the Homepage</Link>
+      </>
+    );
+  }
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);

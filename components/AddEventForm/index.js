@@ -57,7 +57,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
         </select>
       </label>
       <label>
-        Date:{" "}
+        Date:
         <input
           type="date"
           name="date"

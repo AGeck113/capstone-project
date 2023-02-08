@@ -84,7 +84,7 @@ export default function CarDetails() {
                 onChange={handleUploadFile}
               />
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit">Submit new Picture</button>
           </form>
 
           <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
