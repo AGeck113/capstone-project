@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function Details({

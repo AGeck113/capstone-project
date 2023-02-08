@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function AddEventForm({ onSubmit, appointment }) {
@@ -13,19 +14,41 @@ export default function AddEventForm({ onSubmit, appointment }) {
     margin: 1rem auto;
     padding 1rem 1rem;
   `;
+
   return (
     <StyledForm onSubmit={onSubmit}>
       <p>Please fill in the form:</p>
       {appointment ? (
         <label>
           Type:
-          <select name="type" defaultValue={appointment.type}>
+          <select
+            name="type"
+            onChange={(event) => {
+              handleChangeType(event);
+            }}
+            defaultValue={appointment.type}
+          >
             <option value="wishlist">Wishlist</option>
             <option value="latest">Latest</option>
             <option value="upcoming">Upcoming</option>
           </select>
         </label>
-      ) : null}
+      ) : (
+        <label>
+          Type:
+          <select
+            name="type"
+            onChange={(event) => {
+              handleChangeType(event);
+            }}
+            defaultValue={"wishlist"}
+          >
+            <option value="wishlist">Wishlist</option>
+            <option value="latest">Latest</option>
+            <option value="upcoming">Upcoming</option>
+          </select>
+        </label>
+      )}
       <label>
         Title:
         <input
@@ -71,17 +94,19 @@ export default function AddEventForm({ onSubmit, appointment }) {
           <option value="Very important">Very important</option>
         </select>
       </label>
+
       <label>
         Date:
         <input
           type="date"
           name="date"
           defaultValue={appointment ? appointment.date : null}
-          required
+          required={type === "wishlist" ? true : false}
           min="2020-01-01"
           max="2030-12-31"
         ></input>
       </label>
+
       <button type="submit">Submit</button>
     </StyledForm>
   );

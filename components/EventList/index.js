@@ -43,7 +43,10 @@ export default function EventList({ type }) {
       </EventContainer>
       <p>
         The cost of your {type} {type === "wishlist" ? "is" : "appointments"}:{" "}
-        {cost}€
+        {new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR",
+        }).format(cost)}
       </p>
     </>
   );
