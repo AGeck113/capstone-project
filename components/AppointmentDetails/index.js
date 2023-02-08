@@ -105,7 +105,7 @@ export default function Details({
                           onDelete(document._id);
                         }}
                       >
-                        <span aria-label="Delete"> ❌</span>
+                        <span aria-label="Delete">❌</span>
                       </button>
                     </li>
                   );
