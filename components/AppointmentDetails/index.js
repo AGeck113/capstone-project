@@ -1,6 +1,20 @@
 import { nanoid } from "nanoid";
 import Link from "next/link";
 import { useState } from "react";
+import styled from "styled-components";
+
+const StyledNotes = styled.p`
+  overflow-wrap: break-word;
+  background-color: lightyellow;
+  height: fit-content;
+  width: 80%;
+`;
+const StyledContainer = styled.article`
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+`;
 
 export default function Details({
   appointment,
@@ -59,7 +73,7 @@ export default function Details({
               <button type="submit">Save</button>
             </form>
           ) : (
-            <article>
+            <StyledContainer>
               <button
                 type="button"
                 onClick={() => {
@@ -68,8 +82,8 @@ export default function Details({
               >
                 Edit Notes
               </button>
-              <p>{appointment.notes}</p>
-            </article>
+              <StyledNotes>{appointment.notes}</StyledNotes>
+            </StyledContainer>
           )
         ) : isEditing === true ? (
           <form onSubmit={onSubmitForm}>
