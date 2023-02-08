@@ -1,6 +1,20 @@
+import styled from "styled-components";
+
 export default function AddEventForm({ onSubmit, appointment }) {
+  const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    width: 95%;
+    font-size: 1.2rem;
+    align-items: center;
+    border-radius: 2rem;
+    background-color: #ccd9ff;
+    margin: 1rem auto;
+    padding 1rem 1rem;
+  `;
   return (
-    <form onSubmit={onSubmit}>
+    <StyledForm onSubmit={onSubmit}>
       <p>Please fill in the form:</p>
       {appointment ? (
         <label>
@@ -24,13 +38,14 @@ export default function AddEventForm({ onSubmit, appointment }) {
       </label>
       <label>
         Description:
-        <input
+        <textarea
           required
           maxLength={300}
-          type="textarea"
+          rows={10}
+          type="text"
           name="description"
           defaultValue={appointment ? appointment.description : null}
-        ></input>
+        ></textarea>
       </label>
       <label>
         Cost:
@@ -63,9 +78,11 @@ export default function AddEventForm({ onSubmit, appointment }) {
           name="date"
           defaultValue={appointment ? appointment.date : null}
           required
+          min="2020-01-01"
+          max="2030-12-31"
         ></input>
       </label>
       <button type="submit">Submit</button>
-    </form>
+    </StyledForm>
   );
 }
