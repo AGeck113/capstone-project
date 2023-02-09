@@ -11,14 +11,29 @@ export default function EventsPage() {
   const { type } = router.query;
   const [isEditing, setIsEditing] = useState(false);
   const [activeCar] = useAtom(userCar);
-
+  const types = ["upcoming", "latest", "wishlist"];
+  if (!types.includes(type)) {
+    return (
+      <>
+        <p>Sorry, something went wrong!</p>
+        <Link href="/">Back to the Homepage</Link>
+      </>
+    );
+  }
   async function handleSubmit(event) {
     event.preventDefault();
+
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    const newEvent = { ...data, vin: activeCar.VIN, type: type };
+    const newEvent = {
+      ...data,
+      vin: activeCar.VIN,
+      type: type,
+      documents: [],
+      notes: "You can take notes here!",
+    };
     try {
-      const response = await fetch("/api/events", {
+      const response = await fetch("/api/appointments", {
         method: "POST",
         body: JSON.stringify(newEvent),
         headers: { "Content-type": "application/json" },

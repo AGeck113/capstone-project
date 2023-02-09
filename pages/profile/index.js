@@ -53,7 +53,7 @@ export default function CarDetails() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     try {
-      const response = await fetch(`/api/upload/${user.id}`, {
+      const response = await fetch(`/api/uploadPicture/${user.id}`, {
         method: "POST",
         body: formData,
       });
@@ -84,7 +84,7 @@ export default function CarDetails() {
                 onChange={handleUploadFile}
               />
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit">Submit new Picture</button>
           </form>
 
           <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />

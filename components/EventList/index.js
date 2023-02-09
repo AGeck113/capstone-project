@@ -14,7 +14,7 @@ const EventContainer = styled.ul`
 export default function EventList({ type }) {
   const [activeCar] = useAtom(userCar);
 
-  const { data, isLoading } = useSWR(`/api/events/`);
+  const { data, isLoading } = useSWR(`/api/appointments/`);
 
   if (isLoading) {
     return <p>loading</p>;
@@ -34,13 +34,19 @@ export default function EventList({ type }) {
           return (
             <li key={appointment._id}>
               <EventCard appointment={appointment} />
+              <Link href={`/appointmentDetails/${appointment._id}`}>
+                details
+              </Link>
             </li>
           );
         })}
       </EventContainer>
       <p>
         The cost of your {type} {type === "wishlist" ? "is" : "appointments"}:{" "}
-        {cost}€
+        {new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR",
+        }).format(cost)}
       </p>
     </>
   );

@@ -39,7 +39,7 @@ export default function EventCard({ appointment }) {
 
   async function handleDelete() {
     try {
-      const response = await fetch(`/api/events/${appointment._id}`, {
+      const response = await fetch(`/api/appointments/${appointment._id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -61,7 +61,7 @@ export default function EventCard({ appointment }) {
       vin: appointment.vin,
     };
     try {
-      const response = await fetch(`/api/events/${appointment._id}`, {
+      const response = await fetch(`/api/appointments/${appointment._id}`, {
         method: "PUT",
         body: JSON.stringify(updatedEvent),
         headers: { "Content-type": "application/json" },
@@ -93,15 +93,21 @@ export default function EventCard({ appointment }) {
           </button>
           <AddEventForm onSubmit={handleSubmit} appointment={appointment} />
         </>
-      ) : (
+      ) : appointment ? (
         <>
           <Title>{appointment.title}</Title>
           <Date>Date: {appointment.date}</Date>
           <Description>{appointment.description}</Description>
-          <p>Cost: {appointment.cost} €</p>
+          <p>
+            Cost:{" "}
+            {new Intl.NumberFormat("de-DE", {
+              style: "currency",
+              currency: "EUR",
+            }).format(appointment.cost)}
+          </p>
           <p>Priority: {appointment.priority}</p>
         </>
-      )}
+      ) : null}
     </EventContainer>
   );
 }
