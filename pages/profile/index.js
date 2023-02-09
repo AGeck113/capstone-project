@@ -71,7 +71,6 @@ export default function CarDetails() {
 
   return (
     <>
-      <Link href="/">Home</Link>
       {isEditing ? (
         <>
           <form onSubmit={handleSubmitPicture}>

@@ -13,7 +13,15 @@ const StyledMapContainer = styled(MapContainer)`
   margin 2rem auto 1rem 3.4rem;
   border-radius: 2rem;
 `;
-
+const StyledDescription = styled.p`
+  overflow-wrap: break-word;
+  height: fit-content;
+  width: 15rem;
+  background-color: hsla(0, 0%, 100%, 0.22);
+  border: 3px solid black;
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+`;
 const eventIcon = new L.Icon({
   iconUrl:
     "https://res.cloudinary.com/dkvlwgih8/image/upload/v1675440482/26f62233d376b22537234a811.png",
@@ -23,7 +31,20 @@ const eventIcon = new L.Icon({
   popupAnchor: [20, -34],
   shadowSize: [41, 41],
 });
-
+const StyledDetails = styled.article`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85vw;
+  margin: 1rem auto 1rem 3.4rem;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  color: lightgray;
+  border-radius: 2rem;
+`;
+const StyledHeadline = styled.h3`
+  padding: 0.5rem 1rem;
+  border-bottom: 2px solid lightgray;
+`;
 const markers = [
   {
     id: 1,
@@ -94,15 +115,15 @@ export default function Map() {
         <LocationMarker />
       </StyledMapContainer>
       {selectedEvent ? (
-        <article>
-          <h2>{selectedEvent.name}</h2>
+        <StyledDetails>
+          <StyledHeadline>{selectedEvent.name}</StyledHeadline>
+          <StyledDescription>{selectedEvent.description}</StyledDescription>
           <Link
             href={`https://maps.google.com/?q=${selectedEvent.lat},${selectedEvent.long}`}
           >
             Open on Google Maps
           </Link>
-          <p>{selectedEvent.description}</p>
-        </article>
+        </StyledDetails>
       ) : null}
     </>
   );

@@ -62,7 +62,6 @@ export default function EventDetailPage() {
 
   return (
     <>
-      <Link href="/">Home</Link>
       <EventCard appointment={data} />
       <Details
         onSubmitNotes={handleSubmitNotes}

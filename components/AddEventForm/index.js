@@ -3,16 +3,16 @@ import styled from "styled-components";
 
 export default function AddEventForm({ onSubmit, appointment }) {
   const StyledForm = styled.form`
+    width: 80%;
+    margin: 1rem auto 1rem 3.4rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
-    width: 95%;
-    font-size: 1.2rem;
-    align-items: center;
+    background-color: hsla(0, 0%, 4%, 0.64);
+    color: lightgray;
     border-radius: 2rem;
-    background-color: #ccd9ff;
-    margin: 1rem auto;
-    padding 1rem 1rem;
+  `;
+  const StyledSubmitButton = styled.button`
+    width: 3rem;
   `;
 
   return (
@@ -107,7 +107,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
         ></input>
       </label>
 
-      <button type="submit">Submit</button>
+      <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
     </StyledForm>
   );
 }

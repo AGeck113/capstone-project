@@ -5,25 +5,30 @@ import { useAtom } from "jotai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import styled from "styled-components";
 import { userCar } from "..";
 
+const StyledHeadline = styled.h2`
+  font-size: 1.8rem;
+  color: lightgray;
+  margin 0.5rem auto 2rem auto;
+  text-align: center
+`;
+const StyledContent = styled.section``;
+const StyledAddButton = styled.button`
+  border-radius: 999px;
+  background-color: limegreen;
+  position: absolute;
+  z-index: 10;
+`;
 export default function EventsPage() {
   const router = useRouter();
   const { type } = router.query;
   const [isEditing, setIsEditing] = useState(false);
   const [activeCar] = useAtom(userCar);
-  const types = ["upcoming", "latest", "wishlist"];
-  if (!types.includes(type)) {
-    return (
-      <>
-        <p>Sorry, something went wrong!</p>
-        <Link href="/">Back to the Homepage</Link>
-      </>
-    );
-  }
+
   async function handleSubmit(event) {
     event.preventDefault();
-
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
     const newEvent = {
@@ -31,7 +36,7 @@ export default function EventsPage() {
       vin: activeCar.VIN,
       type: type,
       documents: [],
-      notes: "You can take notes here!",
+      notes: "",
     };
     try {
       const response = await fetch("/api/appointments", {
@@ -50,17 +55,17 @@ export default function EventsPage() {
   }
   return (
     <>
-      <Link href="/">Home</Link>
-      <h1>
+      <StyledHeadline>
         Your {type} {type === "wishlist" ? null : "Appointments"}
-      </h1>
-      <button
+      </StyledHeadline>
+
+      <StyledAddButton
         onClick={() => {
           setIsEditing(!isEditing);
         }}
       >
-        <SVGIcon variant="add" width="40px" />
-      </button>
+        <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
+      </StyledAddButton>
       {isEditing ? <AddEventForm onSubmit={handleSubmit} /> : null}
       <EventList type={type} />
     </>
