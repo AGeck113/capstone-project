@@ -6,7 +6,6 @@ export default function EventMap() {
 
   return (
     <>
-      <Link href="/">Home</Link>
       <Map />
     </>
   );

@@ -124,7 +124,7 @@ export default function EventCard({ appointment }) {
             }).format(appointment.cost)}
           </p>
           <p>Priority: {appointment.priority}</p>
-          <Link href={`/appointmentsDetails/${appointment._id}`}>details</Link>
+          <Link href={`/appointmentDetails/${appointment._id}`}>details</Link>
         </>
       ) : null}
     </EventContainer>

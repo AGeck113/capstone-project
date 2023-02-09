@@ -6,10 +6,12 @@ import "leaflet-defaulticon-compatibility";
 import LocationMarker from "./LocationMarker";
 import * as L from "leaflet";
 import { useState } from "react";
+import Link from "next/link";
 const StyledMapContainer = styled(MapContainer)`
-  width: 70vw;
-  height: 50vh;
-  margin 2rem auto;
+    width: 75vw;
+    height: 50vh;
+    margin 2rem auto;
+  
 `;
 
 const eventIcon = new L.Icon({
@@ -23,13 +25,44 @@ const eventIcon = new L.Icon({
 });
 
 const markers = [
-  { id: 1, name: "Tuning World Bodensee", lat: 47.677, long: 9.508 },
-  { id: 2, name: "Essen Motor Show", lat: 51.429, long: 6.995 },
+  {
+    id: 1,
+    name: "Tuning World Bodensee",
+    lat: 47.677,
+    long: 9.508,
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+  {
+    id: 2,
+    name: "Essen Motor Show",
+    lat: 51.429,
+    long: 6.995,
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+  {
+    id: 3,
+    name: "US Car Treffen",
+    lat: 50.54,
+    long: 7.432,
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+  {
+    id: 4,
+    name: "Cars and Coffe",
+    lat: 48.54,
+    long: 8.432,
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
 ];
 export default function Map() {
-  const [selectedEvent, setSelectedEvent] = useState({});
+  const [selectedEvent, setSelectedEvent] = useState(false);
   return (
     <>
+      <h2>Find events for your tour!</h2>
       <StyledMapContainer center={[48.521, 9.057]} zoom={8} scrollWheelZoom>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -60,9 +93,17 @@ export default function Map() {
         })}
         <LocationMarker />
       </StyledMapContainer>
-      <article>
-        <h2>{selectedEvent.name}</h2>
-      </article>
+      {selectedEvent ? (
+        <article>
+          <h2>{selectedEvent.name}</h2>
+          <Link
+            href={`https://maps.google.com/?q=${selectedEvent.lat},${selectedEvent.long}`}
+          >
+            Open on Google Maps
+          </Link>
+          <p>{selectedEvent.description}</p>
+        </article>
+      ) : null}
     </>
   );
 }

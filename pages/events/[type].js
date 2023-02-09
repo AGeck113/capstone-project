@@ -1,5 +1,6 @@
 import AddEventForm from "@/components/AddEventForm";
 import EventList from "@/components/EventList";
+import SVGIcon from "@/components/Icons";
 import { useAtom } from "jotai";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -58,7 +59,7 @@ export default function EventsPage() {
           setIsEditing(!isEditing);
         }}
       >
-        Add Appointment
+        <SVGIcon variant="add" width="40px" />
       </button>
       {isEditing ? <AddEventForm onSubmit={handleSubmit} /> : null}
       <EventList type={type} />

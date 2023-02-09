@@ -34,9 +34,6 @@ export default function EventList({ type }) {
           return (
             <li key={appointment._id}>
               <EventCard appointment={appointment} />
-              <Link href={`/appointmentDetails/${appointment._id}`}>
-                details
-              </Link>
             </li>
           );
         })}
