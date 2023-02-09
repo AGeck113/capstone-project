@@ -72,7 +72,11 @@ export default function EditCarForm({ onSubmit, initialValues }) {
                       {attribute}:
                       {type === "text" ? (
                         <input
-                          required={attribute === "Make" || "Model"}
+                          // required={selectedType === "wishlist" ? false : true}
+
+                          required={
+                            attribute === "Make" || attribute === "Model"
+                          }
                           name={attribute}
                           type="text"
                           maxLength="17"
