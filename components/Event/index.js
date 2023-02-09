@@ -58,6 +58,10 @@ export default function EventCard({ appointment }) {
   const [isEditing, setIsEditing] = useState(false);
 
   async function handleDelete() {
+    const sure = confirm("Do you really want to delete the document?");
+    if (!sure) {
+      return;
+    }
     try {
       const response = await fetch(`/api/appointments/${appointment._id}`, {
         method: "DELETE",
