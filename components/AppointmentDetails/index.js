@@ -59,7 +59,12 @@ export default function Details({
       <section>
         {activeTab === "notes" ? (
           isEditing === true ? (
-            <form onSubmit={onSubmitNotes}>
+            <form
+              onSubmit={(event) => {
+                onSubmitNotes(event);
+                setIsEditing(false);
+              }}
+            >
               <h2>Notes</h2>
               <label>
                 Your Notes:
@@ -86,7 +91,12 @@ export default function Details({
             </StyledContainer>
           )
         ) : isEditing === true ? (
-          <form onSubmit={onSubmitForm}>
+          <form
+            onSubmit={(event) => {
+              onSubmitForm(event);
+              setIsEditing(false);
+            }}
+          >
             <label>
               Upload Document
               <input
@@ -106,7 +116,7 @@ export default function Details({
           <>
             <ul>
               {appointment.documents.length === 0 ? (
-                <p>No Documents found!</p>
+                <li>No Documents found!</li>
               ) : (
                 appointment.documents.map((document) => {
                   return (

@@ -5,8 +5,11 @@ import useSWR from "swr";
 import Details from "../../components/AppointmentDetails";
 export default function EventDetailPage() {
   const router = useRouter();
+
   const { id } = router.query;
-  const { data, isLoading } = useSWR(id ? `/api/appointments/${id}` : null);
+  const { data, isLoading, mutate } = useSWR(
+    id ? `/api/appointments/${id}` : null
+  );
 
   async function handleSubmitNotes(event) {
     event.preventDefault();
@@ -18,7 +21,7 @@ export default function EventDetailPage() {
         headers: { "Content-type": "application/json" },
       });
       if (response.ok) {
-        router.reload();
+        mutate();
       }
     } catch (error) {
       console.error(error);
@@ -34,8 +37,7 @@ export default function EventDetailPage() {
         body: formData,
       });
       if (response.ok) {
-        const result = await response.json();
-        router.reload();
+        mutate();
       }
     } catch (error) {
       console.error(error);
@@ -48,8 +50,7 @@ export default function EventDetailPage() {
         body: id,
       });
       if (response.ok) {
-        const result = await response.json();
-        router.reload();
+        mutate();
       }
     } catch (error) {
       console.error(error);

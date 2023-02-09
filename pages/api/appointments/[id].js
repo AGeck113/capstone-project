@@ -32,7 +32,7 @@ export default async function handler(request, response) {
       return response.status(404).json({ status: "Not Found" });
     }
 
-    response.status(200).json(appointment);
+    return response.status(200).json(appointment);
   }
 
   if (request.method === "GET") {
@@ -40,6 +40,6 @@ export default async function handler(request, response) {
     if (!appointmentData) {
       return response.status(404).json({ status: "Not Found" });
     }
-    response.status(200).json(appointmentData);
+    return response.status(200).json(appointmentData);
   }
 }
