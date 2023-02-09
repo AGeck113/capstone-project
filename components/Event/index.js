@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import AddEventForm from "../AddEventForm";
-import SVGIcon from "../Icons";
 
 const EventContainer = styled.article`
   border: 2px solid black;
@@ -12,45 +10,27 @@ const EventContainer = styled.article`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: hsla(0, 0%, 4%, 0.64);
+  background-color: #ccd9ff;
   border-radius: 2rem;
-  position: relative;
-  color: lightgray;
-  max-width: 300px;
 `;
 const Title = styled.p`
-  width: 90%;
+  width: 80%;
   text-align: center;
+  margin-bottom 0.4rem;
   font-weight: bold;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   overflow-wrap: break-word;
+
 `;
 const Date = styled.p`
   align-self: flex-start;
   padding-left: 1rem;
 `;
-const StyledDescription = styled.p`
+const Description = styled.p`
   overflow-wrap: break-word;
+  background-color: lightgray;
   height: fit-content;
   width: 15rem;
-  background-color: hsla(0, 0%, 100%, 0.22);
-  border: 3px solid black;
-  border-radius: 1rem;
-  padding: 1rem 1rem;
-`;
-const StyledEditButton = styled.button`
-  position: absolute;
-  top: -1.2rem;
-  right: 2.5rem;
-  background-color: hsla(34, 93%, 52%, 0.89);
-  border-radius: 999px;
-`;
-const StyledDeleteButton = styled.button`
-  position: absolute;
-  top: -1.2rem;
-  right: -0.4rem;
-  background-color: hsla(0, 93%, 40%, 0.89);
-  border-radius: 999px;
 `;
 
 export default function EventCard({ appointment }) {
@@ -98,24 +78,26 @@ export default function EventCard({ appointment }) {
   }
   return (
     <EventContainer>
-      <StyledEditButton
+      <button
         type="button"
         onClick={() => {
           setIsEditing(!isEditing);
         }}
       >
-        <SVGIcon variant="edit" width="30px" />
-      </StyledEditButton>
-      <StyledDeleteButton type="button" onClick={handleDelete}>
-        <SVGIcon variant="delete" width="30px" />
-      </StyledDeleteButton>
+        Edit
+      </button>
       {isEditing ? (
-        <AddEventForm onSubmit={handleSubmit} appointment={appointment} />
+        <>
+          <button type="button" onClick={handleDelete}>
+            Delete
+          </button>
+          <AddEventForm onSubmit={handleSubmit} appointment={appointment} />
+        </>
       ) : appointment ? (
         <>
           <Title>{appointment.title}</Title>
           <Date>Date: {appointment.date}</Date>
-          <StyledDescription>{appointment.description}</StyledDescription>
+          <Description>{appointment.description}</Description>
           <p>
             Cost:{" "}
             {new Intl.NumberFormat("de-DE", {
@@ -124,7 +106,6 @@ export default function EventCard({ appointment }) {
             }).format(appointment.cost)}
           </p>
           <p>Priority: {appointment.priority}</p>
-          <Link href={`/appointmentsDetails/${appointment._id}`}>details</Link>
         </>
       ) : null}
     </EventContainer>

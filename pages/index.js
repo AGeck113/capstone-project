@@ -5,14 +5,16 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
-import StyledLink from "@/components/Links/StyledLink";
-import SVGIcon from "@/components/Icons";
-
+const StyledH1 = styled.h1`
+  text-align: center;
+  padding: auto;
+  height: 3rem;
+`;
 const StyledImage = styled(Image)`
+  object-fit: cover;
   border-radius: 50%;
-  border: 3px solid darkgray;
   margin: 2rem auto;
-  width: 15rem;
+  width: 90%;
   height: 15rem;
   display: flex;
 `;
@@ -21,16 +23,20 @@ const LinkContainer = styled.section`
   justify-content: center;
   grid-template-columns: 1fr 1fr;
 `;
-const StyledParagraph = styled.p`
-  color: lightgray;
-  font-size: 1.2rem;
-  margin-top: 0.4rem;
-  fond-weight: bold;
+const StyledLink = styled(Link)`
+  height: 7rem;
+  width: 90%;
+  background-color: #ccd9ff;
+  margin: 1rem auto;
+  padding-top: 3rem;
+  border-radius: 2rem;
+  text-align: center;
 `;
+
 const CreateLink = styled(Link)`
   display: flex;
   width: fit-content;
-  height: fit-content;
+  height: 3rem;
   background-color: #ccd9ff;
   margin: 1rem auto;
   border-radius: 1rem;
@@ -70,6 +76,8 @@ export default function HomePage() {
 
   return (
     <>
+      <StyledH1>My Car</StyledH1>
+
       <StyledImage
         alt="usercar"
         src={
@@ -80,22 +88,10 @@ export default function HomePage() {
         height={200}
       />
       <LinkContainer>
-        <StyledLink href={`/events/latest`}>
-          <SVGIcon variant="last" width="4rem" />
-          <StyledParagraph>latest</StyledParagraph>
-        </StyledLink>
-        <StyledLink href={`/events/upcoming`}>
-          <SVGIcon variant="next" width="4rem" />
-          <StyledParagraph>Next</StyledParagraph>
-        </StyledLink>
-        <StyledLink href={`/events/wishlist`}>
-          <SVGIcon variant="wish" width="4rem" />
-          <StyledParagraph>Wishes</StyledParagraph>
-        </StyledLink>
-        <StyledLink href={`/map`}>
-          <SVGIcon variant="map" width="4rem" />
-          <StyledParagraph>Events</StyledParagraph>
-        </StyledLink>
+        <StyledLink href="/profile/">Profile</StyledLink>
+        <StyledLink href={`/events/upcoming`}>Upcoming Appointments</StyledLink>
+        <StyledLink href={`/events/latest`}>Latest Appointments</StyledLink>
+        <StyledLink href={`/events/wishlist`}>Your Wishlist</StyledLink>
       </LinkContainer>
       <CreateLink href="/createCar">Change car</CreateLink>
     </>
