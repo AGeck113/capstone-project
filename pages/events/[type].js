@@ -14,7 +14,6 @@ const StyledHeadline = styled.h2`
   margin 0.5rem auto 2rem auto;
   text-align: center
 `;
-const StyledContent = styled.section``;
 const StyledAddButton = styled.button`
   border-radius: 999px;
   background-color: limegreen;
@@ -66,7 +65,9 @@ export default function EventsPage() {
       >
         <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
       </StyledAddButton>
-      {isEditing ? <AddEventForm onSubmit={handleSubmit} /> : null}
+      {isEditing ? (
+        <AddEventForm onSubmit={handleSubmit} appointment={{ type: type }} />
+      ) : null}
       <EventList type={type} />
     </>
   );

@@ -10,7 +10,7 @@ export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [user, setUser] = useState(users[0]);
   const [isEditing, setIsEditing] = useState(false);
-  const { data } = useSWR(`/api/userCars/${user.id}`);
+  const { data, mutate } = useSWR(`/api/userCars/${user.id}`);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function CarDetails() {
       setUser({ ...user, car: data.VIN });
       setActiveCar(responseCar);
       setIsEditing(false);
-      router.reload();
+      mutate();
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +51,6 @@ export default function CarDetails() {
   async function handleSubmitPicture(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
     try {
       const response = await fetch(`/api/uploadPicture/${user.id}`, {
         method: "POST",

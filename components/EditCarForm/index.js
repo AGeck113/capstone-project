@@ -62,6 +62,7 @@ export default function EditCarForm({ onSubmit, initialValues }) {
             <p>{group.description}</p>
             {Object.keys(carPrototype).map((attribute, index) => {
               if (group.content.includes(attribute)) {
+                console.log(attribute);
                 const attributeValue = carPrototype[attribute];
                 const type =
                   typeof attributeValue === "string" ? "text" : "number";
