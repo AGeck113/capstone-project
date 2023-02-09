@@ -8,10 +8,10 @@ import * as L from "leaflet";
 import { useState } from "react";
 import Link from "next/link";
 const StyledMapContainer = styled(MapContainer)`
-    width: 75vw;
-    height: 50vh;
-    margin 2rem auto;
-  
+  width: 85vw;
+  height: 50vh;
+  margin 2rem auto 1rem 3.4rem;
+  border-radius: 2rem;
 `;
 
 const eventIcon = new L.Icon({
