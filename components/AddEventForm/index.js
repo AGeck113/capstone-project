@@ -102,7 +102,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
           type="date"
           name="date"
           defaultValue={appointment ? appointment.date : null}
-          required={!selectedType === "wishlist"}
+          required={selectedType === "wishlist" ? false : true}
           min="2020-01-01"
           max="2030-12-31"
         ></input>

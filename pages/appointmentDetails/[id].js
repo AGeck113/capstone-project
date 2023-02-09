@@ -44,6 +44,10 @@ export default function EventDetailPage() {
     }
   }
   async function handleDelete(id) {
+    const sure = confirm("Do you really want to delete the document?");
+    if (!sure) {
+      return;
+    }
     try {
       const response = await fetch(`/api/documents/`, {
         method: "PATCH",
