@@ -1,6 +1,12 @@
 import GlobalStyle from "@/styles";
 import Head from "next/head";
 import { SWRConfig } from "swr";
+import Header from "@/components/Header";
+import dynamic from "next/dynamic";
+
+const BGImage = dynamic(() => import("@/components/PageContainer"), {
+  ssr: false,
+});
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -23,12 +29,15 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Head>
-        <title>Capstone Project</title>
+        <title>My Car</title>
       </Head>
 
       <SWRConfig value={{ fetcher }}>
+        <Header />
+
         <Component {...pageProps} />
       </SWRConfig>
+      <BGImage />
     </>
   );
 }
