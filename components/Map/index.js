@@ -51,6 +51,14 @@ const StyledPageHeadline = styled.h2`
   background-color: hsla(0, 0%, 4%, 0.64);
   padding: 0.5rem 0.5rem;
 `;
+const StyledLink = styled(Link)`
+  background-color: lightgray;
+  padding: 0.5rem 0.5rem;
+  height: 2rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  margin: 0.5 auto;
+`;
 const markers = [
   {
     id: 1,
@@ -124,11 +132,11 @@ export default function Map() {
         <StyledDetails>
           <StyledHeadline>{selectedEvent.name}</StyledHeadline>
           <StyledDescription>{selectedEvent.description}</StyledDescription>
-          <Link
+          <StyledLink
             href={`https://maps.google.com/?q=${selectedEvent.lat},${selectedEvent.long}`}
           >
             Open on Google Maps
-          </Link>
+          </StyledLink>
         </StyledDetails>
       ) : null}
     </>
