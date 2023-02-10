@@ -42,27 +42,49 @@ export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
 });
-// export const users = [
-//   {
-//     id: 1,
-//     car: "WAUZZZ8V9LA015123",
-//     name: "User 1",
-//     ImageUrl:
-//       "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-//   },
-//   {
-//     id: 2,
-//     car: "WAUZZZ8V9LA015123",
-//     name: "User 2",
-//     ImageUrl:
-//       "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-//   },
-// ];
+
+const StyledLoginNote = styled.h2`
+  text-align: center;
+  padding: 1rem auto;
+`;
+const StyledAppDescription = styled.p`
+  overflow-wrap: break-word;
+  height: fit-content;
+  width: 15rem;
+  background-color: hsla(0, 0%, 100%, 0.22);
+  border: 3px solid black;
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+`;
+const StyledSingInButton = styled.button`
+  width: 12rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hsla(108, 89%, 33%, 0.87);
+  border-radius: 1rem;
+  padding: 0.5rem;
+`;
+const StyledLoginSection = styled.section`
+  border: 2px solid black;
+  margin: 5rem auto;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  border-radius: 1rem;
+  color: lightgray;
+  max-width: 300px;
+`;
+const StyledButtonDescription = styled.p`
+  color: lightgray;
+  font-size: 1.1rem;
+  font-weight: bold;
+`;
 export default function HomePage() {
   const { data: session } = useSession();
-
   const { data } = useSWR(session ? `/api/userCars/` : null);
-
   const [activeCar, setActiveCar] = useAtom(userCar);
 
   useEffect(() => {
@@ -105,11 +127,22 @@ export default function HomePage() {
           <CreateLink href="/createCar">Change car</CreateLink>
         </>
       ) : (
-        <>
-          <h1>Please Login to use the App</h1>
-
-          <button onClick={() => signIn()}>Sign In</button>
-        </>
+        <StyledLoginSection>
+          <StyledLoginNote>Please Login to use the App</StyledLoginNote>
+          <StyledAppDescription>
+            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
+            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+            Lorem ipsum dolor sit amet.
+          </StyledAppDescription>
+          <StyledSingInButton onClick={() => signIn()}>
+            <SVGIcon variant="github" width="40px" />
+            <StyledButtonDescription>
+              Sign In with GitHub
+            </StyledButtonDescription>
+          </StyledSingInButton>
+        </StyledLoginSection>
       )}
     </>
   );
