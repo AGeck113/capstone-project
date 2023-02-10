@@ -1,6 +1,7 @@
 import formidable from "formidable";
 import cloudinary from "cloudinary";
 import UserCar from "@/db/models/UserCar";
+import { getToken } from "next-auth/jwt";
 
 //copied function (parseAsync) from cloudinary workshop
 function parseAsync(request) {
@@ -36,25 +37,29 @@ cloudinary.config({
 
 export default async function handler(request, response) {
   const { id } = request.query;
-  switch (request.method) {
-    case "POST":
-      const files = await parseAsync(request);
-      const { imageFile } = files.files;
+  const token = await getToken({ req: request });
 
-      const result = await cloudinary.v2.uploader.upload(imageFile.filepath, {
-        public_id: imageFile.newFilename,
-      });
-      const updatedCar = await UserCar.findOneAndUpdate(
-        { UserId: id },
-        { ImageUrl: result.url }
-      );
-      if (!updatedCar) {
-        return response.status(404).json({ status: "Not Found" });
-      }
-      response.status(201).json(updatedCar);
-      break;
+  if (token) {
+    switch (request.method) {
+      case "POST":
+        const files = await parseAsync(request);
+        const { imageFile } = files.files;
 
-    default:
-      response.status(400).json({ message: "Method not implemented" });
+        const result = await cloudinary.v2.uploader.upload(imageFile.filepath, {
+          public_id: imageFile.newFilename,
+        });
+        const updatedCar = await UserCar.findOneAndUpdate(
+          { UserId: id },
+          { ImageUrl: result.url }
+        );
+        if (!updatedCar) {
+          return response.status(404).json({ status: "Not Found" });
+        }
+        response.status(201).json(updatedCar);
+        break;
+
+      default:
+        response.status(400).json({ message: "Method not implemented" });
+    }
   }
 }

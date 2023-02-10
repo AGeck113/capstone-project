@@ -32,7 +32,7 @@ export default function App({
     <>
       <GlobalStyle />
       <Head>
-        <title>Next Prototype</title>
+        <title>My Car</title>
       </Head>
 
       <SessionProvider session={session}>

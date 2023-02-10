@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Details from "../../components/AppointmentDetails";
+
 export default function EventDetailPage() {
   const router = useRouter();
 

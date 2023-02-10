@@ -4,8 +4,8 @@ import { getToken } from "next-auth/jwt";
 
 export default async function handler(request, response) {
   await dbConnect();
-  const token = await getToken({ req: request });
   const { id } = request.query;
+  const token = await getToken({ req: request });
   if (token) {
     if (request.method === "GET") {
       const carData = await UserCar.findOne({ UserId: id });

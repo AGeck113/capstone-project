@@ -60,7 +60,7 @@ export const users = [
 ];
 export default function HomePage() {
   const { data: session } = useSession();
-
+  console.log(session);
   const [user, setUser] = useState(users[0]);
   const { data } = useSWR(`/api/userCars/${user.id}`);
   const [activeCar, setActiveCar] = useAtom(userCar);
