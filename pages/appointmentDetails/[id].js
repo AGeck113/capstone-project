@@ -44,6 +44,10 @@ export default function EventDetailPage() {
     }
   }
   async function handleDelete(id) {
+    const sure = confirm("Do you really want to delete the document?");
+    if (!sure) {
+      return;
+    }
     try {
       const response = await fetch(`/api/documents/`, {
         method: "PATCH",
@@ -62,7 +66,6 @@ export default function EventDetailPage() {
 
   return (
     <>
-      <Link href="/">Home</Link>
       <EventCard appointment={data} />
       <Details
         onSubmitNotes={handleSubmitNotes}

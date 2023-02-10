@@ -93,8 +93,6 @@ export default function CreateCar() {
 
   return (
     <>
-      <Link href="/">Home</Link>
-      <Link href="/profile">Details</Link>
       <h1>Register your car!</h1>
       <form onSubmit={handleSubmitVin}>
         <label>

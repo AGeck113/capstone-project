@@ -5,16 +5,14 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
-const StyledH1 = styled.h1`
-  text-align: center;
-  padding: auto;
-  height: 3rem;
-`;
+import StyledLink from "@/components/Links/StyledLink";
+import SVGIcon from "@/components/Icons";
+
 const StyledImage = styled(Image)`
-  object-fit: cover;
   border-radius: 50%;
+  border: 3px solid darkgray;
   margin: 2rem auto;
-  width: 90%;
+  width: 15rem;
   height: 15rem;
   display: flex;
 `;
@@ -23,20 +21,16 @@ const LinkContainer = styled.section`
   justify-content: center;
   grid-template-columns: 1fr 1fr;
 `;
-const StyledLink = styled(Link)`
-  height: 7rem;
-  width: 90%;
-  background-color: #ccd9ff;
-  margin: 1rem auto;
-  padding-top: 3rem;
-  border-radius: 2rem;
-  text-align: center;
+const StyledParagraph = styled.p`
+  color: lightgray;
+  font-size: 1.2rem;
+  margin-top: 0.4rem;
+  fond-weight: bold;
 `;
-
 const CreateLink = styled(Link)`
   display: flex;
   width: fit-content;
-  height: 3rem;
+  height: fit-content;
   background-color: #ccd9ff;
   margin: 1rem auto;
   border-radius: 1rem;
@@ -58,7 +52,7 @@ export const users = [
   {
     id: 2,
     car: "WAUZZZ8V9LA015123",
-    name: "User 1",
+    name: "User 2",
     ImageUrl:
       "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
   },
@@ -76,8 +70,6 @@ export default function HomePage() {
 
   return (
     <>
-      <StyledH1>My Car</StyledH1>
-
       <StyledImage
         alt="usercar"
         src={
@@ -88,10 +80,22 @@ export default function HomePage() {
         height={200}
       />
       <LinkContainer>
-        <StyledLink href="/profile/">Profile</StyledLink>
-        <StyledLink href={`/events/upcoming`}>Upcoming Appointments</StyledLink>
-        <StyledLink href={`/events/latest`}>Latest Appointments</StyledLink>
-        <StyledLink href={`/events/wishlist`}>Your Wishlist</StyledLink>
+        <StyledLink href="/events/latest">
+          <SVGIcon variant="last" width="4rem" />
+          <StyledParagraph>latest</StyledParagraph>
+        </StyledLink>
+        <StyledLink href="/events/upcoming">
+          <SVGIcon variant="next" width="4rem" />
+          <StyledParagraph>Next</StyledParagraph>
+        </StyledLink>
+        <StyledLink href={"events/wishlist"}>
+          <SVGIcon variant="wish" width="4rem" />
+          <StyledParagraph>Wishes</StyledParagraph>
+        </StyledLink>
+        <StyledLink href="/map">
+          <SVGIcon variant="map" width="4rem" />
+          <StyledParagraph>Events</StyledParagraph>
+        </StyledLink>
       </LinkContainer>
       <CreateLink href="/createCar">Change car</CreateLink>
     </>

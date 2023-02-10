@@ -2,53 +2,51 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function AddEventForm({ onSubmit, appointment }) {
+  const [selectedType, setSelectedType] = useState();
+
   const StyledForm = styled.form`
+    width: 80%;
+    margin: 1rem auto 1rem 3.4rem;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
-    width: 95%;
-    font-size: 1.2rem;
-    align-items: center;
+    background-color: hsla(0, 0%, 4%, 0.64);
+    color: lightgray;
     border-radius: 2rem;
-    background-color: #ccd9ff;
-    margin: 1rem auto;
-    padding 1rem 1rem;
   `;
+  const StyledSubmitButton = styled.button`
+    width: 3rem;
+  `;
+  const StyledParagraph = styled.p`
+    align-self: center;
+    font-size: 1.4rem;
+  `;
+
+  function handleChangeType(event) {
+    event.preventDefault();
+    setSelectedType(event.target.value);
+    return true;
+  }
 
   return (
     <StyledForm onSubmit={onSubmit}>
-      <p>Please fill in the form:</p>
-      {appointment ? (
-        <label>
-          Type:
-          <select
-            name="type"
-            onChange={(event) => {
-              handleChangeType(event);
-            }}
-            defaultValue={appointment.type}
-          >
-            <option value="wishlist">Wishlist</option>
-            <option value="latest">Latest</option>
-            <option value="upcoming">Upcoming</option>
-          </select>
-        </label>
-      ) : (
-        <label>
-          Type:
-          <select
-            name="type"
-            onChange={(event) => {
-              handleChangeType(event);
-            }}
-            defaultValue={"wishlist"}
-          >
-            <option value="wishlist">Wishlist</option>
-            <option value="latest">Latest</option>
-            <option value="upcoming">Upcoming</option>
-          </select>
-        </label>
-      )}
+      <StyledParagraph>Please fill in the form:</StyledParagraph>
+
+      <label>
+        Type:
+        <select
+          name="type"
+          onChange={(event) => {
+            handleChangeType(event);
+            appointment.type = event.target.value;
+          }}
+          defaultValue={appointment.type}
+        >
+          <option value="wishlist">Wishlist</option>
+          <option value="latest">Latest</option>
+          <option value="upcoming">Upcoming</option>
+        </select>
+      </label>
+
       <label>
         Title:
         <input
@@ -101,13 +99,13 @@ export default function AddEventForm({ onSubmit, appointment }) {
           type="date"
           name="date"
           defaultValue={appointment ? appointment.date : null}
-          required
+          required={!(selectedType === "wishlist")}
           min="2020-01-01"
           max="2030-12-31"
-        ></input>
+        />
       </label>
 
-      <button type="submit">Submit</button>
+      <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
     </StyledForm>
   );
 }
