@@ -52,6 +52,14 @@ const StyledDeleteButton = styled.button`
   background-color: hsla(0, 93%, 40%, 0.89);
   border-radius: 999px;
 `;
+const StyledLink = styled(Link)`
+  background-color: lightgray;
+  padding: 0.5rem 0.5rem;
+  height: 2rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  margin: 0.5 auto;
+`;
 
 export default function EventCard({ appointment }) {
   const router = useRouter();
@@ -128,7 +136,9 @@ export default function EventCard({ appointment }) {
             }).format(appointment.cost)}
           </p>
           <p>Priority: {appointment.priority}</p>
-          <Link href={`/appointmentDetails/${appointment._id}`}>details</Link>
+          <StyledLink href={`/appointmentDetails/${appointment._id}`}>
+            details
+          </StyledLink>
         </>
       ) : null}
     </EventContainer>
