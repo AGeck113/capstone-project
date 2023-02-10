@@ -20,10 +20,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
     align-self: center;
     font-size: 1.4rem;
   `;
-  const StyledLabel = styled.label`
-    // color: red;
-    // border: 3px solid red;
-  `;
+
   function handleChangeType(event) {
     event.preventDefault();
     setSelectedType(event.target.value);
@@ -34,7 +31,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
     <StyledForm onSubmit={onSubmit}>
       <StyledParagraph>Please fill in the form:</StyledParagraph>
 
-      <StyledLabel>
+      <label>
         Type:
         <select
           name="type"
@@ -48,7 +45,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
           <option value="latest">Latest</option>
           <option value="upcoming">Upcoming</option>
         </select>
-      </StyledLabel>
+      </label>
 
       <label>
         Title:
