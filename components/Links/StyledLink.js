@@ -11,12 +11,5 @@ const StyledLink = styled(Link)`
   border: 1px solid black;
   text-align: center;
   text-decoration: none;
-  ${({ variant }) => {
-    if (variant === "test") {
-      return css`
-        background-color: black;
-      `;
-    }
-  }}
 `;
 export default StyledLink;

@@ -102,7 +102,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
           required={!(selectedType === "wishlist")}
           min="2020-01-01"
           max="2030-12-31"
-        ></input>
+        />
       </label>
 
       <StyledSubmitButton type="submit">Submit</StyledSubmitButton>
