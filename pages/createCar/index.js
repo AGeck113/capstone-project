@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import Link from "next/link.js";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { mutate } from "swr";
 import { userCar, users } from "../index.js";
 
 const carPrototype = {
@@ -73,16 +74,14 @@ export default function CreateCar() {
     const newCar = {
       ...carPrototype,
       ...data,
-      UserId: user.id,
       ImageUrl: null,
     };
     try {
-      const response = await fetch(`api/userCars/${user.id}`, {
-        method: "PUT",
+      const response = await fetch(`api/userCars/`, {
+        method: "POST",
         body: JSON.stringify(newCar),
         headers: { "Content-type": "application/json" },
       });
-      setUser({ ...user, car: data.VIN });
       const responseCar = await response.json();
       setActiveCar(responseCar);
       router.push(`/profile/`);

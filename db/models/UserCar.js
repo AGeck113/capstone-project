@@ -6,7 +6,7 @@ const userCarSchema = new Schema({
   VIN: { type: String, required: true },
   Make: { type: String, required: true },
   Model: { type: String, required: true },
-  UserId: { type: Number, required: true },
+  userId: { type: String, required: true },
   Milage: { type: Number },
   Plate: { type: String },
   ImageUrl: { type: String },

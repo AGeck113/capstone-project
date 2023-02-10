@@ -62,9 +62,8 @@ const StyledInformation = styled.p`
 `;
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
-  const [user, setUser] = useState(users[0]);
   const [isEditing, setIsEditing] = useState(false);
-  const { data, mutate } = useSWR(`/api/userCars/${user.id}`);
+  const { data, mutate } = useSWR(`/api/userCars/`);
   const router = useRouter();
 
   useEffect(() => {
@@ -80,15 +79,13 @@ export default function CarDetails() {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newCar = { ...data, UserId: user.id };
     try {
-      const response = await fetch(`api/userCars/${user.id}`, {
-        method: "PUT",
-        body: JSON.stringify(newCar),
+      const response = await fetch(`api/userCars/`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
         headers: { "Content-type": "application/json" },
       });
       const responseCar = await response.json();
-      setUser({ ...user, car: data.VIN });
       setActiveCar(responseCar);
       setIsEditing(false);
       mutate();
@@ -106,18 +103,33 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     try {
-      const response = await fetch(`/api/uploadPicture/${user.id}`, {
+      const response = await fetch(`/api/uploadPicture/`, {
         method: "POST",
         body: formData,
       });
-
       const responseCar = await response.json();
       setActiveCar(responseCar);
-      router.reload();
+      setIsEditing(false);
+      mutate();
     } catch (error) {
       console.error(error);
     }
   }
+
+  async function handleDelete() {
+    confirm(
+      "Are you sure, that you want to delete your car and all Appointments?"
+    );
+    try {
+      const response = await fetch(`/api/userCars/`, { method: "DELETE" });
+      if (response.ok) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   if (!activeCar) {
     return <p>loading...</p>;
   }
@@ -140,6 +152,9 @@ export default function CarDetails() {
           </form>
 
           <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
+          <button onClick={handleDelete} type="button">
+            DELETE CAR
+          </button>
         </>
       ) : (
         <>

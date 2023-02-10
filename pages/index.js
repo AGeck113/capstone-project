@@ -60,13 +60,9 @@ export const userCar = atomWithStorage("userCar", true, {
 // ];
 export default function HomePage() {
   const { data: session } = useSession();
-  console.log(session);
-  // const [user, setUser] = useState(users[0]);
-  // const { data } = useSWR(`/api/userCars/${user.id}`);
-  const { data, error } = useSWR(`/api/userCars/`);
-  console.log("DATA", data);
 
-  //new
+  const { data } = useSWR(session ? `/api/userCars/` : null);
+
   const [activeCar, setActiveCar] = useAtom(userCar);
 
   useEffect(() => {
@@ -74,15 +70,6 @@ export default function HomePage() {
       setActiveCar(data);
     }
   }, [data]);
-
-  if (error) {
-    return (
-      <>
-        <h1>No car registrated for your account!</h1>
-        <Link href="/createCar/">Create Car</Link>
-      </>
-    );
-  }
 
   return (
     <>
@@ -119,8 +106,8 @@ export default function HomePage() {
         </>
       ) : (
         <>
-          <p>you are not looged in!</p>
-          <p>Login here:</p>
+          <h1>Please Login to use the App</h1>
+
           <button onClick={() => signIn()}>Sign In</button>
         </>
       )}

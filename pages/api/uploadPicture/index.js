@@ -38,7 +38,7 @@ cloudinary.config({
 export default async function handler(request, response) {
   const { id } = request.query;
   const token = await getToken({ req: request });
-
+  const userId = token.sub;
   if (token) {
     switch (request.method) {
       case "POST":
@@ -49,7 +49,7 @@ export default async function handler(request, response) {
           public_id: imageFile.newFilename,
         });
         const updatedCar = await UserCar.findOneAndUpdate(
-          { UserId: id },
+          { userId: userId },
           { ImageUrl: result.url }
         );
         if (!updatedCar) {
