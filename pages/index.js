@@ -90,7 +90,7 @@ const StyledCreateLink = styled(Link)`
 
 export default function HomePage() {
   const { data: session } = useSession();
-  const { data, error } = useSWR(session ? `/api/userCars/` : null);
+  const { data, error, isLoading } = useSWR(session ? `/api/userCars/` : null);
   const [activeCar, setActiveCar] = useAtom(userCar);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export default function HomePage() {
       setActiveCar(data);
     }
   }, [data]);
-  if (error) {
+  if (error || isLoading) {
     return (
       <StyledLoginSection>
         <StyledParagraph>No registrated car!</StyledParagraph>
