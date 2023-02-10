@@ -29,7 +29,7 @@ const carPrototype = {
 export default function CreateCar() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [searchFailed, setSearchFailed] = useState(false);
-  const [user, setUser] = useState(users[0]);
+  // const [user, setUser] = useState(users[0]);
   const router = useRouter();
 
   async function handleSubmitVin(event) {
@@ -43,15 +43,15 @@ export default function CreateCar() {
           const newCar = {
             ...carPrototype,
             ...carData,
-            UserId: user.id,
+            // UserId: user.id,
           };
           const { _id, ...newCarPut } = newCar;
-          const responsePost = await fetch(`api/userCars/${user.id}`, {
-            method: "PUT",
+          const responsePost = await fetch(`api/userCars/`, {
+            method: "POST",
             body: JSON.stringify(newCarPut),
             headers: { "Content-type": "application/json" },
           });
-          setUser({ ...user, car: vin });
+          // setUser({ ...user, car: vin });
           const responseCar = await responsePost.json();
           setActiveCar(responseCar);
           router.push("/profile");

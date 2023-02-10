@@ -7,15 +7,7 @@ export default async function handler(request, response) {
   const { id } = request.query;
   const token = await getToken({ req: request });
   if (token) {
-    if (request.method === "GET") {
-      const carData = await UserCar.findOne({ UserId: id });
-
-      if (!carData) {
-        return response.status(404).json({ status: "Not Found" });
-      }
-
-      return response.status(200).json(carData);
-    }
+    //need for edit car?
     if (request.method === "PUT") {
       const updatedCar = await UserCar.findOneAndUpdate(
         { UserId: id },

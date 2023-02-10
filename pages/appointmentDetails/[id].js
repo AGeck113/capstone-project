@@ -1,5 +1,4 @@
 import EventCard from "@/components/Event";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Details from "../../components/AppointmentDetails";

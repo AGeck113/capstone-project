@@ -42,27 +42,31 @@ export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
 });
-export const users = [
-  {
-    id: 1,
-    car: "WAUZZZ8V9LA015123",
-    name: "User 1",
-    ImageUrl:
-      "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-  },
-  {
-    id: 2,
-    car: "WAUZZZ8V9LA015123",
-    name: "User 2",
-    ImageUrl:
-      "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-  },
-];
+// export const users = [
+//   {
+//     id: 1,
+//     car: "WAUZZZ8V9LA015123",
+//     name: "User 1",
+//     ImageUrl:
+//       "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
+//   },
+//   {
+//     id: 2,
+//     car: "WAUZZZ8V9LA015123",
+//     name: "User 2",
+//     ImageUrl:
+//       "https://images.unsplash.com/photo-1585211113085-be26dee0db3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
+//   },
+// ];
 export default function HomePage() {
   const { data: session } = useSession();
   console.log(session);
-  const [user, setUser] = useState(users[0]);
-  const { data } = useSWR(`/api/userCars/${user.id}`);
+  // const [user, setUser] = useState(users[0]);
+  // const { data } = useSWR(`/api/userCars/${user.id}`);
+  const { data, error } = useSWR(`/api/userCars/`);
+  console.log("DATA", data);
+
+  //new
   const [activeCar, setActiveCar] = useAtom(userCar);
 
   useEffect(() => {
@@ -70,6 +74,15 @@ export default function HomePage() {
       setActiveCar(data);
     }
   }, [data]);
+
+  if (error) {
+    return (
+      <>
+        <h1>No car registrated for your account!</h1>
+        <Link href="/createCar/">Create Car</Link>
+      </>
+    );
+  }
 
   return (
     <>
