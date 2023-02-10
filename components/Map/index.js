@@ -45,6 +45,12 @@ const StyledHeadline = styled.h3`
   padding: 0.5rem 1rem;
   border-bottom: 2px solid lightgray;
 `;
+const StyledPageHeadline = styled.h2`
+  text-align: center;
+  color: lightgray;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  padding: 0.5rem 0.5rem;
+`;
 const markers = [
   {
     id: 1,
@@ -83,7 +89,7 @@ export default function Map() {
   const [selectedEvent, setSelectedEvent] = useState(false);
   return (
     <>
-      <h2>Find events for your tour!</h2>
+      <StyledPageHeadline>Find events for your tour!</StyledPageHeadline>
       <StyledMapContainer center={[48.521, 9.057]} zoom={8} scrollWheelZoom>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
