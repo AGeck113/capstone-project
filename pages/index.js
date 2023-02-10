@@ -80,19 +80,19 @@ export default function HomePage() {
         height={200}
       />
       <LinkContainer>
-        <StyledLink href={`/events/latest`}>
+        <StyledLink href="/events/latest">
           <SVGIcon variant="last" width="4rem" />
           <StyledParagraph>latest</StyledParagraph>
         </StyledLink>
-        <StyledLink href={`/events/upcoming`}>
+        <StyledLink href="/events/upcoming">
           <SVGIcon variant="next" width="4rem" />
           <StyledParagraph>Next</StyledParagraph>
         </StyledLink>
-        <StyledLink href={`/events/wishlist`}>
+        <StyledLink href={"events/wishlist"}>
           <SVGIcon variant="wish" width="4rem" />
           <StyledParagraph>Wishes</StyledParagraph>
         </StyledLink>
-        <StyledLink href={`/map`}>
+        <StyledLink href="/map">
           <SVGIcon variant="map" width="4rem" />
           <StyledParagraph>Events</StyledParagraph>
         </StyledLink>

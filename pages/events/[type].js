@@ -2,7 +2,6 @@ import AddEventForm from "@/components/AddEventForm";
 import EventList from "@/components/EventList";
 import SVGIcon from "@/components/Icons";
 import { useAtom } from "jotai";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
@@ -59,15 +58,16 @@ export default function EventsPage() {
       </StyledHeadline>
 
       <StyledAddButton
+        type="button"
         onClick={() => {
           setIsEditing(!isEditing);
         }}
       >
         <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
       </StyledAddButton>
-      {isEditing ? (
+      {isEditing && (
         <AddEventForm onSubmit={handleSubmit} appointment={{ type: type }} />
-      ) : null}
+      )}
       <EventList type={type} />
     </>
   );

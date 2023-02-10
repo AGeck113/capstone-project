@@ -7,6 +7,7 @@ import LocationMarker from "./LocationMarker";
 import * as L from "leaflet";
 import { useState } from "react";
 import Link from "next/link";
+
 const StyledMapContainer = styled(MapContainer)`
   width: 85vw;
   height: 50vh;
@@ -128,7 +129,7 @@ export default function Map() {
         })}
         <LocationMarker />
       </StyledMapContainer>
-      {selectedEvent ? (
+      {selectedEvent && (
         <StyledDetails>
           <StyledHeadline>{selectedEvent.name}</StyledHeadline>
           <StyledDescription>{selectedEvent.description}</StyledDescription>
@@ -138,7 +139,7 @@ export default function Map() {
             Open on Google Maps
           </StyledLink>
         </StyledDetails>
-      ) : null}
+      )}
     </>
   );
 }
