@@ -82,9 +82,15 @@ const StyledButtonDescription = styled.p`
   font-size: 1.1rem;
   font-weight: bold;
 `;
+const StyledCreateLink = styled(Link)`
+  margin: auto;
+  font-size: 3rem;
+  color: lightgray;
+`;
+
 export default function HomePage() {
   const { data: session } = useSession();
-  const { data } = useSWR(session ? `/api/userCars/` : null);
+  const { data, error } = useSWR(session ? `/api/userCars/` : null);
   const [activeCar, setActiveCar] = useAtom(userCar);
 
   useEffect(() => {
@@ -92,7 +98,14 @@ export default function HomePage() {
       setActiveCar(data);
     }
   }, [data]);
-
+  if (error) {
+    return (
+      <StyledLoginSection>
+        <StyledParagraph>No registrated car!</StyledParagraph>
+        <StyledCreateLink href="createCar">Create a Car!</StyledCreateLink>
+      </StyledLoginSection>
+    );
+  }
   return (
     <>
       {session ? (
