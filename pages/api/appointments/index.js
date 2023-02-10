@@ -22,7 +22,7 @@ export default async function handler(request, response) {
       return response.status(201).json({ status: "event saved" });
     } catch (error) {
       console.error(error);
-      return response.status(400).json({ error: error.message });
+      return response.status(40).json({ error: error.message });
     }
   }
 }

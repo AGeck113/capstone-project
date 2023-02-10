@@ -6,6 +6,60 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { userCar, users } from "../index";
 import useSWR from "swr";
+import styled from "styled-components";
+import SVGIcon from "@/components/Icons";
+
+const ContentContainer = styled.section`
+  border: 2px solid black;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  border-radius: 2rem;
+  position: relative;
+  color: lightgray;
+  max-width: 360px;
+`;
+const StyledImage = styled(Image)`
+  border-radius: 5%;
+  border: 3px solid darkgray;
+  margin: 2rem auto;
+  width: 18rem;
+  height: 15rem;
+  display: flex;
+  border: 2px solid orange;
+`;
+const StyledEditButton = styled.button`
+  position: absolute;
+  top: -1.2rem;
+  right: 0.5rem;
+  background-color: hsla(34, 93%, 52%, 0.89);
+  border-radius: 999px;
+`;
+const StyledSection = styled.section`
+  border: 2px solid black;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  border-radius: 2rem;
+  position: relative;
+  color: lightgray;
+  width: 80%;
+`;
+const StyledSectionDescription = styled.p`
+  align-self: flex-start;
+  padding: 1rem 0rem 0.8rem 1.5rem;
+  font-size: 1.2rem;
+`;
+
+const StyledInformation = styled.p`
+  padding;
+`;
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [user, setUser] = useState(users[0]);
@@ -89,60 +143,84 @@ export default function CarDetails() {
         </>
       ) : (
         <>
-          <button
-            type="button"
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          >
-            Edit Car Data
-          </button>
-          <Image
-            alt="usercar"
-            src={
-              activeCar.ImageUrl ||
-              "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
-            }
-            width={200}
-            height={200}
-          />
-          <h1>Mein Auto:</h1>
-          <section>
-            <p>Wichtige Daten:</p>
-            <ul>
-              <li>Marke: {activeCar.Make}</li>
-              <li>Modell: {activeCar.Model}</li>
-              <li>KM-Stand: {activeCar.Milage}</li>
-              <li>Kennzeichen: {activeCar.Plate}</li>
-            </ul>
-          </section>
-          <section>
-            <p>Maße:</p>
-            <ul>
-              <li>Länge: {activeCar["Length (mm)"]}(mm)</li>
-              <li>Breite: {activeCar["Width (mm)"]}(mm)</li>
-              <li>
+          <ContentContainer>
+            <StyledEditButton
+              type="button"
+              onClick={() => {
+                setIsEditing(true);
+              }}
+            >
+              <SVGIcon variant="edit" width="35px" />
+            </StyledEditButton>
+            <StyledImage
+              alt="usercar"
+              src={
+                activeCar.ImageUrl ||
+                "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+              }
+              width={200}
+              height={200}
+            />
+            <StyledSection>
+              <StyledSectionDescription>
+                Wichtige Daten:
+              </StyledSectionDescription>
+
+              <StyledInformation>Marke: {activeCar.Make}</StyledInformation>
+              <StyledInformation>Modell: {activeCar.Model}</StyledInformation>
+              <StyledInformation>
+                KM-Stand: {activeCar.Milage}
+              </StyledInformation>
+              <StyledInformation>
+                Kennzeichen: {activeCar.Plate}
+              </StyledInformation>
+            </StyledSection>
+            <StyledSection>
+              <StyledSectionDescription>Maße:</StyledSectionDescription>
+
+              <StyledInformation>
+                Länge: {activeCar["Length (mm)"]}(mm)
+              </StyledInformation>
+              <StyledInformation>
+                Breite: {activeCar["Width (mm)"]}(mm)
+              </StyledInformation>
+              <StyledInformation>
                 Breite inkl. Spiegel:
                 {activeCar["Width including mirrors (mm)"]} (mm)
-              </li>
-              <li>Höhe: {activeCar["Height (mm)"]} (mm)</li>
-              <li>Leergewicht: {activeCar["Weight Empty (kg)"]} (kg)</li>
-              <li>Max. Gewicht: {activeCar["Max Weight (kg)"]}(kg)</li>
-            </ul>
-          </section>
-          <section>
-            <p>Weitere Details:</p>
-            <ul>
-              <li>Antrieb: {activeCar.Drive}</li>
-              <li>Modelljahr: {activeCar["Model Year"]}</li>
-              <li>Hubraum (ccm): {activeCar["Engine Displacement (ccm)"]}</li>
-              <li>Getriebe: {activeCar.Transmission}</li>
-              <li>Anzahl Gänge: {activeCar["Number of Gears"]}</li>
-              <li>
+              </StyledInformation>
+              <StyledInformation>
+                Höhe: {activeCar["Height (mm)"]} (mm)
+              </StyledInformation>
+              <StyledInformation>
+                Leergewicht: {activeCar["Weight Empty (kg)"]} (kg)
+              </StyledInformation>
+              <StyledInformation>
+                Max. Gewicht: {activeCar["Max Weight (kg)"]}(kg)
+              </StyledInformation>
+            </StyledSection>
+            <StyledSection>
+              <StyledSectionDescription>
+                Weitere Details:
+              </StyledSectionDescription>
+
+              <StyledInformation>Antrieb: {activeCar.Drive}</StyledInformation>
+              <StyledInformation>
+                Modelljahr: {activeCar["Model Year"]}
+              </StyledInformation>
+              <StyledInformation>
+                Hubraum (ccm): {activeCar["Engine Displacement (ccm)"]}
+              </StyledInformation>
+              <StyledInformation>
+                Getriebe: {activeCar.Transmission}
+              </StyledInformation>
+              <StyledInformation>
+                Anzahl Gänge: {activeCar["Number of Gears"]}
+              </StyledInformation>
+              <StyledInformation>
                 Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
-              </li>
-            </ul>
-          </section>
+              </StyledInformation>
+            </StyledSection>
+          </ContentContainer>
         </>
       )}
     </>
