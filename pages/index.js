@@ -7,6 +7,7 @@ import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
 import StyledLink from "@/components/Links/StyledLink";
 import SVGIcon from "@/components/Icons";
+import { signIn, useSession } from "next-auth/react";
 
 const StyledImage = styled(Image)`
   border-radius: 50%;
@@ -58,6 +59,8 @@ export const users = [
   },
 ];
 export default function HomePage() {
+  const { data: session } = useSession();
+
   const [user, setUser] = useState(users[0]);
   const { data } = useSWR(`/api/userCars/${user.id}`);
   const [activeCar, setActiveCar] = useAtom(userCar);
@@ -70,34 +73,44 @@ export default function HomePage() {
 
   return (
     <>
-      <StyledImage
-        alt="usercar"
-        src={
-          activeCar.ImageUrl ||
-          "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
-        }
-        width={200}
-        height={200}
-      />
-      <LinkContainer>
-        <StyledLink href="/events/latest">
-          <SVGIcon variant="last" width="4rem" />
-          <StyledParagraph>latest</StyledParagraph>
-        </StyledLink>
-        <StyledLink href="/events/upcoming">
-          <SVGIcon variant="next" width="4rem" />
-          <StyledParagraph>Next</StyledParagraph>
-        </StyledLink>
-        <StyledLink href={"events/wishlist"}>
-          <SVGIcon variant="wish" width="4rem" />
-          <StyledParagraph>Wishes</StyledParagraph>
-        </StyledLink>
-        <StyledLink href="/map">
-          <SVGIcon variant="map" width="4rem" />
-          <StyledParagraph>Events</StyledParagraph>
-        </StyledLink>
-      </LinkContainer>
-      <CreateLink href="/createCar">Change car</CreateLink>
+      {session ? (
+        <>
+          <StyledImage
+            alt="usercar"
+            src={
+              activeCar.ImageUrl ||
+              "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+            }
+            width={200}
+            height={200}
+          />
+          <LinkContainer>
+            <StyledLink href={`/events/latest`}>
+              <SVGIcon variant="last" width="4rem" />
+              <StyledParagraph>latest</StyledParagraph>
+            </StyledLink>
+            <StyledLink href={`/events/upcoming`}>
+              <SVGIcon variant="next" width="4rem" />
+              <StyledParagraph>Next</StyledParagraph>
+            </StyledLink>
+            <StyledLink href={`/events/wishlist`}>
+              <SVGIcon variant="wish" width="4rem" />
+              <StyledParagraph>Wishes</StyledParagraph>
+            </StyledLink>
+            <StyledLink href={`/map`}>
+              <SVGIcon variant="map" width="4rem" />
+              <StyledParagraph>Events</StyledParagraph>
+            </StyledLink>
+          </LinkContainer>
+          <CreateLink href="/createCar">Change car</CreateLink>
+        </>
+      ) : (
+        <>
+          <p>you are not looged in!</p>
+          <p>Login here:</p>
+          <button onClick={() => signIn()}>Sign In</button>
+        </>
+      )}
     </>
   );
 }

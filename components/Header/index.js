@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -19,14 +20,21 @@ const StyledLink = styled(Link)`
 const StyledHeadline = styled.h1`
   font-size: 2.4rem;
 `;
+
 export default function Header() {
+  const { data: session } = useSession();
+
   return (
     <StyledHeader>
       <StyledLink href="/">
         <SVGIcon variant="home" width="50px" />
       </StyledLink>
       <StyledHeadline>My Car</StyledHeadline>
-
+      {session ? (
+        <button onClick={() => signOut()}>Sign out</button>
+      ) : (
+        <button onClick={() => signIn()}>Sign in</button>
+      )}
       <StyledLink href="/profile">
         <SVGIcon variant="car" width="50px" />
       </StyledLink>

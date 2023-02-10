@@ -3,7 +3,7 @@ import Head from "next/head";
 import { SWRConfig } from "swr";
 import Header from "@/components/Header";
 import dynamic from "next/dynamic";
-
+import { SessionProvider } from "next-auth/react";
 const BGImage = dynamic(() => import("@/components/PageContainer"), {
   ssr: false,
 });
@@ -24,19 +24,24 @@ const fetcher = async (url) => {
   return res.json();
 };
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <>
       <GlobalStyle />
       <Head>
-        <title>My Car</title>
+        <title>Next Prototype</title>
       </Head>
 
-      <SWRConfig value={{ fetcher }}>
-        <Header />
+      <SessionProvider session={session}>
+        <SWRConfig value={{ fetcher }}>
+          <Header />
 
-        <Component {...pageProps} />
-      </SWRConfig>
+          <Component {...pageProps} />
+        </SWRConfig>
+      </SessionProvider>
       <BGImage />
     </>
   );
