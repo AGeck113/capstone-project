@@ -22,19 +22,13 @@ const StyledHeadline = styled.h1`
 `;
 
 export default function Header() {
-  const { data: session } = useSession();
-
   return (
     <StyledHeader>
       <StyledLink href="/">
         <SVGIcon variant="home" width="50px" />
       </StyledLink>
       <StyledHeadline>My Car</StyledHeadline>
-      {session ? (
-        <button onClick={() => signOut()}>Sign out</button>
-      ) : (
-        <button onClick={() => signIn()}>Sign in</button>
-      )}
+
       <StyledLink href="/profile">
         <SVGIcon variant="car" width="50px" />
       </StyledLink>

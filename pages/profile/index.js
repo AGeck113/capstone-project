@@ -1,17 +1,24 @@
 import EditCarForm from "@/components/EditCarForm";
 import { useAtom } from "jotai";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { userCar, users } from "../index";
+import { userCar } from "../index";
 import useSWR from "swr";
 import styled from "styled-components";
 import SVGIcon from "@/components/Icons";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
 
+const StyledLogoutButton = styled.button`
+  background-color: hsla(0, 93%, 40%, 0.89);
+  border-radius: 999px;
+  width: 8rem;
+  height: 3rem;
+  color: lightgray;
+  margin 0.8rem auto;
+`;
 const ContentContainer = styled.section`
   border: 2px solid black;
   margin: 2rem auto;
@@ -239,6 +246,15 @@ export default function CarDetails() {
                 Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
               </StyledInformation>
             </StyledSection>
+            <StyledLogoutButton
+              type="button"
+              onClick={() => {
+                confirm("Do you really want to leave?");
+                signOut();
+              }}
+            >
+              Logout
+            </StyledLogoutButton>
           </ContentContainer>
         </>
       )}
