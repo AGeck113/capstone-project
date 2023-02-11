@@ -246,16 +246,16 @@ export default function CarDetails() {
                 Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
               </StyledInformation>
             </StyledSection>
-            <StyledLogoutButton
-              type="button"
-              onClick={() => {
-                confirm("Do you really want to leave?");
-                signOut();
-              }}
-            >
-              Logout
-            </StyledLogoutButton>
           </ContentContainer>
+          <StyledLogoutButton
+            type="button"
+            onClick={() => {
+              confirm("Do you really want to leave?");
+              signOut();
+            }}
+          >
+            Logout
+          </StyledLogoutButton>
         </>
       )}
     </>
