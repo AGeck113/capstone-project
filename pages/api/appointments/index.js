@@ -4,10 +4,11 @@ import { getToken } from "next-auth/jwt";
 export default async function handler(request, response) {
   await dbConnect();
   const token = await getToken({ req: request });
+  const userId = token.sub;
   if (token) {
     switch (request.method) {
       case "GET":
-        const events = await Appointment.find();
+        const events = await Appointment.find({ userId: userId });
 
         if (!events) {
           return response.status(404).json({ status: "Not Found" });

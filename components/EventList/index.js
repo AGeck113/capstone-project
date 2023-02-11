@@ -1,6 +1,5 @@
 import { userCar } from "@/pages";
 import { useAtom } from "jotai";
-import Link from "next/link";
 import styled from "styled-components";
 import useSWR from "swr";
 import EventCard from "../Event";

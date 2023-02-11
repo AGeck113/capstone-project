@@ -133,7 +133,8 @@ export default function CarDetails() {
       const response = await fetch(`/api/userCars/`, { method: "DELETE" });
       if (response.ok) {
         setActiveCar({});
-        router.push("/");
+        setIsEditing(false);
+        mutate();
       }
     } catch (error) {
       console.error(error);
