@@ -8,6 +8,8 @@ import { userCar, users } from "../index";
 import useSWR from "swr";
 import styled from "styled-components";
 import SVGIcon from "@/components/Icons";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 const ContentContainer = styled.section`
   border: 2px solid black;
@@ -64,15 +66,12 @@ export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);
   const { data, mutate } = useSWR(`/api/userCars/`);
+  const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
     setActiveCar(data);
   }, [data]);
-
-  if (!data) {
-    return <p>loading...</p>;
-  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -130,7 +129,10 @@ export default function CarDetails() {
     }
   }
 
-  if (!activeCar) {
+  if (!session) {
+    return <Login />;
+  }
+  if (!activeCar || !data) {
     return <p>loading...</p>;
   }
 

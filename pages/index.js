@@ -7,7 +7,8 @@ import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
 import StyledLink from "@/components/Links/StyledLink";
 import SVGIcon from "@/components/Icons";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 const StyledImage = styled(Image)`
   border-radius: 50%;
@@ -43,29 +44,7 @@ export const userCar = atomWithStorage("userCar", true, {
   delayInit: true,
 });
 
-const StyledLoginNote = styled.h2`
-  text-align: center;
-  padding: 1rem auto;
-`;
-const StyledAppDescription = styled.p`
-  overflow-wrap: break-word;
-  height: fit-content;
-  width: 15rem;
-  background-color: hsla(0, 0%, 100%, 0.22);
-  border: 3px solid black;
-  border-radius: 1rem;
-  padding: 1rem 1rem;
-`;
-const StyledSingInButton = styled.button`
-  width: 12rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: hsla(108, 89%, 33%, 0.87);
-  border-radius: 1rem;
-  padding: 0.5rem;
-`;
-const StyledLoginSection = styled.section`
+const StyledNoteSection = styled.section`
   border: 2px solid black;
   margin: 5rem auto;
   padding: 1rem 1rem;
@@ -77,11 +56,7 @@ const StyledLoginSection = styled.section`
   color: lightgray;
   max-width: 300px;
 `;
-const StyledButtonDescription = styled.p`
-  color: lightgray;
-  font-size: 1.1rem;
-  font-weight: bold;
-`;
+
 const StyledCreateLink = styled(Link)`
   margin: auto;
   font-size: 3rem;
@@ -98,13 +73,16 @@ export default function HomePage() {
       setActiveCar(data);
     }
   }, [data]);
-  if (error || isLoading) {
+  if (error) {
     return (
-      <StyledLoginSection>
+      <StyledNoteSection>
         <StyledParagraph>No registrated car!</StyledParagraph>
         <StyledCreateLink href="createCar">Create a Car!</StyledCreateLink>
-      </StyledLoginSection>
+      </StyledNoteSection>
     );
+  }
+  if (isLoading) {
+    return <p>loading</p>;
   }
   return (
     <>
@@ -140,22 +118,7 @@ export default function HomePage() {
           <CreateLink href="/createCar">Change car</CreateLink>
         </>
       ) : (
-        <StyledLoginSection>
-          <StyledLoginNote>Please Login to use the App</StyledLoginNote>
-          <StyledAppDescription>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
-            Lorem ipsum dolor sit amet.
-          </StyledAppDescription>
-          <StyledSingInButton onClick={() => signIn()}>
-            <SVGIcon variant="github" width="40px" />
-            <StyledButtonDescription>
-              Sign In with GitHub
-            </StyledButtonDescription>
-          </StyledSingInButton>
-        </StyledLoginSection>
+        <Login />
       )}
     </>
   );

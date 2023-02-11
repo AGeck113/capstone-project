@@ -8,9 +8,10 @@ export default createGlobalStyle`
   }
 
   body {
-    margin: 0;
+    margin: 0 auto;
     font-family: system-ui;
     width:100%;
     height:100%;
+    max-width: 600px;
   }
 `;
