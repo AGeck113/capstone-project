@@ -1,0 +1,46 @@
+"filename", "language", "JavaScript", "JSON with Comments", "JSON", "Markdown", "comment", "blank", "total"
+"/Users/andreas/Desktop/capstone-project/.eslintrc.json", "JSON with Comments", 0, 15, 0, 0, 0, 1, 16
+"/Users/andreas/Desktop/capstone-project/.github/ISSUE_TEMPLATE/issue_template.md", "Markdown", 0, 0, 0, 27, 0, 11, 38
+"/Users/andreas/Desktop/capstone-project/README.md", "Markdown", 0, 0, 0, 10, 0, 7, 17
+"/Users/andreas/Desktop/capstone-project/components/AddEventForm/index.js", "JavaScript", 103, 0, 0, 0, 0, 9, 112
+"/Users/andreas/Desktop/capstone-project/components/AppointmentDetails/index.js", "JavaScript", 146, 0, 0, 0, 0, 6, 152
+"/Users/andreas/Desktop/capstone-project/components/EditCarForm/index.js", "JavaScript", 109, 0, 0, 0, 0, 4, 113
+"/Users/andreas/Desktop/capstone-project/components/Event/index.js", "JavaScript", 142, 0, 0, 0, 0, 5, 147
+"/Users/andreas/Desktop/capstone-project/components/EventList/index.js", "JavaScript", 44, 0, 0, 0, 0, 7, 51
+"/Users/andreas/Desktop/capstone-project/components/Header/index.js", "JavaScript", 34, 0, 0, 0, 0, 4, 38
+"/Users/andreas/Desktop/capstone-project/components/Icons/index.js", "JavaScript", 59, 0, 0, 0, 0, 2, 61
+"/Users/andreas/Desktop/capstone-project/components/Links/StyledLink.js", "JavaScript", 13, 0, 0, 0, 0, 3, 16
+"/Users/andreas/Desktop/capstone-project/components/Login/index.js", "JavaScript", 82, 0, 0, 0, 0, 4, 86
+"/Users/andreas/Desktop/capstone-project/components/Map/LocationMarker.js", "JavaScript", 21, 0, 0, 0, 1, 5, 27
+"/Users/andreas/Desktop/capstone-project/components/Map/index.js", "JavaScript", 144, 0, 0, 0, 0, 2, 146
+"/Users/andreas/Desktop/capstone-project/components/NoCarMessage/index.js", "JavaScript", 35, 0, 0, 0, 0, 3, 38
+"/Users/andreas/Desktop/capstone-project/components/PageContainer/index.js", "JavaScript", 48, 0, 0, 0, 1, 13, 62
+"/Users/andreas/Desktop/capstone-project/db/connect.js", "JavaScript", 32, 0, 0, 0, 5, 11, 48
+"/Users/andreas/Desktop/capstone-project/db/models/Appointment.js", "JavaScript", 17, 0, 0, 0, 0, 5, 22
+"/Users/andreas/Desktop/capstone-project/db/models/CarDatabase.js", "JavaScript", 25, 0, 0, 0, 0, 4, 29
+"/Users/andreas/Desktop/capstone-project/db/models/UserCar.js", "JavaScript", 25, 0, 0, 0, 0, 5, 30
+"/Users/andreas/Desktop/capstone-project/jest.config.js", "JavaScript", 14, 0, 0, 0, 7, 5, 26
+"/Users/andreas/Desktop/capstone-project/jest.setup.js", "JavaScript", 1, 0, 0, 0, 4, 2, 7
+"/Users/andreas/Desktop/capstone-project/jsconfig.json", "JSON with Comments", 0, 5, 0, 0, 4, 0, 9
+"/Users/andreas/Desktop/capstone-project/next.config.js", "JavaScript", 24, 0, 0, 0, 5, 4, 33
+"/Users/andreas/Desktop/capstone-project/package-lock.json", "JSON", 0, 0, 20246, 0, 0, 1, 20247
+"/Users/andreas/Desktop/capstone-project/package.json", "JSON", 0, 0, 41, 0, 0, 1, 42
+"/Users/andreas/Desktop/capstone-project/pages/_app.js", "JavaScript", 39, 0, 0, 0, 3, 7, 49
+"/Users/andreas/Desktop/capstone-project/pages/_document.js", "JavaScript", 33, 0, 0, 0, 0, 5, 38
+"/Users/andreas/Desktop/capstone-project/pages/api/appointments/[id].js", "JavaScript", 42, 0, 0, 0, 0, 6, 48
+"/Users/andreas/Desktop/capstone-project/pages/api/appointments/index.js", "JavaScript", 27, 0, 0, 0, 0, 4, 31
+"/Users/andreas/Desktop/capstone-project/pages/api/auth/[...nextauth].js", "JavaScript", 11, 0, 0, 0, 3, 2, 16
+"/Users/andreas/Desktop/capstone-project/pages/api/carDatabase/[vin].js", "JavaScript", 17, 0, 0, 0, 0, 2, 19
+"/Users/andreas/Desktop/capstone-project/pages/api/documents/index.js", "JavaScript", 19, 0, 0, 0, 0, 1, 20
+"/Users/andreas/Desktop/capstone-project/pages/api/uploadDocument/[id].js", "JavaScript", 54, 0, 0, 0, 6, 8, 68
+"/Users/andreas/Desktop/capstone-project/pages/api/uploadPicture/index.js", "JavaScript", 53, 0, 0, 0, 6, 7, 66
+"/Users/andreas/Desktop/capstone-project/pages/api/userCars/[id].js", "JavaScript", 0, 0, 0, 0, 25, 3, 28
+"/Users/andreas/Desktop/capstone-project/pages/api/userCars/index.js", "JavaScript", 59, 0, 0, 0, 1, 6, 66
+"/Users/andreas/Desktop/capstone-project/pages/appointmentDetails/[id].js", "JavaScript", 79, 0, 0, 0, 0, 4, 83
+"/Users/andreas/Desktop/capstone-project/pages/createCar/index.js", "JavaScript", 111, 0, 0, 0, 0, 5, 116
+"/Users/andreas/Desktop/capstone-project/pages/events/[type].js", "JavaScript", 77, 0, 0, 0, 0, 5, 82
+"/Users/andreas/Desktop/capstone-project/pages/index.js", "JavaScript", 93, 0, 0, 0, 0, 6, 99
+"/Users/andreas/Desktop/capstone-project/pages/map/index.js", "JavaScript", 5, 0, 0, 0, 0, 3, 8
+"/Users/andreas/Desktop/capstone-project/pages/profile/index.js", "JavaScript", 253, 0, 0, 0, 0, 14, 267
+"/Users/andreas/Desktop/capstone-project/styles.js", "JavaScript", 15, 0, 0, 0, 0, 3, 18
+"Total", "-", 2105, 20, 20287, 37, 71, 215, 22735

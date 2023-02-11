@@ -1,0 +1,105 @@
+Date : 2023-02-11 16:49:22
+Directory : /Users/andreas/Desktop/capstone-project
+Total : 44 files,  22449 codes, 71 comments, 215 blanks, all 22735 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          2 |     20,287 |          0 |          2 |     20,289 |
+| JavaScript         |         38 |      2,105 |         67 |        194 |      2,366 |
+| Markdown           |          2 |         37 |          0 |         18 |         55 |
+| JSON with Comments |          2 |         20 |          4 |          1 |         25 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                             | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                |         44 |     22,449 |         71 |        215 |     22,735 |
+| . (Files)                                                                        |          9 |     20,371 |         20 |         24 |     20,415 |
+| .github                                                                          |          1 |         27 |          0 |         11 |         38 |
+| .github/ISSUE_TEMPLATE                                                           |          1 |         27 |          0 |         11 |         38 |
+| components                                                                       |         13 |        980 |          2 |         67 |      1,049 |
+| components/AddEventForm                                                          |          1 |        103 |          0 |          9 |        112 |
+| components/AppointmentDetails                                                    |          1 |        146 |          0 |          6 |        152 |
+| components/EditCarForm                                                           |          1 |        109 |          0 |          4 |        113 |
+| components/Event                                                                 |          1 |        142 |          0 |          5 |        147 |
+| components/EventList                                                             |          1 |         44 |          0 |          7 |         51 |
+| components/Header                                                                |          1 |         34 |          0 |          4 |         38 |
+| components/Icons                                                                 |          1 |         59 |          0 |          2 |         61 |
+| components/Links                                                                 |          1 |         13 |          0 |          3 |         16 |
+| components/Login                                                                 |          1 |         82 |          0 |          4 |         86 |
+| components/Map                                                                   |          2 |        165 |          1 |          7 |        173 |
+| components/NoCarMessage                                                          |          1 |         35 |          0 |          3 |         38 |
+| components/PageContainer                                                         |          1 |         48 |          1 |         13 |         62 |
+| db                                                                               |          4 |         99 |          5 |         25 |        129 |
+| db (Files)                                                                       |          1 |         32 |          5 |         11 |         48 |
+| db/models                                                                        |          3 |         67 |          0 |         14 |         81 |
+| pages                                                                            |         17 |        972 |         44 |         88 |      1,104 |
+| pages (Files)                                                                    |          3 |        165 |          3 |         18 |        186 |
+| pages/api                                                                        |          9 |        282 |         41 |         39 |        362 |
+| pages/api/appointments                                                           |          2 |         69 |          0 |         10 |         79 |
+| pages/api/auth                                                                   |          1 |         11 |          3 |          2 |         16 |
+| pages/api/carDatabase                                                            |          1 |         17 |          0 |          2 |         19 |
+| pages/api/documents                                                              |          1 |         19 |          0 |          1 |         20 |
+| pages/api/uploadDocument                                                         |          1 |         54 |          6 |          8 |         68 |
+| pages/api/uploadPicture                                                          |          1 |         53 |          6 |          7 |         66 |
+| pages/api/userCars                                                               |          2 |         59 |         26 |          9 |         94 |
+| pages/appointmentDetails                                                         |          1 |         79 |          0 |          4 |         83 |
+| pages/createCar                                                                  |          1 |        111 |          0 |          5 |        116 |
+| pages/events                                                                     |          1 |         77 |          0 |          5 |         82 |
+| pages/map                                                                        |          1 |          5 |          0 |          3 |          8 |
+| pages/profile                                                                    |          1 |        253 |          0 |         14 |        267 |
++----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                         | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| /Users/andreas/Desktop/capstone-project/.eslintrc.json                           | JSON with Comments |         15 |          0 |          1 |         16 |
+| /Users/andreas/Desktop/capstone-project/.github/ISSUE_TEMPLATE/issue_template.md | Markdown           |         27 |          0 |         11 |         38 |
+| /Users/andreas/Desktop/capstone-project/README.md                                | Markdown           |         10 |          0 |          7 |         17 |
+| /Users/andreas/Desktop/capstone-project/components/AddEventForm/index.js         | JavaScript         |        103 |          0 |          9 |        112 |
+| /Users/andreas/Desktop/capstone-project/components/AppointmentDetails/index.js   | JavaScript         |        146 |          0 |          6 |        152 |
+| /Users/andreas/Desktop/capstone-project/components/EditCarForm/index.js          | JavaScript         |        109 |          0 |          4 |        113 |
+| /Users/andreas/Desktop/capstone-project/components/Event/index.js                | JavaScript         |        142 |          0 |          5 |        147 |
+| /Users/andreas/Desktop/capstone-project/components/EventList/index.js            | JavaScript         |         44 |          0 |          7 |         51 |
+| /Users/andreas/Desktop/capstone-project/components/Header/index.js               | JavaScript         |         34 |          0 |          4 |         38 |
+| /Users/andreas/Desktop/capstone-project/components/Icons/index.js                | JavaScript         |         59 |          0 |          2 |         61 |
+| /Users/andreas/Desktop/capstone-project/components/Links/StyledLink.js           | JavaScript         |         13 |          0 |          3 |         16 |
+| /Users/andreas/Desktop/capstone-project/components/Login/index.js                | JavaScript         |         82 |          0 |          4 |         86 |
+| /Users/andreas/Desktop/capstone-project/components/Map/LocationMarker.js         | JavaScript         |         21 |          1 |          5 |         27 |
+| /Users/andreas/Desktop/capstone-project/components/Map/index.js                  | JavaScript         |        144 |          0 |          2 |        146 |
+| /Users/andreas/Desktop/capstone-project/components/NoCarMessage/index.js         | JavaScript         |         35 |          0 |          3 |         38 |
+| /Users/andreas/Desktop/capstone-project/components/PageContainer/index.js        | JavaScript         |         48 |          1 |         13 |         62 |
+| /Users/andreas/Desktop/capstone-project/db/connect.js                            | JavaScript         |         32 |          5 |         11 |         48 |
+| /Users/andreas/Desktop/capstone-project/db/models/Appointment.js                 | JavaScript         |         17 |          0 |          5 |         22 |
+| /Users/andreas/Desktop/capstone-project/db/models/CarDatabase.js                 | JavaScript         |         25 |          0 |          4 |         29 |
+| /Users/andreas/Desktop/capstone-project/db/models/UserCar.js                     | JavaScript         |         25 |          0 |          5 |         30 |
+| /Users/andreas/Desktop/capstone-project/jest.config.js                           | JavaScript         |         14 |          7 |          5 |         26 |
+| /Users/andreas/Desktop/capstone-project/jest.setup.js                            | JavaScript         |          1 |          4 |          2 |          7 |
+| /Users/andreas/Desktop/capstone-project/jsconfig.json                            | JSON with Comments |          5 |          4 |          0 |          9 |
+| /Users/andreas/Desktop/capstone-project/next.config.js                           | JavaScript         |         24 |          5 |          4 |         33 |
+| /Users/andreas/Desktop/capstone-project/package-lock.json                        | JSON               |     20,246 |          0 |          1 |     20,247 |
+| /Users/andreas/Desktop/capstone-project/package.json                             | JSON               |         41 |          0 |          1 |         42 |
+| /Users/andreas/Desktop/capstone-project/pages/_app.js                            | JavaScript         |         39 |          3 |          7 |         49 |
+| /Users/andreas/Desktop/capstone-project/pages/_document.js                       | JavaScript         |         33 |          0 |          5 |         38 |
+| /Users/andreas/Desktop/capstone-project/pages/api/appointments/[id].js           | JavaScript         |         42 |          0 |          6 |         48 |
+| /Users/andreas/Desktop/capstone-project/pages/api/appointments/index.js          | JavaScript         |         27 |          0 |          4 |         31 |
+| /Users/andreas/Desktop/capstone-project/pages/api/auth/[...nextauth].js          | JavaScript         |         11 |          3 |          2 |         16 |
+| /Users/andreas/Desktop/capstone-project/pages/api/carDatabase/[vin].js           | JavaScript         |         17 |          0 |          2 |         19 |
+| /Users/andreas/Desktop/capstone-project/pages/api/documents/index.js             | JavaScript         |         19 |          0 |          1 |         20 |
+| /Users/andreas/Desktop/capstone-project/pages/api/uploadDocument/[id].js         | JavaScript         |         54 |          6 |          8 |         68 |
+| /Users/andreas/Desktop/capstone-project/pages/api/uploadPicture/index.js         | JavaScript         |         53 |          6 |          7 |         66 |
+| /Users/andreas/Desktop/capstone-project/pages/api/userCars/[id].js               | JavaScript         |          0 |         25 |          3 |         28 |
+| /Users/andreas/Desktop/capstone-project/pages/api/userCars/index.js              | JavaScript         |         59 |          1 |          6 |         66 |
+| /Users/andreas/Desktop/capstone-project/pages/appointmentDetails/[id].js         | JavaScript         |         79 |          0 |          4 |         83 |
+| /Users/andreas/Desktop/capstone-project/pages/createCar/index.js                 | JavaScript         |        111 |          0 |          5 |        116 |
+| /Users/andreas/Desktop/capstone-project/pages/events/[type].js                   | JavaScript         |         77 |          0 |          5 |         82 |
+| /Users/andreas/Desktop/capstone-project/pages/index.js                           | JavaScript         |         93 |          0 |          6 |         99 |
+| /Users/andreas/Desktop/capstone-project/pages/map/index.js                       | JavaScript         |          5 |          0 |          3 |          8 |
+| /Users/andreas/Desktop/capstone-project/pages/profile/index.js                   | JavaScript         |        253 |          0 |         14 |        267 |
+| /Users/andreas/Desktop/capstone-project/styles.js                                | JavaScript         |         15 |          0 |          3 |         18 |
+| Total                                                                            |                    |     22,449 |         71 |        215 |     22,735 |
++----------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

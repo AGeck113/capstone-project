@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const StyledMapContainer = styled(MapContainer)`
   width: 85vw;
+  max-width: 540px;
   height: 50vh;
   margin 2rem auto 1rem 3.4rem;
   border-radius: 2rem;
