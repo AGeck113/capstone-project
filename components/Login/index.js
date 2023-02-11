@@ -3,6 +3,13 @@ import styled from "styled-components";
 import SVGIcon from "../Icons";
 import { signIn } from "next-auth/react";
 import StyledLink from "../Links/StyledLink";
+
+const StyledParagraph = styled.p`
+  color: lightgray;
+  font-size: 1.2rem;
+  margin-top: 0.4rem;
+  fond-weight: bold;
+`;
 const StyledLoginNote = styled.h2`
   text-align: center;
   padding: 1rem auto;
@@ -64,6 +71,14 @@ export default function Login() {
           <SVGIcon variant="github" width="40px" />
           <StyledButtonDescription>Sign In with GitHub</StyledButtonDescription>
         </StyledSingInButton>
+        <StyledLoginNote>
+          You can look for events without a login!
+        </StyledLoginNote>
+
+        <StyledLink href={`/map`}>
+          <SVGIcon variant="map" width="4rem" />
+          <StyledParagraph>Events</StyledParagraph>
+        </StyledLink>
       </StyledLoginSection>
     </>
   );

@@ -30,16 +30,6 @@ const StyledParagraph = styled.p`
   margin-top: 0.4rem;
   fond-weight: bold;
 `;
-const CreateLink = styled(Link)`
-  display: flex;
-  width: fit-content;
-  height: fit-content;
-  background-color: #ccd9ff;
-  margin: 1rem auto;
-  border-radius: 1rem;
-  padding: 2rem;
-  text-align: center;
-`;
 export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
@@ -55,55 +45,49 @@ export default function HomePage() {
       setActiveCar(data);
     }
   }, [data]);
-  if (error) {
-    return <NoCarMessage />;
-  }
   if (isLoading) {
     return <p>loading</p>;
   }
+  if (!session) {
+    return (
+      <>
+        <Login />
+      </>
+    );
+  } else if (error) {
+    return <NoCarMessage />;
+  }
   return (
     <>
-      {session ? (
-        <>
-          <StyledImage
-            alt="usercar"
-            src={
-              activeCar.ImageUrl ||
-              "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
-            }
-            width={200}
-            height={200}
-          />
-          <LinkContainer>
-            <StyledLink href={`/events/latest`}>
-              <SVGIcon variant="last" width="4rem" />
-              <StyledParagraph>latest</StyledParagraph>
-            </StyledLink>
-            <StyledLink href={`/events/upcoming`}>
-              <SVGIcon variant="next" width="4rem" />
-              <StyledParagraph>Next</StyledParagraph>
-            </StyledLink>
-            <StyledLink href={`/events/wishlist`}>
-              <SVGIcon variant="wish" width="4rem" />
-              <StyledParagraph>Wishes</StyledParagraph>
-            </StyledLink>
-            <StyledLink href={`/map`}>
-              <SVGIcon variant="map" width="4rem" />
-              <StyledParagraph>Events</StyledParagraph>
-            </StyledLink>
-          </LinkContainer>
-        </>
-      ) : (
-        <>
-          <Login />
-          <LinkContainer>
-            <StyledLink href={`/map`}>
-              <SVGIcon variant="map" width="4rem" />
-              <StyledParagraph>Events</StyledParagraph>
-            </StyledLink>
-          </LinkContainer>
-        </>
-      )}
+      <>
+        <StyledImage
+          alt="usercar"
+          src={
+            activeCar.ImageUrl ||
+            "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
+          }
+          width={200}
+          height={200}
+        />
+        <LinkContainer>
+          <StyledLink href={`/events/latest`}>
+            <SVGIcon variant="last" width="4rem" />
+            <StyledParagraph>latest</StyledParagraph>
+          </StyledLink>
+          <StyledLink href={`/events/upcoming`}>
+            <SVGIcon variant="next" width="4rem" />
+            <StyledParagraph>Next</StyledParagraph>
+          </StyledLink>
+          <StyledLink href={`/events/wishlist`}>
+            <SVGIcon variant="wish" width="4rem" />
+            <StyledParagraph>Wishes</StyledParagraph>
+          </StyledLink>
+          <StyledLink href={`/map`}>
+            <SVGIcon variant="map" width="4rem" />
+            <StyledParagraph>Events</StyledParagraph>
+          </StyledLink>
+        </LinkContainer>
+      </>
     </>
   );
 }
