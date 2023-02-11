@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 import { signIn } from "next-auth/react";
+import StyledLink from "../Links/StyledLink";
 const StyledLoginNote = styled.h2`
   text-align: center;
   padding: 1rem auto;

@@ -1,12 +1,10 @@
 import EditCarForm from "@/components/EditCarForm";
 import { useAtom } from "jotai";
-import { nanoid } from "nanoid";
-import Link from "next/link.js";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { mutate } from "swr";
-import { userCar, users } from "../index.js";
-
+import { userCar } from "../index.js";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login/index.js";
 const carPrototype = {
   VIN: "",
   Make: "",
@@ -30,9 +28,11 @@ const carPrototype = {
 export default function CreateCar() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [searchFailed, setSearchFailed] = useState(false);
-  // const [user, setUser] = useState(users[0]);
   const router = useRouter();
-
+  const { data: session } = useSession();
+  if (!session) {
+    return <Login />;
+  }
   async function handleSubmitVin(event) {
     event.preventDefault();
     const vin = event.target.elements.vin.value;
@@ -44,7 +44,6 @@ export default function CreateCar() {
           const newCar = {
             ...carPrototype,
             ...carData,
-            // UserId: user.id,
           };
           const { _id, ...newCarPut } = newCar;
           const responsePost = await fetch(`api/userCars/`, {
@@ -52,7 +51,6 @@ export default function CreateCar() {
             body: JSON.stringify(newCarPut),
             headers: { "Content-type": "application/json" },
           });
-          // setUser({ ...user, car: vin });
           const responseCar = await responsePost.json();
           setActiveCar(responseCar);
           router.push("/profile");

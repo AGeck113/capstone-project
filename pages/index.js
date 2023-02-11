@@ -9,6 +9,7 @@ import StyledLink from "@/components/Links/StyledLink";
 import SVGIcon from "@/components/Icons";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import NoCarMessage from "@/components/NoCarMessage";
 
 const StyledImage = styled(Image)`
   border-radius: 50%;
@@ -44,25 +45,6 @@ export const userCar = atomWithStorage("userCar", true, {
   delayInit: true,
 });
 
-const StyledNoteSection = styled.section`
-  border: 2px solid black;
-  margin: 5rem auto;
-  padding: 1rem 1rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: hsla(0, 0%, 4%, 0.64);
-  border-radius: 1rem;
-  color: lightgray;
-  max-width: 300px;
-`;
-
-const StyledCreateLink = styled(Link)`
-  margin: auto;
-  font-size: 3rem;
-  color: lightgray;
-`;
-
 export default function HomePage() {
   const { data: session } = useSession();
   const { data, error, isLoading } = useSWR(session ? `/api/userCars/` : null);
@@ -74,12 +56,7 @@ export default function HomePage() {
     }
   }, [data]);
   if (error) {
-    return (
-      <StyledNoteSection>
-        <StyledParagraph>No registrated car!</StyledParagraph>
-        <StyledCreateLink href="createCar">Create a Car!</StyledCreateLink>
-      </StyledNoteSection>
-    );
+    return <NoCarMessage />;
   }
   if (isLoading) {
     return <p>loading</p>;
@@ -115,10 +92,17 @@ export default function HomePage() {
               <StyledParagraph>Events</StyledParagraph>
             </StyledLink>
           </LinkContainer>
-          <CreateLink href="/createCar">Change car</CreateLink>
         </>
       ) : (
-        <Login />
+        <>
+          <Login />
+          <LinkContainer>
+            <StyledLink href={`/map`}>
+              <SVGIcon variant="map" width="4rem" />
+              <StyledParagraph>Events</StyledParagraph>
+            </StyledLink>
+          </LinkContainer>
+        </>
       )}
     </>
   );

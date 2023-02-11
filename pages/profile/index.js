@@ -10,6 +10,7 @@ import styled from "styled-components";
 import SVGIcon from "@/components/Icons";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import NoCarMessage from "@/components/NoCarMessage";
 
 const ContentContainer = styled.section`
   border: 2px solid black;
@@ -132,8 +133,9 @@ export default function CarDetails() {
   if (!session) {
     return <Login />;
   }
-  if (!activeCar || !data) {
-    return <p>loading...</p>;
+
+  if (!activeCar) {
+    return <NoCarMessage />;
   }
 
   return (

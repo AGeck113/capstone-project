@@ -2,14 +2,19 @@ import EventCard from "@/components/Event";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Details from "../../components/AppointmentDetails";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 export default function EventDetailPage() {
   const router = useRouter();
-
+  const { data: session } = useSession();
   const { id } = router.query;
   const { data, isLoading, mutate } = useSWR(
     id ? `/api/appointments/${id}` : null
   );
+  if (!session) {
+    return <Login />;
+  }
 
   async function handleSubmitNotes(event) {
     event.preventDefault();
@@ -63,7 +68,6 @@ export default function EventDetailPage() {
   if (isLoading) {
     return <p>loading</p>;
   }
-
   return (
     <>
       <EventCard appointment={data} />

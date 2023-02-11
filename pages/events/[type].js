@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 import { userCar } from "..";
+import { useSession } from "next-auth/react";
+import Login from "@/components/Login";
 
 const StyledHeadline = styled.h2`
   font-size: 1.8rem;
@@ -24,6 +26,11 @@ export default function EventsPage() {
   const { type } = router.query;
   const [isEditing, setIsEditing] = useState(false);
   const [activeCar] = useAtom(userCar);
+  const { data: session } = useSession();
+
+  if (!session) {
+    return <Login />;
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
