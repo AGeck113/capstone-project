@@ -30,7 +30,7 @@ export default function NoCarMessage() {
     <>
       <StyledNoteSection>
         <StyledParagraph>No registrated car!</StyledParagraph>
-        <StyledCreateLink href="createCar">Create a Car!</StyledCreateLink>
+        <StyledCreateLink href="/createCar">Create a Car!</StyledCreateLink>
       </StyledNoteSection>
     </>
   );

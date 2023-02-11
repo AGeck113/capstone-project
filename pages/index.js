@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAtom } from "jotai";
 import useSWR from "swr";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
 import StyledLink from "@/components/Links/StyledLink";
@@ -37,9 +37,10 @@ export const userCar = atomWithStorage("userCar", true, {
 
 export default function HomePage() {
   const { data: session } = useSession();
-  const { data, error, isLoading } = useSWR(session ? `/api/userCars/` : null);
+  const { data, error, isLoading } = useSWR(session ? `/api/userCars/` : null, {
+    shouldRetryOnError: false,
+  });
   const [activeCar, setActiveCar] = useAtom(userCar);
-
   useEffect(() => {
     if (data) {
       setActiveCar(data);
@@ -48,15 +49,19 @@ export default function HomePage() {
   if (isLoading) {
     return <p>loading</p>;
   }
+
   if (!session) {
     return (
       <>
         <Login />
       </>
     );
-  } else if (error) {
+  }
+
+  if (error) {
     return <NoCarMessage />;
   }
+
   return (
     <>
       <>

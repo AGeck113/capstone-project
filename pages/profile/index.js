@@ -73,7 +73,9 @@ const StyledInformation = styled.p`
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);
-  const { data, mutate } = useSWR(`/api/userCars/`);
+  const { data, mutate } = useSWR(`/api/userCars/`, {
+    shouldRetryOnError: false,
+  });
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -130,6 +132,7 @@ export default function CarDetails() {
     try {
       const response = await fetch(`/api/userCars/`, { method: "DELETE" });
       if (response.ok) {
+        setActiveCar({});
         router.push("/");
       }
     } catch (error) {
@@ -246,16 +249,16 @@ export default function CarDetails() {
                 Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
               </StyledInformation>
             </StyledSection>
+            <StyledLogoutButton
+              type="button"
+              onClick={() => {
+                confirm("Do you really want to leave?");
+                signOut();
+              }}
+            >
+              Logout
+            </StyledLogoutButton>
           </ContentContainer>
-          <StyledLogoutButton
-            type="button"
-            onClick={() => {
-              confirm("Do you really want to leave?");
-              signOut();
-            }}
-          >
-            Logout
-          </StyledLogoutButton>
         </>
       )}
     </>
