@@ -19,7 +19,7 @@ export default async function handler(request, response) {
       case "POST":
         try {
           const eventData = request.body;
-          const newEvent = new Appointment(eventData);
+          const newEvent = new Appointment({ ...eventData, userId: userId });
           await newEvent.save();
           return response.status(201).json({ status: "event saved" });
         } catch (error) {
