@@ -37,29 +37,30 @@ export const userCar = atomWithStorage("userCar", true, {
 
 export default function HomePage() {
   const { data: session } = useSession();
+
   const { data, error, isLoading } = useSWR(session ? `/api/userCars/` : null, {
     shouldRetryOnError: false,
   });
+
   const [activeCar, setActiveCar] = useAtom(userCar);
   useEffect(() => {
     if (data) {
       setActiveCar(data);
     }
   }, [data]);
+
   if (isLoading) {
     return <p>loading</p>;
   }
-
+  if (error) {
+    return <NoCarMessage />;
+  }
   if (!session) {
     return (
       <>
         <Login />
       </>
     );
-  }
-
-  if (error) {
-    return <NoCarMessage />;
   }
 
   return (
@@ -77,7 +78,7 @@ export default function HomePage() {
         <LinkContainer>
           <StyledLink href={`/events/latest`}>
             <SVGIcon variant="last" width="4rem" />
-            <StyledParagraph>latest</StyledParagraph>
+            <StyledParagraph>Last</StyledParagraph>
           </StyledLink>
           <StyledLink href={`/events/upcoming`}>
             <SVGIcon variant="next" width="4rem" />

@@ -73,7 +73,7 @@ const StyledInformation = styled.p`
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);
-  const { data, mutate } = useSWR(`/api/userCars/`, {
+  const { data, mutate, isLoading } = useSWR(`/api/userCars/`, {
     shouldRetryOnError: false,
   });
   const { data: session } = useSession();
@@ -117,8 +117,8 @@ export default function CarDetails() {
         body: formData,
       });
       const responseCar = await response.json();
-      setActiveCar(responseCar);
       setIsEditing(false);
+      setActiveCar(responseCar);
       mutate();
     } catch (error) {
       console.error(error);
@@ -134,7 +134,7 @@ export default function CarDetails() {
       if (response.ok) {
         setActiveCar({});
         setIsEditing(false);
-        mutate();
+        router.reload();
       }
     } catch (error) {
       console.error(error);
@@ -143,6 +143,9 @@ export default function CarDetails() {
 
   if (!session) {
     return <Login />;
+  }
+  if (isLoading) {
+    return <p>loading</p>;
   }
 
   if (!activeCar) {

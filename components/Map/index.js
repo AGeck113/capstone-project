@@ -42,6 +42,7 @@ const StyledDetails = styled.article`
   background-color: hsla(0, 0%, 4%, 0.64);
   color: lightgray;
   border-radius: 2rem;
+  max-width: 540px;
 `;
 const StyledHeadline = styled.h3`
   padding: 0.5rem 1rem;

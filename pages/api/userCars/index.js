@@ -10,9 +10,9 @@ export default async function handler(request, response) {
     switch (request.method) {
       case "GET":
         const carData = await UserCar.findOne({ userId: userId });
-        // How to solve correctly?
-        if (!carData || carData.userId != userId) {
-          return response.status(404).json({ status: "Not Found" });
+
+        if (!carData) {
+          return response.status(204).json();
         }
 
         return response.status(200).json(carData);
