@@ -5,8 +5,8 @@ import { getToken } from "next-auth/jwt";
 export default async function handler(request, response) {
   await dbConnect();
   const token = await getToken({ req: request });
-  const userId = token.sub;
   if (token) {
+    const userId = token.sub;
     switch (request.method) {
       case "GET":
         const carData = await UserCar.findOne({ userId: userId });
@@ -61,5 +61,8 @@ export default async function handler(request, response) {
         }
         return response.status(200).json({ status: "car deleted" });
     }
+  }
+  {
+    return response.status(403).json({ status: "Forbidden" });
   }
 }

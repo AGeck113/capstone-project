@@ -4,6 +4,7 @@ import { SWRConfig } from "swr";
 import Header from "@/components/Header";
 import dynamic from "next/dynamic";
 import { SessionProvider } from "next-auth/react";
+import Footer from "@/components/Footer";
 const BGImage = dynamic(() => import("@/components/PageContainer"), {
   ssr: false,
 });
@@ -40,6 +41,7 @@ export default function App({
           <Header />
 
           <Component {...pageProps} />
+          <Footer />
         </SWRConfig>
       </SessionProvider>
       <BGImage />

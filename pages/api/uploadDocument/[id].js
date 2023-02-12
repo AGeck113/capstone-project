@@ -64,4 +64,7 @@ export default async function handler(request, response) {
         response.status(400).json({ message: "Method not implemented" });
     }
   }
+  {
+    return response.status(403).json({ status: "Forbidden" });
+  }
 }

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 const StyledHeader = styled.header`
   display: flex;
