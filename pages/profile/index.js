@@ -21,7 +21,7 @@ const StyledLogoutButton = styled.button`
 `;
 const ContentContainer = styled.section`
   border: 2px solid black;
-  margin: 2rem auto;
+  margin: 1.5rem 1rem auto 3.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,8 +43,8 @@ const StyledImage = styled(Image)`
 `;
 const StyledEditButton = styled.button`
   position: absolute;
-  top: -1.2rem;
-  right: 0.5rem;
+  top: 1.2rem;
+  left: -1.7rem;
   background-color: hsla(34, 93%, 52%, 0.89);
   border-radius: 999px;
 `;
@@ -253,16 +253,16 @@ export default function CarDetails() {
                 Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
               </StyledInformation>
             </StyledSection>
-            <StyledLogoutButton
-              type="button"
-              onClick={() => {
-                confirm("Do you really want to leave?");
-                signOut();
-              }}
-            >
-              Logout
-            </StyledLogoutButton>
           </ContentContainer>
+          <StyledLogoutButton
+            type="button"
+            onClick={() => {
+              confirm("Do you really want to leave?");
+              signOut();
+            }}
+          >
+            Logout
+          </StyledLogoutButton>
         </>
       )}
     </>
