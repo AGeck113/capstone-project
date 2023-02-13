@@ -5,10 +5,10 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
-
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
+import LinkSection from "@/components/LinkContainer/Index";
 
 const StyledImage = styled(Image)`
   border-radius: 50%;
@@ -64,6 +64,7 @@ export default function HomePage() {
             height={200}
           />
         </Link>
+        <LinkSection />
       </>
     </>
   );

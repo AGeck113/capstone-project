@@ -34,8 +34,8 @@ const StyledSingInButton = styled.button`
 `;
 const StyledLoginSection = styled.section`
   border: 2px solid black;
-  margin: 5rem auto;
-  padding: 1rem 1rem;
+  margin: 1rem auto;
+  padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -59,13 +59,12 @@ export default function Login() {
   return (
     <>
       <StyledLoginSection>
-        <StyledLoginNote>Please Login to use the App</StyledLoginNote>
+        <StyledLoginNote>Thank you for visiting My Car</StyledLoginNote>
         <StyledAppDescription>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet.
+          You can manage the appointments of your car and keep track of his
+          history. You can save appointments or other important things about
+          your car, save documents or notes for each of them and get information
+          about nice car meetings in your region!
         </StyledAppDescription>
         <StyledSingInButton onClick={handleSignIn}>
           <SVGIcon variant="github" width="40px" />
