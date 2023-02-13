@@ -53,7 +53,6 @@ export default function Login() {
   const router = useRouter();
 
   function handleSignIn() {
-    router.push("/");
     signIn();
   }
   return (

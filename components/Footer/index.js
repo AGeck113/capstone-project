@@ -48,7 +48,7 @@ export default function Footer() {
       {session ? (
         <StyledImage
           src={session.user.image}
-          alt="Profile Picture of the user"
+          alt={session.user.name}
           width={70}
           height={70}
         />
