@@ -5,8 +5,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
 import styled from "styled-components";
-import StyledLink from "@/components/Links/StyledLink";
-import SVGIcon from "@/components/Icons";
+
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
@@ -18,17 +17,6 @@ const StyledImage = styled(Image)`
   width: 15rem;
   height: 15rem;
   display: flex;
-`;
-const LinkContainer = styled.section`
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 1fr;
-`;
-const StyledParagraph = styled.p`
-  color: lightgray;
-  font-size: 1.2rem;
-  margin-top: 0.4rem;
-  fond-weight: bold;
 `;
 
 export const userCar = atomWithStorage("userCar", true, {
@@ -76,24 +64,6 @@ export default function HomePage() {
             height={200}
           />
         </Link>
-        <LinkContainer>
-          <StyledLink href={`/events/latest`}>
-            <SVGIcon variant="last" width="4rem" />
-            <StyledParagraph>Last</StyledParagraph>
-          </StyledLink>
-          <StyledLink href={`/events/upcoming`}>
-            <SVGIcon variant="next" width="4rem" />
-            <StyledParagraph>Next</StyledParagraph>
-          </StyledLink>
-          <StyledLink href={`/events/wishlist`}>
-            <SVGIcon variant="wish" width="4rem" />
-            <StyledParagraph>Wishes</StyledParagraph>
-          </StyledLink>
-          <StyledLink href={`/map`}>
-            <SVGIcon variant="map" width="4rem" />
-            <StyledParagraph>Events</StyledParagraph>
-          </StyledLink>
-        </LinkContainer>
       </>
     </>
   );
