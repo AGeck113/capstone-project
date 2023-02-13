@@ -1,7 +1,5 @@
-import { userCar, user } from "@/pages";
-import { useAtom } from "jotai";
-import { useEffect } from "react";
-import useSWR from "swr";
+import styled from "styled-components";
+import SVGIcon from "../Icons";
 
 const carPrototype = {
   VIN: "",
@@ -52,25 +50,92 @@ const groups = [
     ],
   },
 ];
+const StyledFieldset = styled.fieldset`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid lightgray;
+  border-radius: 1rem;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  align-items: center;
+`;
+const StyledLabel = styled.label`
+font-size: 1.2rem;
+margin 0.5rem auto;
+color: lightgray;
+`;
+const StyledGroupDescription = styled.p`
+  grid-column: 1/3;
+  background-color: hsla(0, 0%, 100%, 0.22);
+  height: 2rem;
+  text-align: center;
+  color: lightgray;
+  margin: 1rem auto;
+  width: 60%;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+`;
+const StyledInput = styled.input`
+  width: 95%;
+  margin: 0.5rem auto;
+  border-radius: 999px;
+  height: 2rem;
+  text-align: center;
+  background-color: lightgray;
+`;
+const StyledSubmitButton = styled.button`
+  width: 5rem;
+  margin: 0 auto;
+  height: 5rem;
+  border-radius: 999px;
+  background-color: hsla(103, 100%, 34%, 0.89);
+`;
+const StyledForm = styled.form`
+  width: 85%;
+  margin: 1rem auto 0 3.4rem;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  border-radius: 2rem;
+  max-width: 540px;
+  padding: 0.2rem 0.2rem;
+  display: grid;
+  gap: 2rem;
+`;
 
+const StyledParagraph = styled.p`
+  color: lightgray;
+  text-align: center;
+  font-size: 1.6rem;
+  width: 90%;
+  height: 5rem;
+  margin: 0.3rem auto;
+  padding: 0.5rem 0.5rem;
+  border-radius: 1rem;
+`;
 export default function EditCarForm({ onSubmit, initialValues }) {
   return (
-    <form onSubmit={onSubmit}>
-      {groups.map((group) => {
-        return (
-          <fieldset key={group.id}>
-            <p>{group.description}</p>
-            {Object.keys(carPrototype).map((attribute, index) => {
-              if (group.content.includes(attribute)) {
-                const attributeValue = carPrototype[attribute];
-                const type =
-                  typeof attributeValue === "string" ? "text" : "number";
-                return (
-                  <div key={group.id + index}>
-                    <label>
-                      {attribute}:
+    <>
+      <StyledForm onSubmit={onSubmit}>
+        <StyledParagraph>
+          Please edit and save the data you want
+        </StyledParagraph>
+        {groups.map((group) => {
+          return (
+            <StyledFieldset key={group.id}>
+              <StyledGroupDescription>
+                {group.description}
+              </StyledGroupDescription>
+              {Object.keys(carPrototype).map((attribute, index) => {
+                if (group.content.includes(attribute)) {
+                  const attributeValue = carPrototype[attribute];
+                  const type =
+                    typeof attributeValue === "string" ? "text" : "number";
+                  return (
+                    <div key={group.id + index}>
+                      <StyledLabel htmlFor={attribute}>
+                        {attribute}:
+                      </StyledLabel>
                       {type === "text" ? (
-                        <input
+                        <StyledInput
+                          id={attribute}
                           required={
                             attribute === "Make" || attribute === "Model"
                           }
@@ -84,7 +149,7 @@ export default function EditCarForm({ onSubmit, initialValues }) {
                           }
                         />
                       ) : (
-                        <input
+                        <StyledInput
                           name={attribute}
                           type="number"
                           max={2000000}
@@ -95,18 +160,20 @@ export default function EditCarForm({ onSubmit, initialValues }) {
                           }
                         />
                       )}
-                    </label>
-                  </div>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </fieldset>
-        );
-      })}
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </StyledFieldset>
+          );
+        })}
 
-      <button type="submit">Submit</button>
-    </form>
+        <StyledSubmitButton type="submit">
+          <SVGIcon variant="save" width="60px" />
+        </StyledSubmitButton>
+      </StyledForm>
+    </>
   );
 }

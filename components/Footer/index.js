@@ -1,4 +1,3 @@
-import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -27,34 +26,58 @@ const StyledImage = styled(Image)`
   height: 4rem;
   width: 4rem;
 `;
-
+const StyledLogoutButton = styled.button`
+  border-radius: 999px;
+  width: 4rem;
+  background-color: hsla(0, 69%, 60%, 0.9);
+`;
+const StyledLoginButton = styled.button`
+  border-radius: 999px;
+  width: 4rem;
+  background-color: hsla(103, 100%, 34%, 0.89);
+`;
 export default function Footer() {
   const { data: session } = useSession();
   const [activeCar] = useAtom(userCar);
 
   return (
-    <StyledFooter>
+    <>
       {session ? (
-        <section>
-          <p>Name: {session.user.name}</p>
-          <p>Car: {activeCar ? activeCar.Model : "no car"}</p>
-        </section>
+        <StyledFooter>
+          <section>
+            <p>Name: {session.user.name}</p>
+            <p>Car: {activeCar ? activeCar.Model : "no car"}</p>
+          </section>
+          <StyledLogoutButton
+            type="button"
+            onClick={() => {
+              confirm("Do you really want to leave?");
+              signOut();
+            }}
+          >
+            <SVGIcon variant="logout" width="40px" />
+          </StyledLogoutButton>
+          <StyledImage
+            src={session.user.image}
+            alt={session.user.name}
+            width={70}
+            height={70}
+          />
+        </StyledFooter>
       ) : (
-        <section>
+        <StyledFooter>
           <p>No user logged in</p>
-        </section>
+          <StyledLoginButton
+            type="button"
+            onClick={() => {
+              signIn();
+            }}
+          >
+            <SVGIcon variant="login" width="40px" />
+          </StyledLoginButton>
+          <SVGIcon variant="user" width="70px" />
+        </StyledFooter>
       )}
-
-      {session ? (
-        <StyledImage
-          src={session.user.image}
-          alt={session.user.name}
-          width={70}
-          height={70}
-        />
-      ) : (
-        <SVGIcon variant="user" width="70px" />
-      )}
-    </StyledFooter>
+    </>
   );
 }

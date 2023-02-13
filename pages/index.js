@@ -30,6 +30,7 @@ const StyledParagraph = styled.p`
   margin-top: 0.4rem;
   fond-weight: bold;
 `;
+
 export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
@@ -66,15 +67,15 @@ export default function HomePage() {
   return (
     <>
       <>
-        <StyledImage
-          alt="usercar"
-          src={
-            activeCar.ImageUrl ||
-            "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
-          }
-          width={200}
-          height={200}
-        />
+        <Link href="/profile">
+          <StyledImage
+            priority
+            alt="usercar"
+            src={activeCar.ImageUrl || "/placeholder-image-1.jpeg"}
+            width={200}
+            height={200}
+          />
+        </Link>
         <LinkContainer>
           <StyledLink href={`/events/latest`}>
             <SVGIcon variant="last" width="4rem" />

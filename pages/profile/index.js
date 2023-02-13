@@ -254,15 +254,6 @@ export default function CarDetails() {
               </StyledInformation>
             </StyledSection>
           </ContentContainer>
-          <StyledLogoutButton
-            type="button"
-            onClick={() => {
-              confirm("Do you really want to leave?");
-              signOut();
-            }}
-          >
-            Logout
-          </StyledLogoutButton>
         </>
       )}
     </>

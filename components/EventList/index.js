@@ -2,6 +2,7 @@ import { userCar } from "@/pages";
 import { useAtom } from "jotai";
 import styled from "styled-components";
 import useSWR from "swr";
+import CostOverwiev from "../CostOverview";
 import EventCard from "../Event";
 
 const EventContainer = styled.ul`
@@ -37,13 +38,7 @@ export default function EventList({ type }) {
           );
         })}
       </EventContainer>
-      <p>
-        The cost of your {type} {type === "wishlist" ? "is" : "appointments"}:{" "}
-        {new Intl.NumberFormat("de-DE", {
-          style: "currency",
-          currency: "EUR",
-        }).format(cost)}
-      </p>
+      <CostOverwiev type={type} cost={cost} />
     </>
   );
 }

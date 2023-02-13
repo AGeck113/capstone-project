@@ -43,8 +43,7 @@ export default async function handler(request, response) {
       }
       return response.status(200).json(appointmentData);
     }
-  }
-  {
+  } else {
     return response.status(403).json({ status: "Forbidden" });
   }
 }
