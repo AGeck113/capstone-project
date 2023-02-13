@@ -6,6 +6,7 @@ const appointmentSchema = new Schema({
   vin: { type: String, required: true },
   description: { type: String, required: true },
   title: { type: String, required: true },
+  userId: { type: String, required: true },
   cost: { type: Number },
   priority: { type: String },
   date: { type: String },

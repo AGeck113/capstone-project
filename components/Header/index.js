@@ -19,6 +19,7 @@ const StyledLink = styled(Link)`
 const StyledHeadline = styled.h1`
   font-size: 2.4rem;
 `;
+
 export default function Header() {
   return (
     <StyledHeader>

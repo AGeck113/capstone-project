@@ -1,7 +1,7 @@
 import formidable from "formidable";
 import cloudinary from "cloudinary";
 import Appointment from "@/db/models/Appointment";
-
+import { getToken } from "next-auth/jwt";
 //copied function (parseAsync) from cloudinary workshop
 function parseAsync(request) {
   // create a Promise which resolves with the parsed files
@@ -36,29 +36,35 @@ cloudinary.config({
 
 export default async function handler(request, response) {
   const { id } = request.query;
-  switch (request.method) {
-    case "PATCH":
-      const files = await parseAsync(request);
-      const { documentFile } = files.files;
+  const token = await getToken({ req: request });
+  if (token) {
+    switch (request.method) {
+      case "PATCH":
+        const files = await parseAsync(request);
+        const { documentFile } = files.files;
 
-      const result = await cloudinary.v2.uploader.upload(
-        documentFile.filepath,
-        {
-          public_id: documentFile.newFilename,
+        const result = await cloudinary.v2.uploader.upload(
+          documentFile.filepath,
+          {
+            public_id: documentFile.newFilename,
+          }
+        );
+
+        const updatedAppointment = await Appointment.findByIdAndUpdate(id, {
+          $push: { documents: { title: files.fields.title, url: result.url } },
+        });
+
+        if (!updatedAppointment) {
+          return response.status(404).json({ status: "Not Found" });
         }
-      );
+        response.status(201).json(updatedAppointment);
+        break;
 
-      const updatedAppointment = await Appointment.findByIdAndUpdate(id, {
-        $push: { documents: { title: files.fields.title, url: result.url } },
-      });
-
-      if (!updatedAppointment) {
-        return response.status(404).json({ status: "Not Found" });
-      }
-      response.status(201).json(updatedAppointment);
-      break;
-
-    default:
-      response.status(400).json({ message: "Method not implemented" });
+      default:
+        response.status(400).json({ message: "Method not implemented" });
+    }
+  }
+  {
+    return response.status(403).json({ status: "Forbidden" });
   }
 }

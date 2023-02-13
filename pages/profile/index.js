@@ -1,17 +1,27 @@
 import EditCarForm from "@/components/EditCarForm";
 import { useAtom } from "jotai";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { userCar, users } from "../index";
+import { userCar } from "../index";
 import useSWR from "swr";
 import styled from "styled-components";
 import SVGIcon from "@/components/Icons";
+import { useSession, signOut } from "next-auth/react";
+import Login from "@/components/Login";
+import NoCarMessage from "@/components/NoCarMessage";
 
+const StyledLogoutButton = styled.button`
+  background-color: hsla(0, 93%, 40%, 0.89);
+  border-radius: 999px;
+  width: 8rem;
+  height: 3rem;
+  color: lightgray;
+  margin 0.8rem auto;
+`;
 const ContentContainer = styled.section`
   border: 2px solid black;
-  margin: 2rem auto;
+  margin: 1.5rem 1rem auto 3.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,8 +43,8 @@ const StyledImage = styled(Image)`
 `;
 const StyledEditButton = styled.button`
   position: absolute;
-  top: -1.2rem;
-  right: 0.5rem;
+  top: 1.2rem;
+  left: -1.7rem;
   background-color: hsla(34, 93%, 52%, 0.89);
   border-radius: 999px;
 `;
@@ -62,33 +72,29 @@ const StyledInformation = styled.p`
 `;
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
-  const [user, setUser] = useState(users[0]);
   const [isEditing, setIsEditing] = useState(false);
-  const { data, mutate } = useSWR(`/api/userCars/${user.id}`);
+  const { data, mutate, isLoading } = useSWR(`/api/userCars/`, {
+    shouldRetryOnError: false,
+  });
+  const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
     setActiveCar(data);
   }, [data]);
 
-  if (!data) {
-    return <p>loading...</p>;
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    const newCar = { ...data, UserId: user.id };
     try {
-      const response = await fetch(`api/userCars/${user.id}`, {
-        method: "PUT",
-        body: JSON.stringify(newCar),
+      const response = await fetch(`api/userCars/`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
         headers: { "Content-type": "application/json" },
       });
       const responseCar = await response.json();
-      setUser({ ...user, car: data.VIN });
       setActiveCar(responseCar);
       setIsEditing(false);
       mutate();
@@ -106,20 +112,44 @@ export default function CarDetails() {
     event.preventDefault();
     const formData = new FormData(event.target);
     try {
-      const response = await fetch(`/api/uploadPicture/${user.id}`, {
+      const response = await fetch(`/api/uploadPicture/`, {
         method: "POST",
         body: formData,
       });
-
       const responseCar = await response.json();
+      setIsEditing(false);
       setActiveCar(responseCar);
-      router.reload();
+      mutate();
     } catch (error) {
       console.error(error);
     }
   }
+
+  async function handleDelete() {
+    confirm(
+      "Are you sure, that you want to delete your car and all Appointments?"
+    );
+    try {
+      const response = await fetch(`/api/userCars/`, { method: "DELETE" });
+      if (response.ok) {
+        setActiveCar({});
+        setIsEditing(false);
+        router.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  if (!session) {
+    return <Login />;
+  }
+  if (isLoading) {
+    return <p>loading</p>;
+  }
+
   if (!activeCar) {
-    return <p>loading...</p>;
+    return <NoCarMessage />;
   }
 
   return (
@@ -140,6 +170,9 @@ export default function CarDetails() {
           </form>
 
           <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
+          <button onClick={handleDelete} type="button">
+            DELETE CAR
+          </button>
         </>
       ) : (
         <>
@@ -221,6 +254,15 @@ export default function CarDetails() {
               </StyledInformation>
             </StyledSection>
           </ContentContainer>
+          <StyledLogoutButton
+            type="button"
+            onClick={() => {
+              confirm("Do you really want to leave?");
+              signOut();
+            }}
+          >
+            Logout
+          </StyledLogoutButton>
         </>
       )}
     </>
