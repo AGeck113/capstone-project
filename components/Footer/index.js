@@ -14,13 +14,14 @@ const StyledFooter = styled.footer`
   background-color: hsla(0, 0%, 4%, 0.64);
   z-index: 10;
   padding: 0 0.6rem;
+  height: 5rem;
 `;
 const StyledLink = styled(Link)`
   border-radius: 999px;
   border: 3px solid lightgray;
 `;
 const StyledHeadline = styled.h1`
-  font-size: 2.4rem;
+  font-size: 2rem;
 `;
 
 export default function Footer() {

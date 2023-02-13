@@ -1,24 +1,16 @@
 import EditCarForm from "@/components/EditCarForm";
 import { useAtom } from "jotai";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { userCar } from "../index";
 import useSWR from "swr";
 import styled from "styled-components";
 import SVGIcon from "@/components/Icons";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
+import StyledImage from "@/components/StyledImage";
 
-const StyledLogoutButton = styled.button`
-  background-color: hsla(0, 93%, 40%, 0.89);
-  border-radius: 999px;
-  width: 8rem;
-  height: 3rem;
-  color: lightgray;
-  margin 0.8rem auto;
-`;
 const ContentContainer = styled.section`
   border: 2px solid black;
   margin: 1.5rem 1rem auto 3.4rem;
@@ -32,15 +24,7 @@ const ContentContainer = styled.section`
   color: lightgray;
   max-width: 360px;
 `;
-const StyledImage = styled(Image)`
-  border-radius: 5%;
-  border: 3px solid darkgray;
-  margin: 2rem auto;
-  width: 18rem;
-  height: 15rem;
-  display: flex;
-  border: 2px solid orange;
-`;
+
 const StyledEditButton = styled.button`
   position: absolute;
   top: 1.2rem;
@@ -70,6 +54,7 @@ const StyledSectionDescription = styled.p`
 const StyledInformation = styled.p`
   padding;
 `;
+
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);

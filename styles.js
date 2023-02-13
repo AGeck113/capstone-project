@@ -14,7 +14,6 @@ export default createGlobalStyle`
     height:100%;
     max-width: 600px;
     margin-bottom: 5rem;
-    margin-top: 6rem;
 
   }
 `;

@@ -4,10 +4,12 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useAtom } from "jotai";
 import { userCar } from "@/pages";
+import Link from "next/link";
 
 const StyledHeader = styled.header`
-  position: fixed;
-  top: 0;
+  // position: fixed;
+  // top: 0;
+
   width: 100%;
   height: 5rem;
   display: flex;
@@ -48,12 +50,14 @@ export default function Header() {
             <p>Name: {session.user.name}</p>
             <p>Car: {activeCar ? activeCar.Model : "no car"}</p>
           </section>
-          <StyledImage
-            src={session.user.image}
-            alt={session.user.name}
-            width={70}
-            height={70}
-          />
+          <Link href="/profile">
+            <StyledImage
+              src={session.user.image}
+              alt={session.user.name}
+              width={70}
+              height={70}
+            />
+          </Link>
           <StyledLogoutButton
             type="button"
             onClick={() => {

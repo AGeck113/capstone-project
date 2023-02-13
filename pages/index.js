@@ -1,23 +1,13 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useAtom } from "jotai";
 import useSWR from "swr";
 import { useEffect } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
-import styled from "styled-components";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
 import LinkSection from "@/components/LinkContainer/Index";
-
-const StyledImage = styled(Image)`
-  border-radius: 50%;
-  border: 3px solid darkgray;
-  margin: 2rem auto;
-  width: 15rem;
-  height: 15rem;
-  display: flex;
-`;
+import StyledImage from "@/components/StyledImage";
 
 export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
