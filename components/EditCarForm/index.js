@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 
@@ -90,6 +91,7 @@ const StyledSubmitButton = styled.button`
   background-color: hsla(103, 100%, 34%, 0.89);
 `;
 const StyledForm = styled.form`
+position:relative
   width: 85%;
   margin: 1rem auto 0 3.4rem;
   background-color: hsla(0, 0%, 4%, 0.64);
@@ -104,16 +106,28 @@ const StyledParagraph = styled.p`
   color: lightgray;
   text-align: center;
   font-size: 1.6rem;
-  width: 90%;
+  width: 70%;
   height: 5rem;
   margin: 0.3rem auto;
   padding: 0.5rem 0.5rem;
   border-radius: 1rem;
 `;
-export default function EditCarForm({ onSubmit, initialValues }) {
+const StyledCancelButton = styled.button`
+  position: absolute;
+  right: 0.4rem;
+  background-color: hsla(0, 93%, 40%, 0.89);
+  border-radius: 999px;
+`;
+export default function EditCarForm({ onSubmit, initialValues, onCancel }) {
+  const router = useRouter();
   return (
     <>
       <StyledForm onSubmit={onSubmit}>
+        {initialValues ? (
+          <StyledCancelButton type="button" onClick={onCancel}>
+            <SVGIcon variant="cancel" width="35px" />
+          </StyledCancelButton>
+        ) : null}
         <StyledParagraph>
           Please edit and save the data you want
         </StyledParagraph>

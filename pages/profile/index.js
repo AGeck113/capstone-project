@@ -141,7 +141,9 @@ export default function CarDetails() {
       console.error(error);
     }
   }
-
+  function handleCancel() {
+    setIsEditing(false);
+  }
   async function handleDelete() {
     confirm(
       "Are you sure, that you want to delete your car and all Appointments?"
@@ -187,7 +189,11 @@ export default function CarDetails() {
             <button type="submit">Submit new Picture</button>
           </form>
 
-          <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
+          <EditCarForm
+            onCancel={handleCancel}
+            initialValues={activeCar}
+            onSubmit={handleSubmit}
+          />
           <button onClick={handleDelete} type="button">
             DELETE CAR
           </button>
