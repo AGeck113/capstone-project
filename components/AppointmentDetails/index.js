@@ -2,8 +2,16 @@ import { nanoid } from "nanoid";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
-import Documents from "../Document";
+import Documents from "../Documents";
 import SVGIcon from "../Icons";
+
+const StyledAddButton = styled.button`
+  border-radius: 999px;
+  background-color: hsla(103, 100%, 34%, 0.89);
+  width: 4rem;
+  height: 4rem;
+  margin auto auto;
+`;
 
 const StyledNotes = styled.p`
   overflow-wrap: break-word;
@@ -152,16 +160,19 @@ export default function Details({
                   documents={appointment.documents}
                   onDelete={onDelete}
                 />
+                <StyledAddButton
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(true);
+                  }}
+                >
+                  <SVGIcon
+                    variant={isEditing ? "cancel" : "add"}
+                    width="40px"
+                  />
+                </StyledAddButton>
               </DocumentContainer>
             )}
-            <button
-              type="button"
-              onClick={() => {
-                setIsEditing(true);
-              }}
-            >
-              Save new File
-            </button>
           </>
         )}
       </section>
