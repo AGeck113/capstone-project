@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
 import StyledImage from "@/components/StyledImage";
+import UploadDoc from "@/components/UploadDoc";
 const StyledHeadline = styled.h2`
 text-align: center;
 color: lightgray;
@@ -128,6 +129,7 @@ export default function CarDetails() {
   async function handleSubmitPicture(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+    console.log("formdata", event.target);
     try {
       const response = await fetch(`/api/uploadPicture/`, {
         method: "POST",

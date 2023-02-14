@@ -36,7 +36,6 @@ cloudinary.config({
 });
 
 export default async function handler(request, response) {
-  const { id } = request.query;
   const token = await getToken({ req: request });
   const userId = token.sub;
   if (token) {
@@ -55,8 +54,7 @@ export default async function handler(request, response) {
         if (!updatedCar) {
           return response.status(404).json({ status: "Not Found" });
         }
-        response.status(201).json(updatedCar);
-        break;
+        return response.status(201).json(updatedCar);
 
       default:
         response.status(400).json({ message: "Method not implemented" });
