@@ -1,4 +1,4 @@
-import EditCarForm, { groups } from "@/components/EditCarForm";
+import EditCarForm, { carPrototype, groups } from "@/components/EditCarForm";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -18,6 +18,25 @@ padding: 0.5rem 4rem;
 width: 100%;
 margin 0 auto;
 height: 4rem;
+`;
+const StyledGroupDescription = styled.p`
+  grid-column: 1/3;
+  background-color: hsla(0, 0%, 100%, 0.22);
+  height: fit-content;
+  text-align: center;
+  color: lightgray;
+  margin: 1rem auto;
+  width: 80%;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+`;
+const StyledDataContainer = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem;
+  margin-top: -0.2rem;
 `;
 const ContentContainer = styled.section`
   border: 2px solid black;
@@ -55,13 +74,17 @@ const StyledSection = styled.section`
   padding-bottom: 1rem;
 `;
 const StyledSectionDescription = styled.p`
-  align-self: flex-start;
   padding: 1rem 0rem 0.8rem 1.5rem;
   font-size: 1.2rem;
 `;
 
 const StyledInformation = styled.p`
-  margin: 0.5rem auto;
+  margin-left: -0.4rem;
+  width: 80%;
+`;
+const StyledData = styled.p`
+  margin-left: 0.5rem;
+  width: 40%;
 `;
 
 export default function CarDetails() {
@@ -189,65 +212,28 @@ export default function CarDetails() {
               width={200}
               height={200}
             />
-            <StyledSection>
-              <StyledSectionDescription>
-                Wichtige Daten:
-              </StyledSectionDescription>
 
-              <StyledInformation>Marke: {activeCar.Make}</StyledInformation>
-              <StyledInformation>Modell: {activeCar.Model}</StyledInformation>
-              <StyledInformation>
-                KM-Stand: {activeCar.Milage}
-              </StyledInformation>
-              <StyledInformation>
-                Kennzeichen: {activeCar.Plate}
-              </StyledInformation>
-            </StyledSection>
-            <StyledSection>
-              <StyledSectionDescription>Maße:</StyledSectionDescription>
-
-              <StyledInformation>
-                Länge: {activeCar["Length (mm)"]}(mm)
-              </StyledInformation>
-              <StyledInformation>
-                Breite: {activeCar["Width (mm)"]}(mm)
-              </StyledInformation>
-              <StyledInformation>
-                Breite inkl. Spiegel:
-                {activeCar["Width including mirrors (mm)"]} (mm)
-              </StyledInformation>
-              <StyledInformation>
-                Höhe: {activeCar["Height (mm)"]} (mm)
-              </StyledInformation>
-              <StyledInformation>
-                Leergewicht: {activeCar["Weight Empty (kg)"]} (kg)
-              </StyledInformation>
-              <StyledInformation>
-                Max. Gewicht: {activeCar["Max Weight (kg)"]}(kg)
-              </StyledInformation>
-            </StyledSection>
-            <StyledSection>
-              <StyledSectionDescription>
-                Weitere Details:
-              </StyledSectionDescription>
-
-              <StyledInformation>Antrieb: {activeCar.Drive}</StyledInformation>
-              <StyledInformation>
-                Modelljahr: {activeCar["Model Year"]}
-              </StyledInformation>
-              <StyledInformation>
-                Hubraum (ccm): {activeCar["Engine Displacement (ccm)"]}
-              </StyledInformation>
-              <StyledInformation>
-                Getriebe: {activeCar.Transmission}
-              </StyledInformation>
-              <StyledInformation>
-                Anzahl Gänge: {activeCar["Number of Gears"]}
-              </StyledInformation>
-              <StyledInformation>
-                Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
-              </StyledInformation>
-            </StyledSection>
+            {groups.map((group) => {
+              return (
+                <StyledSection key={group.id}>
+                  <StyledGroupDescription>
+                    {group.description}
+                  </StyledGroupDescription>
+                  {Object.keys(carPrototype).map((attribute, index) => {
+                    if (group.content.includes(attribute)) {
+                      return (
+                        <StyledDataContainer key={group.id + index}>
+                          <StyledData>{attribute}:</StyledData>
+                          <StyledInformation>
+                            {activeCar[attribute]}
+                          </StyledInformation>
+                        </StyledDataContainer>
+                      );
+                    }
+                  })}
+                </StyledSection>
+              );
+            })}
           </ContentContainer>
         </>
       )}

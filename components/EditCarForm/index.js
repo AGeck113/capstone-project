@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 
-const carPrototype = {
+export const carPrototype = {
   VIN: "",
   Make: "",
   Model: "",
