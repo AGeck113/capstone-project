@@ -10,23 +10,32 @@ const StyledAddButton = styled.button`
   background-color: hsla(103, 100%, 34%, 0.89);
   width: 4rem;
   height: 4rem;
-  margin auto auto;
+  margin 1rem auto;
 `;
 
 const StyledNotes = styled.textarea`
   overflow-wrap: break-word;
   background-color: lightyellow;
   height: fit-content;
-  width: 70%;
+  width: 90%;
   border-radius: 1rem;
   padding: 0.5rem;
   text-decoration: underline;
+  margin: 0.5rem auto;
+`;
+const StyledParagraph = styled.p`
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: lightgray;
 `;
 const StyledContainer = styled.section`
-  display: flex;
   position: relative;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  width: 80%;
+  margin: 1rem auto;
+  border-radius: 1rem;
 `;
 const ButtonContainer = styled.section`
   width: 80%;
@@ -91,78 +100,74 @@ export default function Details({
           <SVGIcon variant="documents" width="30px" />
         </StyledTabButton>
       </ButtonContainer>
-      <section>
-        {activeTab === "notes" ? (
-          isEditing === true ? (
+      {activeTab === "notes" ? (
+        isEditing === true ? (
+          <>
             <NotesForm
               notes={appointment.notes}
               onSubmit={onSubmitNotes}
               setIsEditing={setIsEditing}
             />
-          ) : (
-            <StyledContainer>
-              <StyledNotes
-                disabled
-                maxLength={2000}
-                rows={12}
-                value={appointment.notes}
-              ></StyledNotes>
+          </>
+        ) : (
+          <StyledContainer>
+            <StyledParagraph>Notes</StyledParagraph>
 
+            <StyledNotes
+              disabled
+              maxLength={2000}
+              rows={12}
+              value={appointment.notes}
+            />
+
+            <StyledAddButton
+              type="button"
+              onClick={() => {
+                setIsEditing(true);
+              }}
+            >
+              <SVGIcon variant="edit" width="30px" />
+            </StyledAddButton>
+          </StyledContainer>
+        )
+      ) : isEditing === true ? (
+        <UploadDoc
+          onSelectFile={handleSelectFile}
+          setIsEditing={setIsEditing}
+          onSubmitForm={onSubmitForm}
+        />
+      ) : (
+        <>
+          {appointment.documents.length === 0 ? (
+            <ul>
+              <li>No Documents found!</li>
               <StyledAddButton
                 type="button"
                 onClick={() => {
                   setIsEditing(true);
                 }}
               >
-                <SVGIcon variant="edit" width="30px" />
+                <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
               </StyledAddButton>
-            </StyledContainer>
-          )
-        ) : isEditing === true ? (
-          <UploadDoc
-            onSelectFile={handleSelectFile}
-            setIsEditing={setIsEditing}
-            onSubmitForm={onSubmitForm}
-          />
-        ) : (
-          <>
-            {appointment.documents.length === 0 ? (
-              <ul>
-                <li>No Documents found!</li>
-                <StyledAddButton
-                  type="button"
-                  onClick={() => {
-                    setIsEditing(true);
-                  }}
-                >
-                  <SVGIcon
-                    variant={isEditing ? "cancel" : "add"}
-                    width="40px"
-                  />
-                </StyledAddButton>
-              </ul>
-            ) : (
-              <DocumentContainer>
-                <Documents
-                  documents={appointment.documents}
-                  onDelete={onDelete}
-                />
-                <StyledAddButton
-                  type="button"
-                  onClick={() => {
-                    setIsEditing(true);
-                  }}
-                >
-                  <SVGIcon
-                    variant={isEditing ? "cancel" : "add"}
-                    width="40px"
-                  />
-                </StyledAddButton>
-              </DocumentContainer>
-            )}
-          </>
-        )}
-      </section>
+            </ul>
+          ) : (
+            <DocumentContainer>
+              <Documents
+                documents={appointment.documents}
+                onDelete={onDelete}
+              />
+              <StyledAddButton
+                type="button"
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
+              </StyledAddButton>
+            </DocumentContainer>
+          )}
+        </>
+      )}
     </>
   );
 }
