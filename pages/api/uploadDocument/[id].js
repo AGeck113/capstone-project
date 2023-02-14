@@ -57,7 +57,7 @@ export default async function handler(request, response) {
         if (!updatedAppointment) {
           return response.status(404).json({ status: "Not Found" });
         }
-        response.status(201).json(updatedAppointment);
+        return response.status(201).json(updatedAppointment);
         break;
 
       default:
