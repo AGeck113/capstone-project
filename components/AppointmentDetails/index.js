@@ -118,6 +118,7 @@ export default function Details({
           <UploadDoc
             onSelectFile={handleSelectFile}
             setIsEditing={setIsEditing}
+            onSubmitForm={onSubmitForm}
           />
         ) : (
           <>
