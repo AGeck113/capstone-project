@@ -1,4 +1,8 @@
-export default function UploadDoc({ onSelectFile, setIsEditing }) {
+export default function UploadDoc({
+  onSelectFile,
+  setIsEditing,
+  onSubmitForm,
+}) {
   return (
     <form
       onSubmit={(event) => {
