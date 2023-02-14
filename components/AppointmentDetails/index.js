@@ -101,9 +101,12 @@ export default function Details({
             />
           ) : (
             <StyledContainer>
-              <StyledNotes disabled maxLength={2000} rows={12}>
-                {appointment.notes}
-              </StyledNotes>
+              <StyledNotes
+                disabled
+                maxLength={2000}
+                rows={12}
+                value={appointment.notes}
+              ></StyledNotes>
 
               <StyledAddButton
                 type="button"
