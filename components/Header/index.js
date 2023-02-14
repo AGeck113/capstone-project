@@ -7,9 +7,8 @@ import { userCar } from "@/pages";
 import Link from "next/link";
 
 const StyledHeader = styled.header`
-  // position: fixed;
-  // top: 0;
-
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 5rem;
   display: flex;
@@ -25,17 +24,20 @@ const StyledHeader = styled.header`
 const StyledImage = styled(Image)`
   border-radius: 999px;
   border: 3px solid lightgray;
-  height: 4rem;
-  width: 4rem;
+  height: 3.3rem;
+  width: 3.3rem;
+  position: absolute;
+  right: 0.5rem;
+  bottom: -4rem;
 `;
 const StyledLogoutButton = styled.button`
   border-radius: 999px;
-  width: 4rem;
+  width: 3.4rem;
   background-color: hsla(0, 69%, 60%, 0.9);
 `;
 const StyledLoginButton = styled.button`
   border-radius: 999px;
-  width: 4rem;
+  width: 3.4rem;
   background-color: hsla(103, 100%, 34%, 0.89);
 `;
 export default function Header() {
@@ -77,7 +79,7 @@ export default function Header() {
               signIn();
             }}
           >
-            <SVGIcon variant="login" width="40px" />
+            {/* <SVGIcon variant="login" width="40px" /> */}
           </StyledLoginButton>
         </StyledHeader>
       )}

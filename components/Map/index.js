@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const StyledMapContainer = styled(MapContainer)`
-  width: 85vw;
+  width: 80vw;
   max-width: 540px;
   height: 50vh;
   margin 2rem auto 1rem 3.4rem;
@@ -52,7 +52,9 @@ const StyledPageHeadline = styled.h2`
   text-align: center;
   color: lightgray;
   background-color: hsla(0, 0%, 4%, 0.64);
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 4rem;
+  width: 100%;
+  margin 0 auto
 `;
 const StyledLink = styled(Link)`
   background-color: lightgray;

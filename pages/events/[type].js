@@ -10,10 +10,12 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 
 const StyledHeadline = styled.h2`
-  font-size: 1.8rem;
-  color: lightgray;
-  margin 1.5rem auto 3rem auto;
-  text-align: center;
+text-align: center;
+color: lightgray;
+background-color: hsla(0, 0%, 4%, 0.64);
+padding: 0.5rem 4rem;
+width: 100%;
+margin 0 auto
 `;
 const StyledAddButton = styled.button`
   border-radius: 999px;

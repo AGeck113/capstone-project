@@ -13,7 +13,8 @@ export default createGlobalStyle`
     width:100%;
     height:100%;
     max-width: 600px;
-    margin-bottom: 5rem;
+    margin-bottom: 5.5rem;
+    margin-top: 5.5rem;
 
   }
 `;

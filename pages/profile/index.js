@@ -10,7 +10,15 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
 import StyledImage from "@/components/StyledImage";
-
+const StyledHeadline = styled.h2`
+text-align: center;
+color: lightgray;
+background-color: hsla(0, 0%, 4%, 0.64);
+padding: 0.5rem 4rem;
+width: 100%;
+margin 0 auto;
+height: 4rem;
+`;
 const ContentContainer = styled.section`
   border: 2px solid black;
   margin: 1.5rem 1rem auto 3.4rem;
@@ -139,6 +147,7 @@ export default function CarDetails() {
 
   return (
     <>
+      <StyledHeadline>Your Car</StyledHeadline>
       {isEditing ? (
         <>
           <form onSubmit={handleSubmitPicture}>

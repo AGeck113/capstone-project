@@ -15,6 +15,7 @@ const StyledFooter = styled.footer`
   z-index: 10;
   padding: 0 0.6rem;
   height: 5rem;
+  max-width: 600px;
 `;
 const StyledLink = styled(Link)`
   border-radius: 999px;
