@@ -40,6 +40,14 @@ const StyledLoginButton = styled.button`
   width: 3.4rem;
   background-color: hsla(103, 100%, 34%, 0.89);
 `;
+
+function handleSignOut() {
+  const sure = confirm("Do you really want to leave?");
+  if (!sure) {
+    return;
+  }
+  signOut();
+}
 export default function Header() {
   const { data: session } = useSession();
   const [activeCar] = useAtom(userCar);
@@ -60,25 +68,14 @@ export default function Header() {
               height={70}
             />
           </Link>
-          <StyledLogoutButton
-            type="button"
-            onClick={() => {
-              confirm("Do you really want to leave?");
-              signOut();
-            }}
-          >
+          <StyledLogoutButton type="button" onClick={handleSignOut}>
             <SVGIcon variant="logout" width="40px" />
           </StyledLogoutButton>
         </StyledHeader>
       ) : (
         <StyledHeader>
           <p>No user logged in</p> <SVGIcon variant="user" width="70px" />
-          <StyledLoginButton
-            type="button"
-            onClick={() => {
-              signIn();
-            }}
-          >
+          <StyledLoginButton type="button" onClick={signIn}>
             <SVGIcon variant="login" width="40px" />
           </StyledLoginButton>
         </StyledHeader>

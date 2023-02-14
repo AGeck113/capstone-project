@@ -137,7 +137,7 @@ export default function EventCard({ appointment }) {
           </p>
           <p>Priority: {appointment.priority}</p>
           <StyledLink href={`/appointmentDetails/${appointment._id}`}>
-            details
+            <SVGIcon variant="information" width="30px" />
           </StyledLink>
         </>
       ) : null}
