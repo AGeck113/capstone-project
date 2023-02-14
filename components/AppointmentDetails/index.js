@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
-import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import Documents from "../Documents";
 import SVGIcon from "../Icons";
+import NotesForm from "../NotesForm";
 
 const StyledAddButton = styled.button`
   border-radius: 999px;
@@ -94,36 +94,23 @@ export default function Details({
       <section>
         {activeTab === "notes" ? (
           isEditing === true ? (
-            <form
-              onSubmit={(event) => {
-                onSubmitNotes(event);
-                setIsEditing(false);
-              }}
-            >
-              <h2>Notes</h2>
-              <label>
-                Your Notes:
-                <textarea
-                  defaultValue={appointment.notes}
-                  maxLength={2000}
-                  rows={10}
-                  name="notes"
-                ></textarea>
-              </label>
-              <button type="submit">Save</button>
-            </form>
+            <NotesForm
+              notes={appointment.notes}
+              onSubmit={onSubmitNotes}
+              setIsEditing={setIsEditing}
+            />
           ) : (
             <StyledContainer>
               <StyledNotes>{appointment.notes}</StyledNotes>
 
-              <button
+              <StyledAddButton
                 type="button"
                 onClick={() => {
                   setIsEditing(true);
                 }}
               >
-                Edit Notes
-              </button>
+                <SVGIcon variant="edit" width="30px" />
+              </StyledAddButton>
             </StyledContainer>
           )
         ) : isEditing === true ? (
