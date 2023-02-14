@@ -58,7 +58,6 @@ export default async function handler(request, response) {
           return response.status(404).json({ status: "Not Found" });
         }
         return response.status(201).json(updatedAppointment);
-        break;
 
       default:
         return response.status(400).json({ message: "Method not implemented" });

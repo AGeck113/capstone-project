@@ -26,6 +26,9 @@ export default function EventDetailPage() {
   if (!session) {
     return <Login />;
   }
+  if (isLoading) {
+    return <p>loading</p>;
+  }
 
   async function handleSubmitNotes(event) {
     event.preventDefault();
@@ -76,9 +79,7 @@ export default function EventDetailPage() {
       console.error(error);
     }
   }
-  if (isLoading) {
-    return <p>loading</p>;
-  }
+
   return (
     <>
       <StyledHeadline>{data.title}</StyledHeadline>

@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { useState } from "react";
 import styled from "styled-components";
 import Documents from "../Documents";
@@ -14,7 +13,7 @@ const StyledAddButton = styled.button`
   margin auto auto;
 `;
 
-const StyledNotes = styled.p`
+const StyledNotes = styled.textarea`
   overflow-wrap: break-word;
   background-color: lightyellow;
   height: fit-content;
@@ -102,7 +101,9 @@ export default function Details({
             />
           ) : (
             <StyledContainer>
-              <StyledNotes>{appointment.notes}</StyledNotes>
+              <StyledNotes disabled maxLength={2000} rows={12}>
+                {appointment.notes}
+              </StyledNotes>
 
               <StyledAddButton
                 type="button"
