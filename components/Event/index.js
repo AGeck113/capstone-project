@@ -53,17 +53,15 @@ const StyledDeleteButton = styled.button`
   border-radius: 999px;
 `;
 const StyledLink = styled(Link)`
-  background-color: lightgray;
-  padding: 0.5rem 0.5rem;
-  height: 2rem;
-  border: 2px solid black;
-  border-radius: 1rem;
+  height: fit-content;
+  border-radius: 999px;
   margin: 0.5 auto;
 `;
 
 export default function EventCard({ appointment }) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  console.log(router.query);
 
   async function handleDelete() {
     const sure = confirm("Do you really want to delete the document?");
@@ -136,9 +134,11 @@ export default function EventCard({ appointment }) {
             }).format(appointment.cost)}
           </p>
           <p>Priority: {appointment.priority}</p>
-          <StyledLink href={`/appointmentDetails/${appointment._id}`}>
-            <SVGIcon variant="information" width="30px" />
-          </StyledLink>
+          {router.query.hasOwnProperty("type") ? (
+            <StyledLink href={`/appointmentDetails/${appointment._id}`}>
+              <SVGIcon variant="information" width="30px" />
+            </StyledLink>
+          ) : null}
         </>
       ) : null}
     </EventContainer>
