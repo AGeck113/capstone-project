@@ -145,9 +145,12 @@ export default function CarDetails() {
     setIsEditing(false);
   }
   async function handleDelete() {
-    confirm(
+    const sure = confirm(
       "Are you sure, that you want to delete your car and all Appointments?"
     );
+    if (!sure) {
+      return;
+    }
     try {
       const response = await fetch(`/api/userCars/`, { method: "DELETE" });
       if (response.ok) {

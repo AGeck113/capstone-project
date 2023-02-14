@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Documents from "../Documents";
 import SVGIcon from "../Icons";
 import NotesForm from "../NotesForm";
+import UploadDoc from "../UploadDoc";
 
 const StyledAddButton = styled.button`
   border-radius: 999px;
@@ -114,27 +115,10 @@ export default function Details({
             </StyledContainer>
           )
         ) : isEditing === true ? (
-          <form
-            onSubmit={(event) => {
-              onSubmitForm(event);
-              setIsEditing(false);
-            }}
-          >
-            <label>
-              Upload Document
-              <input
-                type="file"
-                name="documentFile"
-                onChange={handleSelectFile}
-                required
-              />
-            </label>
-            <label>
-              Name:
-              <input type="text" name="title" required />
-            </label>
-            <button type="submit">save</button>
-          </form>
+          <UploadDoc
+            onSelectFile={handleSelectFile}
+            setIsEditing={setIsEditing}
+          />
         ) : (
           <>
             {appointment.documents.length === 0 ? (
