@@ -1,4 +1,4 @@
-import EditCarForm from "@/components/EditCarForm";
+import EditCarForm, { groups } from "@/components/EditCarForm";
 import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -35,8 +35,8 @@ const ContentContainer = styled.section`
 
 const StyledEditButton = styled.button`
   position: absolute;
-  top: 1.2rem;
-  left: -1.7rem;
+  top: -1.2rem;
+  right: 1rem;
   background-color: hsla(34, 93%, 52%, 0.89);
   border-radius: 999px;
 `;
@@ -52,6 +52,7 @@ const StyledSection = styled.section`
   position: relative;
   color: lightgray;
   width: 80%;
+  padding-bottom: 1rem;
 `;
 const StyledSectionDescription = styled.p`
   align-self: flex-start;
@@ -60,7 +61,7 @@ const StyledSectionDescription = styled.p`
 `;
 
 const StyledInformation = styled.p`
-  padding;
+  margin: 0.5rem auto;
 `;
 
 export default function CarDetails() {

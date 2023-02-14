@@ -79,7 +79,7 @@ export default function Header() {
               signIn();
             }}
           >
-            {/* <SVGIcon variant="login" width="40px" /> */}
+            <SVGIcon variant="login" width="40px" />
           </StyledLoginButton>
         </StyledHeader>
       )}

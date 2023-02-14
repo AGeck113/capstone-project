@@ -35,6 +35,9 @@ export default function EventsPage() {
   if (!session) {
     return <Login />;
   }
+  if (type != "wishlist" && type != "upcoming" && type != "latest") {
+    return <p>Sorry, something went wrong!</p>;
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();

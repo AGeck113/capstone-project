@@ -19,7 +19,7 @@ const carPrototype = {
   Transmission: "",
   "Number Of Gears": 0,
 };
-const groups = [
+export const groups = [
   {
     id: 1,
     description: "Important data",

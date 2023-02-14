@@ -11,7 +11,7 @@ const StyledFooter = styled.footer`
   position: fixed;
   bottom: 0px;
   border-bottom: 2px solid black;
-  background-color: hsla(0, 0%, 4%, 0.64);
+  background-color: hsla(0, 0%, 4%, 0.94);
   z-index: 10;
   padding: 0 0.6rem;
   height: 5rem;
