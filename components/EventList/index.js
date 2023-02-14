@@ -9,11 +9,10 @@ const EventContainer = styled.ul`
   position: relative;
   list-style: none;
   display: grid;
-  margin: 1rem auto;
+  padding: 0;
 `;
 export default function EventList({ type }) {
   const [activeCar] = useAtom(userCar);
-
   const { data, isLoading } = useSWR(`/api/appointments/`);
 
   if (isLoading) {

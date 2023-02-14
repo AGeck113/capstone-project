@@ -4,7 +4,18 @@ import useSWR from "swr";
 import Details from "../../components/AppointmentDetails";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
+import styled from "styled-components";
 
+const StyledHeadline = styled.h2`
+text-align: center;
+color: lightgray;
+background-color: hsla(0, 0%, 4%, 0.64);
+width: 100%;
+margin 0 auto;
+height: fit-content;
+padding: 1rem 3rem;
+overflow-wrap: break-word;
+`;
 export default function EventDetailPage() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -70,6 +81,7 @@ export default function EventDetailPage() {
   }
   return (
     <>
+      <StyledHeadline>{data.title}</StyledHeadline>
       <EventCard appointment={data} />
       <Details
         onSubmitNotes={handleSubmitNotes}

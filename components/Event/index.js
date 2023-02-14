@@ -7,7 +7,7 @@ import SVGIcon from "../Icons";
 
 const EventContainer = styled.article`
   border: 2px solid black;
-  margin: 1rem;
+  margin: 1rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +16,8 @@ const EventContainer = styled.article`
   border-radius: 2rem;
   position: relative;
   color: lightgray;
-  max-width: 300px;
+  max-width: 600px;
+  width: 80%;
 `;
 const Title = styled.p`
   width: 90%;
@@ -24,10 +25,12 @@ const Title = styled.p`
   font-weight: bold;
   font-size: 1.4rem;
   overflow-wrap: break-word;
+  margin-bottom: 0.5rem;
 `;
 const Date = styled.p`
   align-self: flex-start;
   padding-left: 1rem;
+  margin: 0;
 `;
 const StyledDescription = styled.p`
   overflow-wrap: break-word;
@@ -37,6 +40,10 @@ const StyledDescription = styled.p`
   border: 3px solid black;
   border-radius: 1rem;
   padding: 1rem 1rem;
+  margin: 0.8rem auto;
+`;
+const StyledParagraph = styled.p`
+  margin: 0.5rem;
 `;
 const StyledEditButton = styled.button`
   position: absolute;
@@ -55,13 +62,16 @@ const StyledDeleteButton = styled.button`
 const StyledLink = styled(Link)`
   height: fit-content;
   border-radius: 999px;
-  margin: 0.5 auto;
+  margin: 0.5rem auto;
+`;
+const StyledCostAndPrioContainer = styled.section`
+  display: flex;
+  margin-bottom: 0.5rem;
 `;
 
 export default function EventCard({ appointment }) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
-  console.log(router.query);
 
   async function handleDelete() {
     const sure = confirm("Do you really want to delete the document?");
@@ -126,14 +136,17 @@ export default function EventCard({ appointment }) {
           <Title>{appointment.title}</Title>
           <Date>Date: {appointment.date}</Date>
           <StyledDescription>{appointment.description}</StyledDescription>
-          <p>
-            Cost:{" "}
-            {new Intl.NumberFormat("de-DE", {
-              style: "currency",
-              currency: "EUR",
-            }).format(appointment.cost)}
-          </p>
-          <p>Priority: {appointment.priority}</p>
+          <StyledCostAndPrioContainer>
+            <StyledParagraph>
+              Cost:{" "}
+              {new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              }).format(appointment.cost)}
+            </StyledParagraph>
+            <StyledParagraph>{appointment.priority}</StyledParagraph>
+          </StyledCostAndPrioContainer>
+
           {router.query.hasOwnProperty("type") ? (
             <StyledLink href={`/appointmentDetails/${appointment._id}`}>
               <SVGIcon variant="information" width="30px" />

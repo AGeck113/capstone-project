@@ -63,6 +63,14 @@ const paths = {
     path: "M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
     viewbox: "0 0 24 24",
   },
+  notes: {
+    path: "M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z",
+    viewbox: "0 0 24 24",
+  },
+  documents: {
+    path: "M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z",
+    viewbox: "0 0 24 24",
+  },
 };
 
 export default function SVGIcon({ variant, width, color = "currentColor" }) {
