@@ -61,7 +61,7 @@ export default async function handler(request, response) {
         break;
 
       default:
-        response.status(400).json({ message: "Method not implemented" });
+        return response.status(400).json({ message: "Method not implemented" });
     }
   }
   {
