@@ -68,7 +68,8 @@ export default function EventsPage() {
   return (
     <>
       <StyledHeadline>
-        Your {type} {type === "wishlist" ? null : "Appointments"}
+        Your {type === "latest" ? "last" : type}{" "}
+        {type === "wishlist" ? null : "Appointments"}
       </StyledHeadline>
 
       <StyledAddButton
