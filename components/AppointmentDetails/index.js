@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
+import Documents from "../Document";
 import SVGIcon from "../Icons";
 
 const StyledNotes = styled.p`
@@ -31,13 +32,15 @@ const StyledTabButton = styled.button`
   width: 3rem;
   background-color: hsla(0, 0%, 4%, 0.64);
 `;
-const DocumentContainer = styled.section`
+const DocumentContainer = styled.ul`
   background-color: hsla(0, 0%, 4%, 0.64);
   width: 80%;
   margin: 1rem auto;
   border-radius: 1rem;
   padding: 1rem;
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
 `;
 export default function Details({
   appointment,
@@ -145,23 +148,10 @@ export default function Details({
               </ul>
             ) : (
               <DocumentContainer>
-                <ul>
-                  {appointment.documents.map((document) => {
-                    return (
-                      <li key={nanoid()}>
-                        <Link href={document.url}>{document.title}</Link>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            onDelete(document._id);
-                          }}
-                        >
-                          <span aria-label="Delete">❌</span>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <Documents
+                  documents={appointment.documents}
+                  onDelete={onDelete}
+                />
               </DocumentContainer>
             )}
             <button
