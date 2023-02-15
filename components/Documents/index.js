@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
@@ -32,7 +31,7 @@ const StyledDeleteButton = styled.button`
 export default function Documents({ documents, onDelete }) {
   return documents.map((document) => {
     return (
-      <StyledDocument key={nanoid()}>
+      <StyledDocument key={document._id}>
         <StyledDeleteButton
           type="button"
           onClick={() => {

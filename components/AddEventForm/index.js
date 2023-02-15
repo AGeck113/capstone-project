@@ -40,7 +40,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
   `;
   const StyledSelect = styled.select`
     width: 95%;
-    margin: 0.5 auto;
+    margin: 0.5rem auto;
     border-radius: 999px;
     height: 2rem;
     text-align: center;
