@@ -49,6 +49,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
   const StyledInput = styled.input`
     width: 80%;
     margin: 0 auto;
+    padding: 0.2rem;
     height: 2rem;
     font-size: 1.3rem;
     border-radius: 999px;
@@ -75,6 +76,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
     background-color: lightgray;
     border-radius: 1rem;
     margin: 0.3rem auto;
+    padding: 0.5rem;
   `;
 
   function handleChangeType(event) {

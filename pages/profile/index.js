@@ -42,7 +42,7 @@ const StyledDataContainer = styled.section`
 `;
 const ContentContainer = styled.section`
   border: 2px solid black;
-  margin: 1.5rem 1rem;
+  margin: 1.5rem auto;
   display: flex;
   justify-content: center;
   align-items: center;

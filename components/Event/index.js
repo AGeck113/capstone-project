@@ -32,7 +32,7 @@ const Date = styled.p`
   padding-left: 1rem;
   margin: 0;
 `;
-const StyledDescription = styled.p`
+const StyledDescription = styled.textarea`
   overflow-wrap: break-word;
   height: fit-content;
   width: 15rem;
@@ -41,6 +41,7 @@ const StyledDescription = styled.p`
   border-radius: 1rem;
   padding: 1rem 1rem;
   margin: 0.8rem auto;
+  color: lightgray;
 `;
 const StyledParagraph = styled.p`
   margin: 0.5rem;
@@ -135,7 +136,9 @@ export default function EventCard({ appointment }) {
         <>
           <Title>{appointment.title}</Title>
           <Date>Date: {appointment.date}</Date>
-          <StyledDescription>{appointment.description}</StyledDescription>
+          <StyledDescription rows="8">
+            {appointment.description}
+          </StyledDescription>
           <StyledCostAndPrioContainer>
             <StyledParagraph>
               Cost:{" "}
