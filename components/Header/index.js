@@ -17,7 +17,7 @@ const StyledHeader = styled.header`
   align-items: center;
   border-bottom: 2px solid black;
   background-color: hsla(0, 0%, 4%, 1);
-  z-index: 10;
+  z-index: 100000;
   padding: 0 0.6rem;
   max-width: 600px;
 `;
