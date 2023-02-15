@@ -136,9 +136,7 @@ export default function EventCard({ appointment }) {
         <>
           <Title>{appointment.title}</Title>
           <Date>Date: {appointment.date}</Date>
-          <StyledDescription rows="8">
-            {appointment.description}
-          </StyledDescription>
+          <StyledDescription rows="8" defaultValue={appointment.description} />
           <StyledCostAndPrioContainer>
             <StyledParagraph>
               Cost:{" "}

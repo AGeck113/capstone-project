@@ -140,15 +140,20 @@ export default function Details({
         <>
           {appointment.documents.length === 0 ? (
             <ul>
-              <li>No Documents found!</li>
-              <StyledAddButton
-                type="button"
-                onClick={() => {
-                  setIsEditing(true);
-                }}
-              >
-                <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
-              </StyledAddButton>
+              <DocumentContainer>
+                <StyledParagraph>No Documents found!</StyledParagraph>
+                <StyledAddButton
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(true);
+                  }}
+                >
+                  <SVGIcon
+                    variant={isEditing ? "cancel" : "add"}
+                    width="40px"
+                  />
+                </StyledAddButton>
+              </DocumentContainer>
             </ul>
           ) : (
             <DocumentContainer>
