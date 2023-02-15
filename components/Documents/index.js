@@ -4,7 +4,6 @@ import SVGIcon from "../Icons";
 
 const StyledDocument = styled.li`
   border: 3px solid black;
-  height: 6rem;
   width: 5rem;
   margin: 0.5rem auto;
   background-color: hsla(0, 0%, 100%, 0.22);
