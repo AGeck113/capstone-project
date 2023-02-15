@@ -181,11 +181,11 @@ export default function EditCarForm({ onSubmit, initialValues, onCancel }) {
           );
         })}
         <StyledButtonContainer>
-          {initialValues ? (
+          {initialValues && (
             <StyledCancelButton type="button" onClick={onCancel}>
               <SVGIcon variant="cancel" width="50px" />
             </StyledCancelButton>
-          ) : null}
+          )}
           <StyledSubmitButton type="submit">
             <SVGIcon variant="save" width="50px" />
           </StyledSubmitButton>
