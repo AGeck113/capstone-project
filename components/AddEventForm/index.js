@@ -97,7 +97,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
         type="text"
         name="title"
         defaultValue={appointment ? appointment.title : null}
-      ></StyledInput>
+      />
       <StyledLabel htmlFor="description">Description:</StyledLabel>
       <StyledTextarea
         id="description"
@@ -132,7 +132,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
           max={999999}
           name="cost"
           defaultValue={appointment ? appointment.cost : null}
-        ></StyledInputCost>
+        />
 
         <StyledLabel htmlFor="priority">Priority: </StyledLabel>
         <StyledSelect
