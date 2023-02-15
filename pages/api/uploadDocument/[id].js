@@ -57,11 +57,10 @@ export default async function handler(request, response) {
         if (!updatedAppointment) {
           return response.status(404).json({ status: "Not Found" });
         }
-        response.status(201).json(updatedAppointment);
-        break;
+        return response.status(201).json(updatedAppointment);
 
       default:
-        response.status(400).json({ message: "Method not implemented" });
+        return response.status(400).json({ message: "Method not implemented" });
     }
   }
   {

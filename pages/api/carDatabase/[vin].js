@@ -12,7 +12,7 @@ export default async function handler(request, response) {
       if (!carData) {
         return response.status(404).json({ status: "Not Found" });
       }
-      response.status(200).json(carData);
+      return response.status(200).json(carData);
     }
   }
   {

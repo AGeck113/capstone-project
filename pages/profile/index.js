@@ -1,27 +1,48 @@
-import EditCarForm from "@/components/EditCarForm";
+import EditCarForm, { carPrototype, groups } from "@/components/EditCarForm";
 import { useAtom } from "jotai";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { userCar } from "../index";
 import useSWR from "swr";
 import styled from "styled-components";
 import SVGIcon from "@/components/Icons";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
+import StyledImage from "@/components/StyledImage";
+import UploadPicture from "@/components/UploadPicture";
 
-const StyledLogoutButton = styled.button`
-  background-color: hsla(0, 93%, 40%, 0.89);
-  border-radius: 999px;
-  width: 8rem;
-  height: 3rem;
+const StyledHeadline = styled.h2`
+text-align: center;
+color: lightgray;
+background-color: hsla(0, 0%, 4%, 0.64);
+padding: 0.5rem 4rem;
+width: 100%;
+margin 0 auto;
+height: 4rem;
+`;
+const StyledGroupDescription = styled.p`
+  grid-column: 1/3;
+  background-color: hsla(0, 0%, 100%, 0.22);
+  height: fit-content;
+  text-align: center;
   color: lightgray;
-  margin 0.8rem auto;
+  margin: 1rem auto;
+  width: 80%;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+`;
+const StyledDataContainer = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 1rem;
+  margin-top: -0.2rem;
 `;
 const ContentContainer = styled.section`
   border: 2px solid black;
-  margin: 1.5rem 1rem auto 3.4rem;
+  margin: 1.5rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,19 +53,8 @@ const ContentContainer = styled.section`
   color: lightgray;
   max-width: 360px;
 `;
-const StyledImage = styled(Image)`
-  border-radius: 5%;
-  border: 3px solid darkgray;
-  margin: 2rem auto;
-  width: 18rem;
-  height: 15rem;
-  display: flex;
-  border: 2px solid orange;
-`;
+
 const StyledEditButton = styled.button`
-  position: absolute;
-  top: 1.2rem;
-  left: -1.7rem;
   background-color: hsla(34, 93%, 52%, 0.89);
   border-radius: 999px;
 `;
@@ -60,16 +70,29 @@ const StyledSection = styled.section`
   position: relative;
   color: lightgray;
   width: 80%;
-`;
-const StyledSectionDescription = styled.p`
-  align-self: flex-start;
-  padding: 1rem 0rem 0.8rem 1.5rem;
-  font-size: 1.2rem;
+  padding-bottom: 1rem;
 `;
 
 const StyledInformation = styled.p`
-  padding;
+  margin-left: -0.4rem;
+  width: 80%;
+  height: 1rem;
 `;
+const StyledData = styled.p`
+  margin-left: 0.5rem;
+  width: 40%;
+  height: fit-content;
+`;
+const StyledDeleteButton = styled.button`
+  margin: 1rem 2rem;
+
+  padding: 1rem;
+  background-color: hsla(0, 93%, 40%, 0.89);
+  border-radius: 999px;
+  color: lightgray;
+  font-weight: bold;
+`;
+
 export default function CarDetails() {
   const [activeCar, setActiveCar] = useAtom(userCar);
   const [isEditing, setIsEditing] = useState(false);
@@ -124,11 +147,16 @@ export default function CarDetails() {
       console.error(error);
     }
   }
-
+  function handleCancel() {
+    setIsEditing(false);
+  }
   async function handleDelete() {
-    confirm(
+    const sure = confirm(
       "Are you sure, that you want to delete your car and all Appointments?"
     );
+    if (!sure) {
+      return;
+    }
     try {
       const response = await fetch(`/api/userCars/`, { method: "DELETE" });
       if (response.ok) {
@@ -154,37 +182,25 @@ export default function CarDetails() {
 
   return (
     <>
+      <StyledHeadline>Your Car</StyledHeadline>
       {isEditing ? (
         <>
-          <form onSubmit={handleSubmitPicture}>
-            <label>
-              Update your picture!
-              <input
-                type="file"
-                name="imageFile"
-                required
-                onChange={handleUploadFile}
-              />
-            </label>
-            <button type="submit">Submit new Picture</button>
-          </form>
-
-          <EditCarForm initialValues={activeCar} onSubmit={handleSubmit} />
-          <button onClick={handleDelete} type="button">
-            DELETE CAR
-          </button>
+          <UploadPicture
+            onSubmitPicture={handleSubmitPicture}
+            onUploadFile={handleUploadFile}
+          />
+          <EditCarForm
+            onCancel={handleCancel}
+            initialValues={activeCar}
+            onSubmit={handleSubmit}
+          />
+          <StyledDeleteButton onClick={handleDelete} type="button">
+            Delete your car
+          </StyledDeleteButton>
         </>
       ) : (
         <>
           <ContentContainer>
-            <StyledEditButton
-              type="button"
-              onClick={() => {
-                setIsEditing(true);
-              }}
-            >
-              <SVGIcon variant="edit" width="35px" />
-            </StyledEditButton>
             <StyledImage
               alt="usercar"
               src={
@@ -194,75 +210,38 @@ export default function CarDetails() {
               width={200}
               height={200}
             />
-            <StyledSection>
-              <StyledSectionDescription>
-                Wichtige Daten:
-              </StyledSectionDescription>
 
-              <StyledInformation>Marke: {activeCar.Make}</StyledInformation>
-              <StyledInformation>Modell: {activeCar.Model}</StyledInformation>
-              <StyledInformation>
-                KM-Stand: {activeCar.Milage}
-              </StyledInformation>
-              <StyledInformation>
-                Kennzeichen: {activeCar.Plate}
-              </StyledInformation>
-            </StyledSection>
-            <StyledSection>
-              <StyledSectionDescription>Maße:</StyledSectionDescription>
-
-              <StyledInformation>
-                Länge: {activeCar["Length (mm)"]}(mm)
-              </StyledInformation>
-              <StyledInformation>
-                Breite: {activeCar["Width (mm)"]}(mm)
-              </StyledInformation>
-              <StyledInformation>
-                Breite inkl. Spiegel:
-                {activeCar["Width including mirrors (mm)"]} (mm)
-              </StyledInformation>
-              <StyledInformation>
-                Höhe: {activeCar["Height (mm)"]} (mm)
-              </StyledInformation>
-              <StyledInformation>
-                Leergewicht: {activeCar["Weight Empty (kg)"]} (kg)
-              </StyledInformation>
-              <StyledInformation>
-                Max. Gewicht: {activeCar["Max Weight (kg)"]}(kg)
-              </StyledInformation>
-            </StyledSection>
-            <StyledSection>
-              <StyledSectionDescription>
-                Weitere Details:
-              </StyledSectionDescription>
-
-              <StyledInformation>Antrieb: {activeCar.Drive}</StyledInformation>
-              <StyledInformation>
-                Modelljahr: {activeCar["Model Year"]}
-              </StyledInformation>
-              <StyledInformation>
-                Hubraum (ccm): {activeCar["Engine Displacement (ccm)"]}
-              </StyledInformation>
-              <StyledInformation>
-                Getriebe: {activeCar.Transmission}
-              </StyledInformation>
-              <StyledInformation>
-                Anzahl Gänge: {activeCar["Number of Gears"]}
-              </StyledInformation>
-              <StyledInformation>
-                Höchstgeschwindigkeit: {activeCar["Max Speed (km/h)"]} km/h
-              </StyledInformation>
-            </StyledSection>
+            {groups.map((group) => {
+              return (
+                <StyledSection key={group.id}>
+                  <StyledGroupDescription>
+                    {group.description}
+                  </StyledGroupDescription>
+                  {Object.keys(carPrototype).map((attribute, index) => {
+                    if (group.content.includes(attribute)) {
+                      return (
+                        <StyledDataContainer key={group.id + index}>
+                          <StyledData>{attribute}:</StyledData>
+                          <StyledInformation>
+                            {activeCar[attribute]}
+                          </StyledInformation>
+                        </StyledDataContainer>
+                      );
+                    }
+                  })}
+                </StyledSection>
+              );
+            })}
+            <StyledEditButton
+              type="button"
+              onClick={() => {
+                window.scrollTo(0, 0);
+                setIsEditing(true);
+              }}
+            >
+              <SVGIcon variant="edit" width="35px" />
+            </StyledEditButton>
           </ContentContainer>
-          <StyledLogoutButton
-            type="button"
-            onClick={() => {
-              confirm("Do you really want to leave?");
-              signOut();
-            }}
-          >
-            Logout
-          </StyledLogoutButton>
         </>
       )}
     </>

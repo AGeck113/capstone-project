@@ -1,21 +1,64 @@
-import { nanoid } from "nanoid";
-import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
+import Documents from "../Documents";
+import SVGIcon from "../Icons";
+import NotesForm from "../NotesForm";
+import UploadDoc from "../UploadDoc";
 
-const StyledNotes = styled.p`
+const StyledAddButton = styled.button`
+  border-radius: 999px;
+  background-color: hsla(103, 100%, 34%, 0.89);
+  width: 4rem;
+  height: 4rem;
+  margin 1rem auto;
+`;
+
+const StyledNotes = styled.textarea`
   overflow-wrap: break-word;
   background-color: lightyellow;
   height: fit-content;
-  width: 80%;
+  width: 90%;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  text-decoration: underline;
+  margin: 0.5rem auto;
 `;
-const StyledContainer = styled.article`
-  display: flex;
+const StyledParagraph = styled.p`
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: lightgray;
+`;
+const StyledContainer = styled.section`
   position: relative;
-  align-items: center;
-  flex-direction: column;
+  display: grid;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  width: 80%;
+  margin: 1rem auto;
+  border-radius: 1rem;
 `;
-
+const ButtonContainer = styled.section`
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-around;
+`;
+const StyledTabButton = styled.button`
+  border-radius: 999px;
+  height: 3rem;
+  width: 3rem;
+  background-color: hsla(0, 0%, 4%, 0.64);
+`;
+const DocumentContainer = styled.ul`
+  background-color: hsla(0, 0%, 4%, 0.64);
+  width: 80%;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  list-style: none;
+`;
 export default function Details({
   appointment,
   onDelete,
@@ -37,115 +80,99 @@ export default function Details({
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => {
-          setActiveTab("notes");
-          setIsEditing(false);
-        }}
-      >
-        Notes
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setActiveTab("documents");
-          setIsEditing(false);
-        }}
-      >
-        Documents
-      </button>
-
-      <section>
-        {activeTab === "notes" ? (
-          isEditing === true ? (
-            <form
-              onSubmit={(event) => {
-                onSubmitNotes(event);
-                setIsEditing(false);
-              }}
-            >
-              <h2>Notes</h2>
-              <label>
-                Your Notes:
-                <textarea
-                  defaultValue={appointment.notes}
-                  maxLength={2000}
-                  rows={10}
-                  name="notes"
-                ></textarea>
-              </label>
-              <button type="submit">Save</button>
-            </form>
-          ) : (
-            <StyledContainer>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsEditing(true);
-                }}
-              >
-                Edit Notes
-              </button>
-              <StyledNotes>{appointment.notes}</StyledNotes>
-            </StyledContainer>
-          )
-        ) : isEditing === true ? (
-          <form
-            onSubmit={(event) => {
-              onSubmitForm(event);
-              setIsEditing(false);
-            }}
-          >
-            <label>
-              Upload Document
-              <input
-                type="file"
-                name="documentFile"
-                onChange={handleSelectFile}
-                required
-              />
-            </label>
-            <label>
-              Name:
-              <input type="text" name="title" required />
-            </label>
-            <button type="submit">save</button>
-          </form>
-        ) : (
+      <ButtonContainer>
+        <StyledTabButton
+          type="button"
+          onClick={() => {
+            setActiveTab("notes");
+            setIsEditing(false);
+          }}
+        >
+          <SVGIcon variant="notes" width="30px" />
+        </StyledTabButton>
+        <StyledTabButton
+          type="button"
+          onClick={() => {
+            setActiveTab("documents");
+            setIsEditing(false);
+          }}
+        >
+          <SVGIcon variant="documents" width="30px" />
+        </StyledTabButton>
+      </ButtonContainer>
+      {activeTab === "notes" ? (
+        isEditing === true ? (
           <>
-            <ul>
-              {appointment.documents.length === 0 ? (
-                <li>No Documents found!</li>
-              ) : (
-                appointment.documents.map((document) => {
-                  return (
-                    <li key={nanoid()}>
-                      <Link href={document.url}>{document.title}</Link>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          onDelete(document._id);
-                        }}
-                      >
-                        <span aria-label="Delete">❌</span>
-                      </button>
-                    </li>
-                  );
-                })
-              )}
-            </ul>
-            <button
+            <NotesForm
+              notes={appointment.notes}
+              onSubmit={onSubmitNotes}
+              setIsEditing={setIsEditing}
+            />
+          </>
+        ) : (
+          <StyledContainer>
+            <StyledParagraph>Notes</StyledParagraph>
+
+            <StyledNotes
+              disabled
+              maxLength={2000}
+              rows={12}
+              value={appointment.notes}
+            />
+
+            <StyledAddButton
               type="button"
               onClick={() => {
                 setIsEditing(true);
               }}
             >
-              Save new File
-            </button>
-          </>
-        )}
-      </section>
+              <SVGIcon variant="edit" width="30px" />
+            </StyledAddButton>
+          </StyledContainer>
+        )
+      ) : isEditing === true ? (
+        <UploadDoc
+          onSelectFile={handleSelectFile}
+          setIsEditing={setIsEditing}
+          onSubmitForm={onSubmitForm}
+        />
+      ) : (
+        <>
+          {appointment.documents.length === 0 ? (
+            <ul>
+              <DocumentContainer>
+                <StyledParagraph>No Documents found!</StyledParagraph>
+                <StyledAddButton
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(true);
+                  }}
+                >
+                  <SVGIcon
+                    variant={isEditing ? "cancel" : "add"}
+                    width="40px"
+                  />
+                </StyledAddButton>
+              </DocumentContainer>
+            </ul>
+          ) : (
+            <DocumentContainer>
+              <Documents
+                documents={appointment.documents}
+                onDelete={onDelete}
+              />
+              <StyledAddButton
+                type="button"
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <SVGIcon variant={isEditing ? "cancel" : "add"} width="40px" />
+              </StyledAddButton>
+            </DocumentContainer>
+          )}
+        </>
+      )}
     </>
   );
 }

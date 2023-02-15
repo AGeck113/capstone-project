@@ -1,35 +1,14 @@
 import Link from "next/link";
-import Image from "next/image";
 import { useAtom } from "jotai";
 import useSWR from "swr";
 import { useEffect } from "react";
 import { atomWithStorage, createJSONStorage } from "jotai/utils";
-import styled from "styled-components";
-import StyledLink from "@/components/Links/StyledLink";
-import SVGIcon from "@/components/Icons";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
+import LinkSection from "@/components/LinkContainer/Index";
+import StyledImage from "@/components/StyledImage";
 
-const StyledImage = styled(Image)`
-  border-radius: 50%;
-  border: 3px solid darkgray;
-  margin: 2rem auto;
-  width: 15rem;
-  height: 15rem;
-  display: flex;
-`;
-const LinkContainer = styled.section`
-  display: grid;
-  justify-content: center;
-  grid-template-columns: 1fr 1fr;
-`;
-const StyledParagraph = styled.p`
-  color: lightgray;
-  font-size: 1.2rem;
-  margin-top: 0.4rem;
-  fond-weight: bold;
-`;
 export const userCar = atomWithStorage("userCar", true, {
   ...createJSONStorage(() => localStorage),
   delayInit: true,
@@ -66,33 +45,16 @@ export default function HomePage() {
   return (
     <>
       <>
-        <StyledImage
-          alt="usercar"
-          src={
-            activeCar.ImageUrl ||
-            "https://www.willow-car-sales.co.uk/wp-content/uploads/2019/11/placeholder-image-1.jpg"
-          }
-          width={200}
-          height={200}
-        />
-        <LinkContainer>
-          <StyledLink href={`/events/latest`}>
-            <SVGIcon variant="last" width="4rem" />
-            <StyledParagraph>Last</StyledParagraph>
-          </StyledLink>
-          <StyledLink href={`/events/upcoming`}>
-            <SVGIcon variant="next" width="4rem" />
-            <StyledParagraph>Next</StyledParagraph>
-          </StyledLink>
-          <StyledLink href={`/events/wishlist`}>
-            <SVGIcon variant="wish" width="4rem" />
-            <StyledParagraph>Wishes</StyledParagraph>
-          </StyledLink>
-          <StyledLink href={`/map`}>
-            <SVGIcon variant="map" width="4rem" />
-            <StyledParagraph>Events</StyledParagraph>
-          </StyledLink>
-        </LinkContainer>
+        <Link href="/profile">
+          <StyledImage
+            priority
+            alt="usercar"
+            src={activeCar.ImageUrl || "/placeholder-image-1.jpeg"}
+            width={200}
+            height={200}
+          />
+        </Link>
+        <LinkSection />
       </>
     </>
   );

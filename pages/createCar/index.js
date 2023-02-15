@@ -5,6 +5,8 @@ import { useState } from "react";
 import { userCar } from "../index.js";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login/index.js";
+import styled from "styled-components";
+import SVGIcon from "@/components/Icons/index.js";
 const carPrototype = {
   VIN: "",
   Make: "",
@@ -24,6 +26,40 @@ const carPrototype = {
   Transmission: "",
   "Number Of Gears": 0,
 };
+const StyledHeadline = styled.h2`
+text-align: center;
+color: lightgray;
+background-color: hsla(0, 0%, 4%, 0.64);
+padding: 0.5rem 4rem;
+width: 100%;
+margin 0 auto;
+height: 4rem;
+`;
+const StyledForm = styled.form`
+  width: 80%;
+  margin: 1rem auto;
+  display: grid;
+  gap: 0.5rem;
+  background-color: hsla(0, 0%, 4%, 0.64);
+  padding: 1.4rem;
+  border-radius: 1rem;
+`;
+const StyledLabel = styled.label`
+  color: lightgray;
+  margin: 0.4rem auto;
+`;
+const StyledSelect = styled.select`
+  width: 80%;
+  margin: 0 auto;
+  background-color: lightgray;
+`;
+const StyledSubmitButton = styled.button`
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  margin: 0.5rem auto;
+  background-color: hsla(103, 100%, 34%, 0.89);
+`;
 
 export default function CreateCar() {
   const [activeCar, setActiveCar] = useAtom(userCar);
@@ -90,25 +126,33 @@ export default function CreateCar() {
 
   return (
     <>
-      <h1>Register your car!</h1>
-      <form onSubmit={handleSubmitVin}>
-        <label>
-          Search your car with your VIN:
-          <input type="text" minLength={17} maxLength={17} name="vin"></input>
-        </label>
-        <button type="submit">Add!</button>
-        <p>
+      <StyledHeadline>Register your car!</StyledHeadline>
+      <StyledForm onSubmit={handleSubmitVin}>
+        {/*         
           Working VINs right now: LRW3E7EL3NC123456,
           WAUZZZ8V9LA015123,W0L0SDL08D0294820 and VF1CN041547024123
-        </p>
-      </form>
-      {searchFailed ? (
+        */}
+        <StyledLabel htmlFor="vin"> Search your car with your VIN:</StyledLabel>
+        <StyledSelect id="vin" name="vin" required>
+          <option value="" disabled selected>
+            VIN....
+          </option>
+          <option value="LRW3E7EL3NC123456">LRW3E7EL3NC123456</option>
+          <option value="WAUZZZ8V9LA015123">WAUZZZ8V9LA015123</option>
+          <option value="W0L0SDL08D0294820">W0L0SDL08D0294820</option>
+          <option value="VF1CN041547024123">VF1CN041547024123</option>
+        </StyledSelect>
+        <StyledSubmitButton type="submit">
+          <SVGIcon variant="searchCar" width="30px" />
+        </StyledSubmitButton>
+      </StyledForm>
+
+      {searchFailed && (
         <p>
           Sorry, we can not find the Vin in our data. Please control your vin.
           If you want, you can also use the form to register your car manually.
         </p>
-      ) : null}
-      <h2>Create your car manually:</h2>
+      )}
       <EditCarForm onSubmit={handleSubmitForm} />
     </>
   );

@@ -1,60 +1,41 @@
 import Link from "next/link";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
-import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
-import { useAtom } from "jotai";
-import { userCar } from "@/pages";
 
 const StyledFooter = styled.footer`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 5rem;
   display: flex;
+  width: 100%;
   justify-content: space-between;
   color: lightgray;
   align-items: center;
+  position: fixed;
+  bottom: 0px;
   border-bottom: 2px solid black;
-  background-color: hsla(0, 0%, 4%, 1);
+  background-color: hsla(0, 0%, 4%, 0.94);
   z-index: 10;
   padding: 0 0.6rem;
+  height: 5rem;
   max-width: 600px;
 `;
-const StyledImage = styled(Image)`
+const StyledLink = styled(Link)`
   border-radius: 999px;
   border: 3px solid lightgray;
-  height: 4rem;
-  width: 4rem;
+`;
+const StyledHeadline = styled.h1`
+  font-size: 2rem;
 `;
 
 export default function Footer() {
-  const { data: session } = useSession();
-  const [activeCar] = useAtom(userCar);
-
   return (
     <StyledFooter>
-      {session ? (
-        <section>
-          <p>Name: {session.user.name}</p>
-          <p>Car: {activeCar ? activeCar.Model : "no car"}</p>
-        </section>
-      ) : (
-        <section>
-          <p>No user logged in</p>
-        </section>
-      )}
+      <StyledLink href="/">
+        <SVGIcon variant="home" width="50px" />
+      </StyledLink>
+      <StyledHeadline>My Car</StyledHeadline>
 
-      {session ? (
-        <StyledImage
-          src={session.user.image}
-          alt={session.user.name}
-          width={70}
-          height={70}
-        />
-      ) : (
-        <SVGIcon variant="user" width="70px" />
-      )}
+      <StyledLink href="/profile">
+        <SVGIcon variant="car" width="50px" />
+      </StyledLink>
     </StyledFooter>
   );
 }

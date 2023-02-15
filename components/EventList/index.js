@@ -2,17 +2,17 @@ import { userCar } from "@/pages";
 import { useAtom } from "jotai";
 import styled from "styled-components";
 import useSWR from "swr";
+import CostOverwiev from "../CostOverview";
 import EventCard from "../Event";
 
 const EventContainer = styled.ul`
   position: relative;
   list-style: none;
   display: grid;
-  margin: 1rem auto;
+  padding: 0;
 `;
 export default function EventList({ type }) {
   const [activeCar] = useAtom(userCar);
-
   const { data, isLoading } = useSWR(`/api/appointments/`);
 
   if (isLoading) {
@@ -37,13 +37,7 @@ export default function EventList({ type }) {
           );
         })}
       </EventContainer>
-      <p>
-        The cost of your {type} {type === "wishlist" ? "is" : "appointments"}:{" "}
-        {new Intl.NumberFormat("de-DE", {
-          style: "currency",
-          currency: "EUR",
-        }).format(cost)}
-      </p>
+      <CostOverwiev type={type} cost={cost} />
     </>
   );
 }

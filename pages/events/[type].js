@@ -10,15 +10,19 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 
 const StyledHeadline = styled.h2`
-  font-size: 1.8rem;
-  color: lightgray;
-  margin 0.5rem auto 2rem auto;
-  text-align: center
+text-align: center;
+color: lightgray;
+background-color: hsla(0, 0%, 4%, 0.64);
+padding: 0.5rem 4rem;
+width: 100%;
+margin 0 auto
 `;
 const StyledAddButton = styled.button`
   border-radius: 999px;
-  background-color: limegreen;
+  background-color: hsla(103, 100%, 34%, 0.89);
   position: absolute;
+  top: 11rem;
+  left: 0.4rem;
   z-index: 10;
 `;
 export default function EventsPage() {
@@ -30,6 +34,9 @@ export default function EventsPage() {
 
   if (!session) {
     return <Login />;
+  }
+  if (type !== "wishlist" && type !== "upcoming" && type !== "latest") {
+    return <p>Sorry, something went wrong!</p>;
   }
 
   async function handleSubmit(event) {
@@ -61,7 +68,8 @@ export default function EventsPage() {
   return (
     <>
       <StyledHeadline>
-        Your {type} {type === "wishlist" ? null : "Appointments"}
+        Your {type === "latest" ? "last" : type}{" "}
+        {type === "wishlist" ? null : "Appointments"}
       </StyledHeadline>
 
       <StyledAddButton

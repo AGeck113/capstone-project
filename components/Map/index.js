@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 
 const StyledMapContainer = styled(MapContainer)`
-  width: 85vw;
+  width: 80vw;
   max-width: 540px;
   height: 50vh;
   margin 2rem auto 1rem 3.4rem;
@@ -52,7 +52,9 @@ const StyledPageHeadline = styled.h2`
   text-align: center;
   color: lightgray;
   background-color: hsla(0, 0%, 4%, 0.64);
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 4rem;
+  width: 100%;
+  margin 0 auto
 `;
 const StyledLink = styled(Link)`
   background-color: lightgray;
@@ -68,8 +70,11 @@ const markers = [
     name: "Tuning World Bodensee",
     lat: 47.677,
     long: 9.508,
-    description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    description: `Die TUNING WORLD BODENSEE ist Star neben Sternchen. Hier sind die Heroes unter den Tunern, die heißen Karossen, die mächtigen Motoren, die guten Whatever. Lasst uns Spaß haben – denn dafür ist die TUNING WORLD BODENSEE mit dem genialen Mix aus Ausstellung, Party und Show auf der Messe Friedrichshafen bekannt.
+
+    Die TUNING WORLD BODENSEE ist Europas größte reine Tuning-Messe, definitiv das Szene-Highlight für die Branche, für Aussteller und Besucher, deine Community, Benchmark für Tuning-Events in Deutschland und ganz Europa.
+    
+    Legt euch unter die Räder, macht eure Hotties fit, bringt eure Freunde mit, kommt mit all euren schönen Lastern. Wir sind prepared und ausgeschlafen. Und das Rahmenprogramm? Wird heiß. Versprochen!`,
   },
   {
     id: 2,
