@@ -55,7 +55,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
     border-radius: 999px;
     background-color: lightgray;
   `;
-  const StyledInputCost = styled.input`
+  const StyledInputCostDate = styled.input`
     width: 95%;
     margin: 0.5rem auto;
     border-radius: 999px;
@@ -63,14 +63,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
     text-align: center;
     background-color: lightgray;
   `;
-  const StyledDateInput = styled.input`
-    width: 95%;
-    margin: 0.5 auto;
-    border-radius: 999px;
-    height: 2rem;
-    text-align: center;
-    background-color: lightgray;
-  `;
+
   const StyledTextarea = styled.textarea`
     width: 80%;
     background-color: lightgray;
@@ -124,7 +117,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
           <option value="upcoming">Upcoming</option>
         </StyledSelect>
         <StyledLabel htmlFor="cost">Cost in €: </StyledLabel>
-        <StyledInputCost
+        <StyledInputCostDate
           id="cost"
           required
           type="number"
@@ -147,7 +140,7 @@ export default function AddEventForm({ onSubmit, appointment }) {
         </StyledSelect>
 
         <StyledLabel htmlFor="date">Date: </StyledLabel>
-        <StyledDateInput
+        <StyledInputCostDate
           id="date"
           type="date"
           name="date"
