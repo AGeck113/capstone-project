@@ -146,12 +146,13 @@ export default function CreateCar() {
           <SVGIcon variant="searchCar" width="30px" />
         </StyledSubmitButton>
       </StyledForm>
-      {searchFailed ? (
+
+      {searchFailed && (
         <p>
           Sorry, we can not find the Vin in our data. Please control your vin.
           If you want, you can also use the form to register your car manually.
         </p>
-      ) : null}
+      )}
       <EditCarForm onSubmit={handleSubmitForm} />
     </>
   );
