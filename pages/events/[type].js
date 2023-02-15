@@ -35,7 +35,7 @@ export default function EventsPage() {
   if (!session) {
     return <Login />;
   }
-  if (type != "wishlist" && type != "upcoming" && type != "latest") {
+  if (type !== "wishlist" && type !== "upcoming" && type !== "latest") {
     return <p>Sorry, something went wrong!</p>;
   }
 
