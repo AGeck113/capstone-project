@@ -10,7 +10,8 @@ import { useSession } from "next-auth/react";
 import Login from "@/components/Login";
 import NoCarMessage from "@/components/NoCarMessage";
 import StyledImage from "@/components/StyledImage";
-import UploadDoc from "@/components/UploadDoc";
+import UploadPicture from "@/components/UploadPicture";
+
 const StyledHeadline = styled.h2`
 text-align: center;
 color: lightgray;
@@ -54,9 +55,6 @@ const ContentContainer = styled.section`
 `;
 
 const StyledEditButton = styled.button`
-  position: absolute;
-  top: -1.2rem;
-  right: 1rem;
   background-color: hsla(34, 93%, 52%, 0.89);
   border-radius: 999px;
 `;
@@ -73,10 +71,6 @@ const StyledSection = styled.section`
   color: lightgray;
   width: 80%;
   padding-bottom: 1rem;
-`;
-const StyledSectionDescription = styled.p`
-  padding: 1rem 0rem 0.8rem 1.5rem;
-  font-size: 1.2rem;
 `;
 
 const StyledInformation = styled.p`
@@ -129,7 +123,6 @@ export default function CarDetails() {
   async function handleSubmitPicture(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    console.log("formdata", event.target);
     try {
       const response = await fetch(`/api/uploadPicture/`, {
         method: "POST",
@@ -181,19 +174,10 @@ export default function CarDetails() {
       <StyledHeadline>Your Car</StyledHeadline>
       {isEditing ? (
         <>
-          <form onSubmit={handleSubmitPicture}>
-            <label>
-              Update your picture!
-              <input
-                type="file"
-                name="imageFile"
-                required
-                onChange={handleUploadFile}
-              />
-            </label>
-            <button type="submit">Submit new Picture</button>
-          </form>
-
+          <UploadPicture
+            onSubmitPicture={handleSubmitPicture}
+            onUploadFile={handleUploadFile}
+          />
           <EditCarForm
             onCancel={handleCancel}
             initialValues={activeCar}
@@ -206,14 +190,6 @@ export default function CarDetails() {
       ) : (
         <>
           <ContentContainer>
-            <StyledEditButton
-              type="button"
-              onClick={() => {
-                setIsEditing(true);
-              }}
-            >
-              <SVGIcon variant="edit" width="35px" />
-            </StyledEditButton>
             <StyledImage
               alt="usercar"
               src={
@@ -245,6 +221,15 @@ export default function CarDetails() {
                 </StyledSection>
               );
             })}
+            <StyledEditButton
+              type="button"
+              onClick={() => {
+                window.scrollTo(0, 0);
+                setIsEditing(true);
+              }}
+            >
+              <SVGIcon variant="edit" width="35px" />
+            </StyledEditButton>
           </ContentContainer>
         </>
       )}
