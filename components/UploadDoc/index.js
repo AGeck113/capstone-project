@@ -34,7 +34,6 @@ export default function UploadDoc({
   setIsEditing,
   onSubmitForm,
 }) {
-  console.log(onSubmitForm);
   return (
     <StyledForm
       onSubmit={(event) => {

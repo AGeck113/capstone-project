@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
 
@@ -60,14 +59,14 @@ const StyledFieldset = styled.fieldset`
   align-items: center;
 `;
 const StyledLabel = styled.label`
-font-size: 1.2rem;
+font-size: 1rem;
 margin 0.5rem auto;
 color: lightgray;
 `;
 const StyledGroupDescription = styled.p`
   grid-column: 1/3;
   background-color: hsla(0, 0%, 100%, 0.22);
-  height: 2rem;
+  height: fit-content;
   text-align: center;
   color: lightgray;
   margin: 1rem auto;
@@ -79,21 +78,18 @@ const StyledInput = styled.input`
   width: 95%;
   margin: 0.5rem auto;
   border-radius: 999px;
-  height: 2rem;
+  height: fit-content;
   text-align: center;
   background-color: lightgray;
 `;
 const StyledSubmitButton = styled.button`
-  width: 5rem;
-  margin: 0 auto;
-  height: 5rem;
   border-radius: 999px;
   background-color: hsla(103, 100%, 34%, 0.89);
 `;
 const StyledForm = styled.form`
-position:relative
+  position: relative;
   width: 85%;
-  margin: 1rem auto 0 3.4rem;
+  margin: 1rem auto;
   background-color: hsla(0, 0%, 4%, 0.64);
   border-radius: 2rem;
   max-width: 540px;
@@ -113,23 +109,24 @@ const StyledParagraph = styled.p`
   border-radius: 1rem;
 `;
 const StyledCancelButton = styled.button`
-  position: absolute;
-  right: 0.4rem;
   background-color: hsla(0, 93%, 40%, 0.89);
   border-radius: 999px;
 `;
+const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 1rem;
+  width: 80%;
+  margin: 0 auto 0.5rem auto;
+`;
 export default function EditCarForm({ onSubmit, initialValues, onCancel }) {
-  const router = useRouter();
   return (
     <>
       <StyledForm onSubmit={onSubmit}>
-        {initialValues ? (
-          <StyledCancelButton type="button" onClick={onCancel}>
-            <SVGIcon variant="cancel" width="35px" />
-          </StyledCancelButton>
-        ) : null}
         <StyledParagraph>
-          Please edit and save the data you want
+          {initialValues
+            ? "Please edit and save the data you want"
+            : "Register your car manually"}
         </StyledParagraph>
         {groups.map((group) => {
           return (
@@ -183,10 +180,16 @@ export default function EditCarForm({ onSubmit, initialValues, onCancel }) {
             </StyledFieldset>
           );
         })}
-
-        <StyledSubmitButton type="submit">
-          <SVGIcon variant="save" width="60px" />
-        </StyledSubmitButton>
+        <StyledButtonContainer>
+          {initialValues ? (
+            <StyledCancelButton type="button" onClick={onCancel}>
+              <SVGIcon variant="cancel" width="50px" />
+            </StyledCancelButton>
+          ) : null}
+          <StyledSubmitButton type="submit">
+            <SVGIcon variant="save" width="50px" />
+          </StyledSubmitButton>
+        </StyledButtonContainer>
       </StyledForm>
     </>
   );

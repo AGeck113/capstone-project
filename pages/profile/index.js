@@ -42,7 +42,7 @@ const StyledDataContainer = styled.section`
 `;
 const ContentContainer = styled.section`
   border: 2px solid black;
-  margin: 1.5rem 1rem auto 3.4rem;
+  margin: 1.5rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,10 +76,21 @@ const StyledSection = styled.section`
 const StyledInformation = styled.p`
   margin-left: -0.4rem;
   width: 80%;
+  height: 1rem;
 `;
 const StyledData = styled.p`
   margin-left: 0.5rem;
   width: 40%;
+  height: fit-content;
+`;
+const StyledDeleteButton = styled.button`
+  margin: 1rem 2rem;
+
+  padding: 1rem;
+  background-color: hsla(0, 93%, 40%, 0.89);
+  border-radius: 999px;
+  color: lightgray;
+  font-weight: bold;
 `;
 
 export default function CarDetails() {
@@ -183,9 +194,9 @@ export default function CarDetails() {
             initialValues={activeCar}
             onSubmit={handleSubmit}
           />
-          <button onClick={handleDelete} type="button">
-            DELETE CAR
-          </button>
+          <StyledDeleteButton onClick={handleDelete} type="button">
+            Delete your car
+          </StyledDeleteButton>
         </>
       ) : (
         <>
