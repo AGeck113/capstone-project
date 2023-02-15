@@ -4,7 +4,7 @@ import SVGIcon from "../Icons";
 
 const StyledDocument = styled.li`
   border: 3px solid black;
-  height: 5rem;
+  height: 6rem;
   width: 5rem;
   margin: 0.5rem auto;
   background-color: hsla(0, 0%, 100%, 0.22);
@@ -20,6 +20,9 @@ const StyledDocumentName = styled.p`
   text-align: center;
   margin: 0 auto;
   color: lightgray;
+  font-size: 0.8rem;
+  overflow-wrap: break-word;
+  height: fit-content;
 `;
 const StyledDeleteButton = styled.button`
   position: absolute;
