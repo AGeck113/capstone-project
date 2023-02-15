@@ -15,19 +15,19 @@ const StyledParagraph = styled.p`
 export default function LinkSection() {
   return (
     <LinkContainer>
-      <StyledLink href={`/events/latest`}>
+      <StyledLink href="/events/latest">
         <SVGIcon variant="last" width="3.5rem" />
         <StyledParagraph>Last</StyledParagraph>
       </StyledLink>
-      <StyledLink href={`/events/upcoming`}>
+      <StyledLink href="/events/upcoming">
         <SVGIcon variant="next" width="3.5rem" />
         <StyledParagraph>Next</StyledParagraph>
       </StyledLink>
-      <StyledLink href={`/events/wishlist`}>
+      <StyledLink href="/events/wishlist">
         <SVGIcon variant="wish" width="3.5rem" />
         <StyledParagraph>Wishes</StyledParagraph>
       </StyledLink>
-      <StyledLink href={`/map`}>
+      <StyledLink href="/map">
         <SVGIcon variant="map" width="3.5rem" />
         <StyledParagraph>Events</StyledParagraph>
       </StyledLink>
