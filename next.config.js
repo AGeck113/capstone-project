@@ -19,6 +19,7 @@ const nextConfig = {
       "www.willow-car-sales.co.uk",
       "res.cloudinary.com",
       "avatars.githubusercontent.com",
+      "lh3.googleusercontent.com",
     ],
 
     remotePatterns: [

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import SVGIcon from "../Icons";
-import { signIn } from "next-auth/react";
+import { signIn, getProviders } from "next-auth/react";
 import StyledLink from "../Links/StyledLink";
 
 const StyledParagraph = styled.p`
@@ -49,7 +49,7 @@ const StyledButtonDescription = styled.p`
   font-size: 1.1rem;
   font-weight: bold;
 `;
-export default function Login() {
+export default function Login({ providers }) {
   const router = useRouter();
 
   function handleSignIn() {
@@ -66,9 +66,21 @@ export default function Login() {
           your car, save documents or notes for each of them and get information
           about nice car meetings in your region!
         </StyledAppDescription>
-        <StyledSingInButton onClick={handleSignIn}>
+        <StyledSingInButton
+          onClick={() => {
+            signIn("github");
+          }}
+        >
           <SVGIcon variant="github" width="40px" />
           <StyledButtonDescription>Sign In with GitHub</StyledButtonDescription>
+        </StyledSingInButton>
+        <StyledSingInButton
+          onClick={() => {
+            signIn("google");
+          }}
+        >
+          <SVGIcon variant="google" width="40px" />
+          <StyledButtonDescription>Sign In with Google</StyledButtonDescription>
         </StyledSingInButton>
         <StyledLoginNote>
           You can look for events without a login!
@@ -81,4 +93,13 @@ export default function Login() {
       </StyledLoginSection>
     </>
   );
+}
+export async function getServerSideProps() {
+  const providers = await getProviders();
+
+  return {
+    props: {
+      providers,
+    },
+  };
 }
