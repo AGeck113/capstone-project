@@ -20,7 +20,7 @@ export default function EventDetailPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const { id } = router.query;
-  const { data, isLoading, mutate } = useSWR(
+  const { data, isLoading, mutate, error } = useSWR(
     id ? `/api/appointments/${id}` : null
   );
   if (!session) {
@@ -28,6 +28,9 @@ export default function EventDetailPage() {
   }
   if (isLoading) {
     return <p>loading</p>;
+  }
+  if (error) {
+    return <p>Sorry, something went wrong.</p>;
   }
 
   async function handleSubmitNotes(event) {
