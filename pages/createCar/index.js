@@ -134,7 +134,7 @@ export default function CreateCar() {
         */}
         <StyledLabel htmlFor="vin"> Search your car with your VIN:</StyledLabel>
         <StyledSelect id="vin" name="vin" required>
-          <option value="" disabled selected>
+          <option disabled selected>
             VIN....
           </option>
           <option value="LRW3E7EL3NC123456">LRW3E7EL3NC123456</option>

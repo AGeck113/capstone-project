@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const appointmentSchema = new Schema({
-  vin: { type: String, required: true },
+  vin: { type: String },
   description: { type: String, required: true },
   title: { type: String, required: true },
   userId: { type: String, required: true },

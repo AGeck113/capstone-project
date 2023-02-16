@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userCarSchema = new Schema({
-  VIN: { type: String, required: true },
+  VIN: { type: String },
   Make: { type: String, required: true },
   Model: { type: String, required: true },
   userId: { type: String, required: true },
