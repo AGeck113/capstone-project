@@ -84,7 +84,7 @@ export default function EventCard({ appointment }) {
         method: "DELETE",
       });
       if (response.ok) {
-        router.reload();
+        router.push(`/events/${appointment.type}`);
       } else {
         console.error(`Error: ${response.status}`);
       }
@@ -127,7 +127,12 @@ export default function EventCard({ appointment }) {
       >
         <SVGIcon variant="edit" width="30px" />
       </StyledEditButton>
-      <StyledDeleteButton type="button" onClick={handleDelete}>
+      <StyledDeleteButton
+        type="button"
+        onClick={() => {
+          handleDelete();
+        }}
+      >
         <SVGIcon variant="delete" width="30px" />
       </StyledDeleteButton>
       {isEditing ? (
